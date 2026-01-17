@@ -2,8 +2,7 @@
     "name": "rajan-portfolio",
     "compatibility_date": "2026-01-18",
     "assets": {
-        "directory": "./dist",
-        "binding": "ASSETS"
+        "directory": "./dist"
     },
     "observability": {
         "enabled": true
