@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { ArrowLeft, ExternalLink } from 'lucide-react';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+const tags = project.data.tags;
+---
+
+<Layout title={`${project.data.title} | Case Study`}>
+    <article class="pt-24 px-6 max-w-4xl mx-auto min-h-screen animate-fade-in-up">
+        <a 
+          href="/#projects" 
+          class="text-teal-400 flex items-center gap-2 mb-8 hover:underline font-mono text-sm cursor-pointer"
+        >
+          <ArrowLeft size={16} /> Back to Projects
+        </a>
+        
+        <header class="mb-8">
+           <h1 class="text-3xl md:text-5xl font-bold text-slate-100 mb-6 leading-tight">{project.data.title}</h1>
+           <div class="flex flex-wrap gap-3 mb-6">
+              {tags.map((tag) => (
+                <span class="px-3 py-1 bg-teal-500/10 text-teal-400 border border-teal-500/30 rounded-full text-sm font-mono">
+                  {tag}
+                </span>
+              ))}
+           </div>
+        </header>
+    
+        <div class="bg-slate-800/50 rounded-xl p-8 border border-slate-700 space-y-8">
+            <section class="prose prose-invert prose-lg max-w-none text-slate-400 leading-relaxed">
+                 <h2 class="text-xl font-bold text-slate-200 mb-3 flex items-center gap-2 not-prose">
+                    <div class="w-2 h-8 bg-teal-500 rounded-full"></div>
+                    Project Overview
+                  </h2>
+                 <p class="mb-8">{project.data.description}</p>
+
+                 {/* Render Markdown Content here */}
+                 <Content />
+            </section>
+          
+          <div class="pt-6 border-t border-slate-700">
+            <a href={project.data.link} target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white rounded-lg transition-colors font-medium">
+              <ExternalLink size={18} />
+              View Live Project / Repository
+            </a>
+          </div>
+        </div>
+      </article>
+</Layout>

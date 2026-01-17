@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rajan-portfolio.pages.dev/sitemap-index.xml

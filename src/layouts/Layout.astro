@@ -1,0 +1,72 @@
+---
+import { Navbar } from '../components/Navbar';
+import { Footer } from '../components/Footer';
+import { Github, Linkedin } from 'lucide-react';
+// Font Optimization: Self-hosting fonts
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+    description?: string;
+}
+
+const { title, description = "Rajan Shrestha | Data Analyst Portfolio", image = "/og-image.png" } = Astro.props;
+const currentPath = Astro.url.pathname;
+const profileEmail = "shrestharajan726@gmail.com";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+         <!-- Font Optimization: Preload not needed with @fontsource, handled by CSS -->
+
+        <!-- Canonical URL -->
+        <link rel="canonical" href={canonicalURL} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(image, Astro.url)} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={new URL(image, Astro.url)} />
+	</head>
+	<body class="bg-slate-950 text-slate-300 font-sans selection:bg-teal-500/30 selection:text-teal-200 overflow-x-hidden">
+        
+        <Navbar client:load />
+
+        <div class="fixed inset-0 pointer-events-none z-0 opacity-20 user-select-none" aria-hidden="true">
+            <div class="absolute inset-0" style="background-image: radial-gradient(rgb(30 41 59) 1px, transparent 1px); background-size: 32px 32px;"></div>
+        </div>
+
+		<slot />
+
+        <Footer />
+
+
+	</body>
+</html>
+
+<style is:global>
+    .vertical-text {
+        writing-mode: vertical-rl;
+    }
+</style>
