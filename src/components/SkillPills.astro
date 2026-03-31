@@ -1,0 +1,70 @@
+---
+interface Props {
+  skills?: string[];
+}
+
+const defaultSkills = [
+  { label: 'Product Management',    highlight: true },
+  { label: 'Data Analysis',         highlight: true },
+  { label: 'Figma',                 highlight: false },
+  { label: 'Agile',                 highlight: false },
+  { label: 'Waterfall',              highlight: false },
+  { label: 'JavaScript',            highlight: false },
+  { label: 'TypeScript',            highlight: false },
+  { label: 'Python',                highlight: false },
+  { label: 'Google Sheets + AppScript', highlight: false },
+  { label: 'Excel',                 highlight: false },
+  { label: 'SQL',                   highlight: false },
+  { label: 'Industrial Engineering',highlight: false },
+  { label: 'PRD Writing',           highlight: true },
+  { label: 'User Research',         highlight: true },
+  { label: 'AARRR Metrics',         highlight: false },
+];
+---
+
+<div class="skills-section">
+  <span class="section-label">Skills</span>
+  <div class="skills-grid">
+    {defaultSkills.map(skill => (
+      <span class:list={['skill-pill', { 'skill-pill--highlight': skill.highlight }]}>
+        {skill.label}
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .skills-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-pill {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    line-height: 1.5;
+    transition: color var(--t), border-color var(--t);
+  }
+
+  .skill-pill--highlight {
+    color: var(--secondary);
+    border-color: var(--accent);
+  }
+
+  .skill-pill:hover {
+    color: var(--secondary);
+    border-color: var(--secondary);
+  }
+</style>
