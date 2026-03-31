@@ -3,212 +3,120 @@ import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('work');
-  return projects.map(project => ({
-    params: { slug: project.slug },
-    props: { project },
+  const items = await getCollection('work');
+  return items.map(item => ({
+    params: { slug: item.slug },
+    props: { item },
   }));
 }
 
-const { project }       = Astro.props;
-const { Content }       = await render(project);
-const { title, description, stage, tags } = project.data;
+const { item } = Astro.props;
+const { Content } = await render(item);
 ---
 
-<Base title={`${title} — Rajan`} description={description}>
-  <div class="container project-layout">
-
-    <!-- Back -->
-    <a href="/" class="back-link">← Home</a>
+<Base title={`${item.data.title} — Rajan`} description={item.data.description}>
+  <div class="container work-page">
+    <!-- Breadcrumb -->
+    <a href="/#work-heading" class="breadcrumb label">← Work</a>
 
     <!-- Header -->
-    <header class="project-header">
-      <div class="project-meta">
-        <span class="project-stage">{stage}</span>
-        <div class="project-tags">
-          {tags.map(tag => <span class="tag">{tag}</span>)}
-        </div>
+    <header class="work-header">
+      <div class="work-tags">
+        {item.data.tags.map(tag => (
+          <span class="tag">{tag}</span>
+        ))}
       </div>
-      <h1 class="project-title">{title}</h1>
-      <p class="project-lead">{description}</p>
+
+      <h1 class="work-title">{item.data.title}</h1>
+      <p class="work-desc">{item.data.description}</p>
+
+      {item.data.link && (
+        <a
+          href={item.data.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="work-cta label"
+        >
+          View project →
+        </a>
+      )}
     </header>
 
-    <hr class="divider project-divider" />
-
-    <!-- Content -->
-    <div class="prose project-prose">
+    <!-- Body -->
+    <div class="prose">
       <Content />
     </div>
-
-    <!-- Footer CTA -->
-    <div class="project-footer-cta">
-      <a href="/" class="back-link">← Back to home</a>
-    </div>
-
   </div>
 </Base>
 
 <style>
-  .project-layout {
-    padding-block: 2.5rem 5rem;
-    max-width: 760px;
+  .work-page {
+    padding-top: 48px;
+    padding-bottom: 80px;
+    max-width: 680px;
   }
 
-  .back-link {
+  .breadcrumb {
     display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 2.5rem;
-    transition: color var(--t);
+    margin-bottom: 40px;
+    color: var(--parchment-4);
+    transition: color 150ms ease;
   }
+  .breadcrumb:hover { color: var(--copper); }
 
-  .back-link:hover {
-    color: var(--secondary);
-  }
-
-  .project-header {
+  .work-header {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 16px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--ink-4);
+    margin-bottom: 40px;
   }
 
-  .project-meta {
+  .work-tags {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
     flex-wrap: wrap;
+    gap: 12px;
   }
 
-  .project-stage {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--status);
-    border: 1px solid color-mix(in srgb, var(--status) 40%, transparent);
-    border-radius: 3px;
-    padding: 2px 8px;
-  }
-
-  .project-tags {
-    display: flex;
-    gap: 0.35rem;
-    flex-wrap: wrap;
-  }
-
-  .project-title {
+  .work-title {
     font-family: var(--font-display);
-    font-size: clamp(30px, 4vw, 46px);
-    color: var(--text);
+    font-size: clamp(28px, 4.5vw, 44px);
     font-weight: 400;
+    color: var(--parchment);
     line-height: 1.1;
+    letter-spacing: -1px;
   }
 
-  .project-lead {
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 58ch;
+  .work-desc {
+    font-size: 15px;
+    max-width: 520px;
   }
 
-  .project-divider {
-    margin-block: 2rem;
+  .work-cta {
+    display: inline-block;
+    color: var(--copper);
+    margin-top: 8px;
+    transition: opacity 150ms ease;
   }
+  .work-cta:hover { color: var(--copper); opacity: 0.75; }
 
-  /* Prose — reuse same prose styles as BlogPost */
-  .project-prose {
+  /* Prose */
+  .prose {
+    color: var(--parchment-2);
+    font-family: var(--font-body);
     font-size: 15px;
     font-weight: 300;
     line-height: 1.85;
-    color: var(--text);
   }
-
-  .project-prose :global(h2) {
-    font-family: var(--font-display);
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--text);
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-  }
-
-  .project-prose :global(h3) {
-    font-family: var(--font-body);
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--secondary);
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .project-prose :global(p) {
-    margin-bottom: 1.25rem;
-    color: color-mix(in srgb, var(--text) 85%, var(--muted));
-  }
-
-  .project-prose :global(strong) {
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .project-prose :global(ul),
-  .project-prose :global(ol) {
-    margin: 1rem 0 1.25rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .project-prose :global(ul) { list-style: disc; }
-  .project-prose :global(ol) { list-style: decimal; }
-
-  .project-prose :global(li) {
-    color: color-mix(in srgb, var(--text) 85%, var(--muted));
-  }
-
-  .project-prose :global(a) {
-    color: var(--secondary);
-    border-bottom: 1px solid transparent;
-    transition: border-color var(--t);
-  }
-
-  .project-prose :global(a:hover) {
-    border-color: var(--secondary);
-  }
-
-  .project-prose :global(code):not(:global(pre code)) {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--secondary);
-    background: var(--surface);
-    padding: 2px 6px;
-    border-radius: 3px;
-    border: 1px solid var(--border);
-  }
-
-  .project-prose :global(pre) {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1rem;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-  }
-
-  .project-prose :global(pre code) {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text);
-    background: none;
-    padding: 0;
-    border: none;
-  }
-
-  .project-footer-cta {
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-  }
+  .prose p { font-size: 15px; line-height: 1.85; color: var(--parchment-2); margin-bottom: 1.4em; }
+  .prose h2 { font-family: var(--font-display); font-size: 24px; font-weight: 500; color: var(--parchment); margin-top: 2em; margin-bottom: 0.6em; }
+  .prose h3 { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--parchment-2); margin-top: 1.6em; margin-bottom: 0.4em; }
+  .prose ul { list-style: disc; padding-left: 1.5em; margin-bottom: 1.4em; }
+  .prose ol { list-style: decimal; padding-left: 1.5em; margin-bottom: 1.4em; }
+  .prose li { margin-bottom: 0.4em; }
+  .prose code:not(pre code) { font-family: var(--font-mono); font-size: 12px; background: var(--ink-3); color: var(--parchment-2); padding: 2px 6px; border-radius: 2px; }
+  .prose pre { font-family: var(--font-mono); font-size: 12px; background: var(--ink-2); border: 1px solid var(--ink-4); border-radius: 4px; padding: 1rem 1.25rem; overflow-x: auto; margin-bottom: 1.4em; }
+  .prose pre code { background: none; padding: 0; color: var(--parchment-2); }
+  .prose a { color: var(--copper); }
 </style>

@@ -1,52 +1,46 @@
 ---
-title: "Why every PM needs to think like a data analyst"
-description: "Product decisions made on intuition alone have a shelf life. Here's how a background in data analysis changes the way I approach product problems — and why I think it's an underrated edge."
-publishedAt: 2026-03-15
-tags: ["Product", "Data", "Career"]
+title: Why every PM needs to think like a data analyst
+description: Product decisions made on intuition alone have a shelf life. Here's how a background in data analysis changes the way I approach product problems — and why it's an underrated edge.
+publishedAt: 2025-12-10
+tags: [Product, Data, PM]
 featured: true
 draft: false
 ---
 
-There's a version of the "data-driven PM" conversation that goes like this: install a dashboard, look at numbers before making decisions, done. That version is missing the point.
+There's a version of product management that treats data as something you check after you ship — a way to confirm what you already believed. That version is losing ground fast.
 
-The real advantage isn't access to data. Almost every product team has dashboards. The advantage is *knowing what to measure*, *knowing when a metric is lying to you*, and *knowing how to turn a messy dataset into a clear question*.
+The PMs I find most interesting are the ones who treat data the way an engineer treats a spec: as the thing that defines what you're actually building, not a post-hoc justification for what you already decided.
 
-That's what spending time as a data analyst teaches you that reading about analytics never will.
+## The question behind the question
 
-## The metric trap
+When a stakeholder says "can we add a feature that does X," there's usually a real question underneath it. Something isn't working. A metric is moving the wrong way. A user complaint keeps showing up in support tickets.
 
-Early in my time at ING, I was building a report on student attendance trends. The headline number looked fine — overall attendance was up 4% year-on-year. Management was pleased.
+The instinct is to answer the surface question — sure, here's the spec for feature X. The data analyst instinct is to ask: what problem does X solve, and how will we know if it worked?
 
-Then I segmented it. Attendance for students in their final year was up significantly. Attendance for first-year students — the cohort that would define retention three years out — was down 9%.
+That second question sounds obvious. It isn't. Most feature requests never get asked it.
 
-The aggregate metric was technically correct. It was also completely misleading about what was actually happening.
+## What data analysis taught me about product
 
-PMs fall into this trap constantly. A user onboarding funnel with good overall completion rates can be hiding a segment that churns at 80%. A feature with positive NPS responses can be dragging down power-user satisfaction. The number you put on the dashboard is a choice, and that choice shapes what gets attention.
+Working as a data analyst before thinking seriously about product changed how I see both disciplines.
 
-Analysts develop a reflex for this. Before trusting a number, you ask: *what would this look like if I broke it down by segment? By time period? By cohort?* The instinct to disaggregate data before presenting it is one of the most transferable skills from analysis to product.
+**Data without a question is noise.** You can query anything. A dashboard that shows everything is as useful as a dashboard that shows nothing. The hard work is deciding what to measure and why — which is a product decision before it's a data decision.
 
-## Instrumentation is a product decision
+**Correlation is everywhere; causality is rare.** It's easy to find metrics that move together. It's much harder to run the experiment that tells you whether one caused the other. Good PMs know this distinction. They design features as experiments, not pronouncements.
 
-Most PMs treat analytics as something that happens after you ship — you build the feature, then you ask the data team to add tracking. This backwards workflow creates months of blind spots.
+**Aggregates hide the real users.** A metric that looks healthy at the average can be terrible for 20% of users who matter most. I learned to look at distributions, not just means. The outliers are usually the most interesting part.
 
-When you've had to build the tracking yourself (or work closely with someone who did), you understand that instrumentation is a design decision made at the same time as the feature. What events do you log? What properties do you attach? How do you distinguish a meaningful signal from noise?
+## The underrated edge
 
-Getting this right at the start is much cheaper than retrofitting it. And the discipline of thinking through your instrumentation before shipping forces you to be precise about what success looks like. If you can't define what event you'd look for in the logs to confirm your hypothesis, your hypothesis isn't specific enough.
+Here's what I think gets undervalued: a PM who can write SQL and build their own dashboards doesn't just save time. They change the questions they're able to ask.
 
-## The PRD that nobody questions
+When you depend on a data team to run every query, you ask fewer questions. You batch them. You wait. By the time you have answers, the context has shifted.
 
-I've noticed that the quality of questions a PRD attracts is often a function of how clearly it handles data. A doc that says "we expect increased engagement" gets nodded through. A doc that says "we expect to see a 15% increase in the share of weekly active users completing at least three core actions, measured against the same cohort after 30 days" invites productive pushback.
+When you can query the data yourself, you can follow a thread in real time. One answer leads to the next question leads to the next query. That's how you find the insight that wasn't in the brief.
 
-The specificity isn't pedantry. It's a forcing function that surfaces disagreements early — about what "engagement" means, about whether 15% is realistic, about what we'd do if it came in at 8%.
+## What I'm still learning
 
-Being precise about metrics in PRDs is a habit that comes naturally if you've spent time building dashboards and having your numbers challenged. It's less natural if your background is entirely in strategy or design.
+I'm not arguing that PMs should replace data teams. The deeper you go into causal inference, experimental design, and statistical modeling, the more specialist knowledge matters.
 
-## When to ignore the data
+What I am arguing is that the gap between "PM who can read a chart" and "PM who understands what the chart is actually measuring" is significant — and most PMs sit on the wrong side of it.
 
-The other thing that time in analysis teaches you: data is a record of what has already happened. It can tell you that users are dropping off at a particular screen. It cannot tell you why, and it cannot tell you what they'd do differently if you changed it.
-
-Knowing when to lean on qualitative research — user interviews, support tickets, session recordings — instead of (or alongside) quantitative data is a genuine skill. And knowing when the data is simply too thin to draw conclusions from, and you need to run an experiment or make a judgment call, is equally important.
-
-I've seen teams paralysed because the numbers were ambiguous. The analyst instinct to "get more data" is sometimes the right call. In product, sometimes the right call is to ship, learn, and iterate.
-
-The difference between those two situations is something you develop a feel for over time. Getting that feel earlier is the real reason I think every PM benefits from spending time in data.
+Closing that gap is one of the most direct ways to get better at the job.

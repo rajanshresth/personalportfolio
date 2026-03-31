@@ -1,73 +1,57 @@
 ---
-import Nav    from '../components/Nav.astro';
+import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 interface Props {
-  title:       string;
+  title?: string;
   description?: string;
-  ogImage?:    string;
-  noIndex?:    boolean;
 }
 
 const {
-  title,
-  description = 'Rajan — B.E. Industrial Engineering student and data analyst at Innovative Nepal Group, Nepal. Applying systems thinking and data analysis toward a career in Product Management.',
-  ogImage  = '/og.png',
-  noIndex  = false,
+  title = 'Rajan — Industrial Engineering & Product',
+  description = 'B.E. Industrial Engineering student and data analyst at Innovative Nepal Group. Applying systems thinking toward a career in Product Management.',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://rajan.pages.dev');
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#1a1814" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0f0e0b" />
+    <link rel="canonical" href={canonical} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
 
-  <!-- Primary meta -->
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalURL} />
-  {noIndex && <meta name="robots" content="noindex" />}
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
 
-  <!-- Open Graph -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content={canonicalURL} />
-  <meta property="og:title"       content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image"       content={ogImage} />
+    <!-- Cormorant Garamond + Geist Mono via Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Twitter / X -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image"       content={ogImage} />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-  <!-- Google Fonts: DM Serif Display + DM Mono + Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap"
-    rel="stylesheet"
-  />
-
-  <!-- Sitemap -->
-  <link rel="sitemap" href="/sitemap-index.xml" />
-</head>
-
-<body>
-  <Nav />
-
-  <main id="main-content">
-    <slot />
-  </main>
-
-  <Footer />
-</body>
+    <!-- Switzer via Fontshare -->
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
 </html>

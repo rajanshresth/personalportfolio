@@ -1,60 +1,66 @@
 ---
-import Base from "../layouts/Base.astro";
-import Hero from "../components/Hero.astro";
-import WorkGrid from "../components/WorkGrid.astro";
-import BlogPreview from "../components/BlogPreview.astro";
-import SkillPills from "../components/SkillPills.astro";
-import { getCollection } from "astro:content";
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import WorkList from '../components/WorkList.astro';
+import BlogPreview from '../components/BlogPreview.astro';
+import SkillPills from '../components/SkillPills.astro';
+import { getCollection } from 'astro:content';
 
-const projects = await getCollection("work");
-const posts = await getCollection("writing", (p) => !p.data.draft);
+const allWork = await getCollection('work');
+const allPosts = (await getCollection('writing', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 4);
 ---
 
-<Base
-  title="Rajan — Building products that think with data"
-  description="B.E. Industrial Engineering and data analyst at ING, Nepal. Using systems thinking and data analysis to build toward Product Management."
->
+<Base>
   <!-- Hero -->
   <Hero />
 
-  <div class="container page-sections">
-    <hr class="divider" />
+  <!-- Work section -->
+  <section class="section container" aria-labelledby="work-heading">
+    <div class="section-header">
+      <h2 id="work-heading">Work</h2>
+      <a href="/work/pm-roadmap-tracker" class="section-more">All projects →</a>
+    </div>
+    <WorkList items={allWork} />
+  </section>
 
-    <!-- Work grid -->
-    <WorkGrid projects={projects} />
+  <!-- Writing section -->
+  <section class="section container" aria-labelledby="writing-heading">
+    <div class="section-header">
+      <h2 id="writing-heading">Writing</h2>
+      <a href="/writing" class="section-more">All posts →</a>
+    </div>
+    <BlogPreview posts={allPosts} />
+  </section>
 
-    <hr class="divider section-gap" />
-
-    <!-- Skills -->
-    <section class="skills-block">
-      <SkillPills />
-    </section>
-
-    <hr class="divider section-gap" />
-
-    <!-- Blog preview -->
-    <BlogPreview posts={posts} />
-
-    <!-- Bottom spacer -->
-    <div class="bottom-spacer"></div>
-  </div>
+  <!-- Skills section -->
+  <section class="section container" aria-labelledby="skills-heading">
+    <div class="section-header">
+      <h2 id="skills-heading">Skills</h2>
+    </div>
+    <SkillPills />
+  </section>
 </Base>
 
 <style>
-  .page-sections {
+  .section-header {
     display: flex;
-    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    gap: 16px;
   }
 
-  .section-gap {
-    margin-top: 5rem;
+  .section-more {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--copper);
+    transition: opacity 150ms ease;
+    flex-shrink: 0;
   }
-
-  .skills-block {
-    padding-block: 5rem 0;
-  }
-
-  .bottom-spacer {
-    height: 3rem;
-  }
+  .section-more:hover { color: var(--copper); opacity: 0.75; }
 </style>

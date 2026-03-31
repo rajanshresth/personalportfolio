@@ -1,274 +1,251 @@
 ---
-import Base       from '../layouts/Base.astro';
+import Base from '../layouts/Base.astro';
 import SkillPills from '../components/SkillPills.astro';
 ---
 
 <Base
   title="About — Rajan"
-  description="B.E Industrial Engineering student at T.U I.O.E Thapathali Campus and Data Analyst at Innovative Nepal Group, Nepal. Working toward Product Management."
+  description="B.E. Industrial Engineering student and data analyst at Innovative Nepal Group, building toward a career in Product Management."
 >
   <div class="container about-layout">
-
-    <!-- Header -->
-    <header class="about-header">
-      <span class="section-label">About</span>
-      <h1 class="about-title">The longer version</h1>
+    <!-- Page header -->
+    <header class="about-header section">
+      <span class="label">About</span>
+      <h1 class="about-title">
+        Engineering background,<br>
+        <em>product ambitions</em>
+      </h1>
     </header>
 
-    <hr class="divider" />
-
-    <div class="about-columns">
-
-      <!-- Main bio -->
-      <div class="about-main">
-
+    <div class="about-grid section">
+      <!-- Main content -->
+      <main class="about-body">
         <section class="about-section">
-          <h2 class="about-section-title">Background</h2>
-          <div class="about-prose">
-            <p>
-              I'm a B.E. Industrial Engineering student at T.U I.O.E Thapathali Campus and a Data Analyst at
-              <strong>Innovative Nepal Group (ING)</strong> — Nepal's largest education-focused holding company,
-              with a portfolio that spans colleges, tech ventures, and a publishing arm.
-            </p>
-            <p>
-              My daily work involves building dashboards that surface operational patterns across the portfolio,
-              writing analyses that inform board-level decisions, and increasingly, defining what data we should
-              be collecting and why. That last part is what pushed me toward product.
-            </p>
-            <p>
-              Industrial Engineering gave me a useful mental model: systems thinking. The habit of mapping
-              processes, identifying bottlenecks, and asking "what would this look like if it were optimised?"
-              transfers directly to product work. Operations Research taught me to define objectives precisely
-              before solving. Both habits show up in how I write PRDs and run discovery.
-            </p>
-          </div>
+          <h2>Background</h2>
+          <p>
+            I'm Rajan — currently studying B.E. Industrial Engineering at T.U. I.O.E.
+            Thapathali Campus in Nepal. Alongside my studies, I work as a data analyst
+            at Innovative Nepal Group, where I build dashboards and tooling to track
+            operational performance.
+          </p>
+          <p>
+            Industrial engineering gave me a framework for thinking about systems: how
+            inputs become outputs, where waste hides, and how small process changes
+            cascade into large results. I use that same lens when I think about products.
+          </p>
         </section>
 
         <section class="about-section">
-          <h2 class="about-section-title">What I'm working on</h2>
-          <div class="about-prose">
-            <p>
-              At ING, I own the data infrastructure for our educational reporting: enrolment analytics,
-              attendance trend dashboards, and the operational KPI reports that the board reviews quarterly.
-              I also run ad-hoc analyses for specific strategic questions — market sizing for new programme
-              launches, attrition drivers, resource utilisation patterns.
-            </p>
-            <p>
-              Outside of work I'm building toward Product Management — documenting my learning,
-              practising PRD writing, running user research exercises, and building a portfolio
-              of work that reads as product work, not just analysis.
-            </p>
-          </div>
+          <h2>What I'm working toward</h2>
+          <p>
+            My goal is a career in Product Management — specifically remote PM roles
+            where I can apply systems thinking and data analysis to help teams build
+            things people actually need.
+          </p>
+          <p>
+            To get there, I'm building a foundation in product craft: writing PRDs,
+            studying user research methods, learning to frame engineering trade-offs as
+            product decisions, and documenting the process publicly on this site.
+          </p>
         </section>
 
         <section class="about-section">
-          <h2 class="about-section-title">How I approach work</h2>
-          <div class="about-prose">
-            <p>
-              My frameworks for project work draw from Agile and Waterfall depending on context —
-              Agile for iterative, discovery-heavy work where requirements will evolve; Waterfall where
-              scope is fixed and sequencing matters. I'm pragmatic about methodology: the right process
-              is the one that helps the team make better decisions, not the one that looks best on paper.
-            </p>
-            <p>
-              For product thinking specifically, I lean on JTBD, opportunity trees, and AARRR metrics.
-              Not because they're popular, but because each has been useful in the specific contexts
-              I've applied them. I'm sceptical of framework rigidity.
-            </p>
-          </div>
+          <h2>Skills</h2>
+          <SkillPills />
         </section>
 
         <section class="about-section">
-          <h2 class="about-section-title">If you want to connect</h2>
-          <div class="about-prose">
-            <p>
-              I'm open to conversations about data, product, building in Nepal, or anything you've
-              read here that you have a strong opinion about. LinkedIn is the best place to reach me.
-            </p>
-          </div>
-          <div class="about-cta-row">
-            <a href="https://www.linkedin.com/in/rajan10x/" target="_blank" rel="noopener noreferrer" class="about-cta-link">
-              Connect on LinkedIn →
-            </a>
-            <a href="/writing" class="about-cta-link about-cta-link--ghost">
-              Read my writing →
-            </a>
-          </div>
+          <h2>Education</h2>
+          <p>
+            B.E. Industrial Engineering — T.U. I.O.E. Thapathali Campus, Nepal
+          </p>
         </section>
 
-      </div>
+        <section class="about-section">
+          <h2>Get in touch</h2>
+          <p>
+            I'm open to remote PM roles, freelance data work, and conversations about
+            product, systems, or Nepal's tech scene.
+          </p>
+          <a
+            href="https://www.linkedin.com/in/rajan10x/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="about-cta label"
+          >
+            Connect on LinkedIn →
+          </a>
+        </section>
+      </main>
 
       <!-- Sidebar -->
       <aside class="about-sidebar">
-        <div class="sidebar-block">
-          <span class="section-label">Currently</span>
-          <ul class="sidebar-list">
-            <li>Data Analyst @ ING, Nepal</li>
-            <li>B.E. IE @ T.U I.O.E Thapathali</li>
-            <li>Building toward PM roles</li>
-          </ul>
-        </div>
+        <div class="sidebar-card">
+          <dl class="sidebar-list">
+            <div class="sidebar-item">
+              <dt class="label">Currently</dt>
+              <dd>Data Analyst @ ING, Nepal</dd>
+            </div>
+            <div class="sidebar-item">
+              <dt class="label">Studying</dt>
+              <dd>B.E. IE @ T.U. I.O.E. Thapathali</dd>
+            </div>
+            <div class="sidebar-item">
+              <dt class="label">Goal</dt>
+              <dd>Remote PM roles</dd>
+            </div>
+            <div class="sidebar-item">
+              <dt class="label">Location</dt>
+              <dd>Nepal</dd>
+            </div>
+          </dl>
 
-        <div class="sidebar-block">
-          <span class="section-label">Open to</span>
-          <ul class="sidebar-list sidebar-list--accent">
-            <li>Remote PM roles</li>
-            <li>EdTech / SaaS</li>
-            <li>APAC timezone overlap</li>
-          </ul>
-        </div>
-
-        <div class="sidebar-block">
-          <SkillPills />
+          <div class="sidebar-links">
+            <a
+              href="https://www.linkedin.com/in/rajan10x/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="sidebar-link label"
+            >LinkedIn</a>
+            <a
+              href="https://github.com/rajanshresth"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="sidebar-link label"
+            >GitHub</a>
+            <a
+              href="https://youtube.com/@rajanshresth"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="sidebar-link label"
+            >YouTube</a>
+          </div>
         </div>
       </aside>
-
     </div>
-
   </div>
 </Base>
 
 <style>
   .about-layout {
-    padding-block: 2.5rem 5rem;
+    padding-bottom: 80px;
   }
 
   .about-header {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    padding-top: 64px;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 16px;
   }
 
   .about-title {
     font-family: var(--font-display);
-    font-size: clamp(28px, 4vw, 40px);
-    color: var(--text);
-    margin-top: 0.5rem;
-  }
-
-  /* Two-column layout */
-  .about-columns {
-    display: grid;
-    grid-template-columns: 1fr 260px;
-    gap: 4rem;
-    align-items: start;
-    margin-top: 3rem;
-  }
-
-  /* Main bio */
-  .about-main {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
-
-  .about-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .about-section-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    color: var(--text);
-  }
-
-  .about-prose {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .about-prose p {
-    font-size: 15px;
-    font-weight: 300;
-    color: color-mix(in srgb, var(--text) 85%, var(--muted));
-    line-height: 1.8;
-    max-width: 65ch;
-  }
-
-  .about-prose strong {
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .about-cta-row {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-top: 0.5rem;
-  }
-
-  .about-cta-link {
-    font-family: var(--font-body);
-    font-size: 14px;
+    font-size: clamp(30px, 5vw, 48px);
     font-weight: 400;
-    color: var(--secondary);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 0.55rem 1.1rem;
-    transition: border-color var(--t), color var(--t), transform var(--t);
+    color: var(--parchment);
+    line-height: 1.08;
+    letter-spacing: -1px;
+  }
+  .about-title em {
+    font-style: italic;
+    color: var(--parchment-2);
   }
 
-  .about-cta-link:hover {
-    border-color: var(--secondary);
-    transform: translate3d(0, -2px, 0);
+  /* Two-column grid */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 64px;
+    align-items: start;
   }
 
-  .about-cta-link--ghost {
-    color: var(--muted);
+  /* Main body */
+  .about-section {
+    margin-bottom: 48px;
+  }
+  .about-section:last-child { margin-bottom: 0; }
+
+  .about-section h2 {
+    margin-bottom: 16px;
   }
 
-  .about-cta-link--ghost:hover {
-    color: var(--text);
-    border-color: var(--accent);
+  .about-section p {
+    margin-bottom: 1em;
+    font-size: 14px;
   }
+  .about-section p:last-of-type { margin-bottom: 0; }
+
+  .about-cta {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--copper);
+    transition: opacity 150ms ease;
+  }
+  .about-cta:hover { color: var(--copper); opacity: 0.75; }
 
   /* Sidebar */
   .about-sidebar {
     position: sticky;
-    top: calc(var(--nav-height) + 2rem);
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    top: 80px;
   }
 
-  .sidebar-block {
+  .sidebar-card {
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 20px;
   }
 
   .sidebar-list {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    gap: 14px;
   }
 
-  .sidebar-list li {
-    font-size: 14px;
+  .sidebar-item dt {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--parchment-4);
+    margin-bottom: 3px;
+    display: block;
+  }
+
+  .sidebar-item dd {
+    font-family: var(--font-body);
+    font-size: 13px;
     font-weight: 300;
-    color: var(--muted);
-    padding-left: 0.75rem;
-    border-left: 1px solid var(--border);
+    color: var(--parchment-2);
+    line-height: 1.4;
   }
 
-  .sidebar-list--accent li {
-    color: var(--secondary);
-    border-left-color: var(--accent);
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink-4);
   }
+
+  .sidebar-link {
+    color: var(--parchment-4);
+    transition: color 150ms ease;
+  }
+  .sidebar-link:hover { color: var(--copper); }
 
   /* Mobile */
-  @media (max-width: 900px) {
-    .about-columns {
+  @media (max-width: 767px) {
+    .about-grid {
       grid-template-columns: 1fr;
+      gap: 40px;
     }
-
     .about-sidebar {
       position: static;
       order: -1;
