@@ -4,55 +4,47 @@ import BlogCard from './BlogCard.astro';
 
 interface Props {
   posts: CollectionEntry<'writing'>[];
+  postsPerPage?: number;
 }
 
-const { posts } = Astro.props;
+const { posts, postsPerPage = 6 } = Astro.props;
 
-// Build unique tags list
+// Collect all unique tags
 const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 
-const POSTS_PER_PAGE = 6;
-
-// Serialise post metadata for the client-side script
+// Serialize posts for client-side JS
 const postsData = posts.map(p => ({
   slug:        p.slug,
-  title:       p.data.title.toLowerCase(),
-  description: p.data.description.toLowerCase(),
-  tags:        p.data.tags.map(t => t.toLowerCase()),
+  title:       p.data.title,
+  description: p.data.description,
+  tags:        p.data.tags,
+  publishedAt: p.data.publishedAt.toISOString(),
 }));
 ---
 
-<div class="blog-search-root" id="blog-search-root">
-
+<div class="search-wrap">
   <!-- Search input -->
-  <div class="search-bar-wrapper">
-    <label for="post-search" class="sr-only">Search posts</label>
-    <div class="search-input-wrap">
-      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-           aria-hidden="true">
-        <circle cx="11" cy="11" r="8"/>
-        <path d="m21 21-4.35-4.35"/>
-      </svg>
-      <input
-        type="search"
-        id="post-search"
-        class="search-input"
-        placeholder="Search by title, tag, or description…"
-        autocomplete="off"
-        spellcheck="false"
-      />
-    </div>
+  <div class="search-bar-wrap">
+    <label for="blog-search" class="sr-only">Search posts</label>
+    <input
+      id="blog-search"
+      type="search"
+      placeholder="Search posts…"
+      class="search-input"
+      autocomplete="off"
+      spellcheck="false"
+    />
   </div>
 
-  <!-- Tag filters -->
+  <!-- Tag filter pills -->
   {allTags.length > 0 && (
-    <div class="tag-filter-row" id="tag-filters" role="group" aria-label="Filter by tag">
+    <div class="tag-filters" role="group" aria-label="Filter by tag">
       {allTags.map(tag => (
         <button
-          class="tag tag-filter-btn"
+          class="tag-pill"
           data-tag={tag.toLowerCase()}
           type="button"
+          aria-pressed="false"
         >
           {tag}
         </button>
@@ -60,241 +52,241 @@ const postsData = posts.map(p => ({
     </div>
   )}
 
-  <!-- Posts grid — all cards rendered; JS controls visibility -->
-  <div class="post-grid" id="post-grid" role="list">
-    {posts.map(post => (
-      <div
-        class="post-grid-item"
-        data-slug={post.slug}
-        role="listitem"
-      >
-        <BlogCard
-          title={post.data.title}
-          description={post.data.description}
-          publishedAt={post.data.publishedAt}
-          tags={post.data.tags}
-          slug={post.slug}
-        />
-      </div>
-    ))}
-  </div>
-
-  <!-- Empty state -->
-  <p class="no-results" id="no-results" hidden>
-    No posts found. Try a different search or clear the filters.
-  </p>
-
-  <!-- Pagination (rendered client-side) -->
-  <nav class="pagination-wrapper" id="pagination-wrapper" aria-label="Page navigation"></nav>
-
+  <!-- Results count -->
+  <p class="search-meta label" id="search-meta" aria-live="polite" aria-atomic="true"></p>
 </div>
 
-<script define:vars={{ postsData, POSTS_PER_PAGE }}>
-  const root    = document.getElementById('blog-search-root');
-  const input   = document.getElementById('post-search');
-  const tagBtns = document.querySelectorAll('.tag-filter-btn');
-  const grid    = document.getElementById('post-grid');
-  const items   = document.querySelectorAll('.post-grid-item');
-  const noRes   = document.getElementById('no-results');
-  const pagWrap = document.getElementById('pagination-wrapper');
+<!-- Post grid — all cards rendered server-side, JS controls visibility -->
+<div class="post-grid" id="post-grid">
+  {posts.map(post => (
+    <BlogCard
+      title={post.data.title}
+      slug={post.slug}
+      description={post.data.description}
+      publishedAt={post.data.publishedAt}
+      tags={post.data.tags}
+    />
+  ))}
+</div>
 
-  let query     = '';
-  let activeTag = '';
-  let page      = 1;
-  let debounce;
+<!-- Client-side pagination -->
+<nav class="pagination" id="pagination" aria-label="Posts pagination"></nav>
 
-  /* ── helpers ── */
-  function getMatching() {
+<p class="no-results label" id="no-results" hidden>No posts match your search.</p>
+
+<script define:vars={{ postsData, postsPerPage }}>
+  const grid      = document.getElementById('post-grid');
+  const paginNav  = document.getElementById('pagination');
+  const noResults = document.getElementById('no-results');
+  const metaEl    = document.getElementById('search-meta');
+  const searchEl  = document.getElementById('blog-search');
+  const tagBtns   = document.querySelectorAll('.tag-pill');
+  const cards     = Array.from(grid.querySelectorAll('.blog-card'));
+
+  let query      = '';
+  let activeTag  = '';
+  let currentPage = 1;
+
+  // ── Filter logic ─────────────────────────────────────
+  function getMatches() {
     return postsData.filter(p => {
-      const matchSearch = !query ||
-        p.title.includes(query) ||
-        p.description.includes(query) ||
-        p.tags.some(t => t.includes(query));
-      const matchTag = !activeTag || p.tags.includes(activeTag);
-      return matchSearch && matchTag;
+      const haystack = `${p.title} ${p.description} ${p.tags.join(' ')}`.toLowerCase();
+      const matchQ   = !query    || haystack.includes(query);
+      const matchT   = !activeTag || p.tags.map(t => t.toLowerCase()).includes(activeTag);
+      return matchQ && matchT;
     });
   }
 
-  function showItem(el) {
-    el.style.display = '';
-    requestAnimationFrame(() => { el.style.opacity = '1'; });
-  }
-
-  function hideItem(el) {
-    el.style.opacity = '0';
-    setTimeout(() => { el.style.display = 'none'; }, 200);
-  }
-
+  // ── Render ────────────────────────────────────────────
   function render() {
-    const matched   = getMatching();
-    const searching = query || activeTag;
+    const matches    = getMatches();
+    const isFiltered = query || activeTag;
+    const total      = matches.length;
 
-    let visible;
-    if (searching) {
-      visible = matched;
-      renderPagination(0, 0);   // hide pagination during search
-    } else {
-      const total = matched.length;
-      const start = (page - 1) * POSTS_PER_PAGE;
-      visible = matched.slice(start, start + POSTS_PER_PAGE);
-      renderPagination(total, page);
-    }
+    // Show/hide cards
+    const pageMatches = isFiltered
+      ? matches
+      : matches.slice((currentPage - 1) * postsPerPage, currentPage * postsPerPage);
 
-    const visibleSlugs = new Set(visible.map(p => p.slug));
+    const visibleSlugs = new Set(pageMatches.map(p => p.slug));
 
-    items.forEach(item => {
-      if (visibleSlugs.has(item.dataset.slug)) {
-        showItem(item);
+    cards.forEach(card => {
+      const slug = card.dataset.slug;
+      if (visibleSlugs.has(slug)) {
+        card.removeAttribute('hidden');
+        card.style.opacity = '1';
       } else {
-        hideItem(item);
+        card.setAttribute('hidden', '');
       }
     });
 
-    if (noRes) noRes.hidden = visible.length > 0;
+    // No results
+    noResults.hidden = total > 0;
+    grid.hidden = total === 0;
+
+    // Meta
+    if (isFiltered) {
+      metaEl.textContent = `${total} post${total !== 1 ? 's' : ''} found`;
+    } else {
+      metaEl.textContent = '';
+    }
+
+    // Pagination — only when not searching/filtering
+    if (isFiltered) {
+      paginNav.hidden = true;
+    } else {
+      const totalPages = Math.ceil(total / postsPerPage);
+      renderPagination(currentPage, totalPages);
+      paginNav.hidden = totalPages <= 1;
+    }
   }
 
-  function renderPagination(total, current) {
-    if (!pagWrap) return;
-    const totalPages = Math.ceil(total / POSTS_PER_PAGE);
+  // ── Pagination controls ───────────────────────────────
+  function renderPagination(page, total) {
+    if (total <= 1) { paginNav.innerHTML = ''; return; }
 
-    if (totalPages <= 1) {
-      pagWrap.innerHTML = '';
-      return;
+    let html = '';
+
+    // Prev
+    if (page > 1) {
+      html += `<button class="page-btn" data-page="${page - 1}">← Prev</button>`;
+    } else {
+      html += `<span class="page-btn page-btn--disabled">← Prev</span>`;
     }
 
-    let html = '<div class="pagination">';
-
-    if (current > 1) {
-      html += `<button class="page-btn" data-p="${current - 1}">← Prev</button>`;
+    // Page numbers
+    for (let i = 1; i <= total; i++) {
+      html += `<button class="page-btn ${i === page ? 'page-btn--active' : ''}" data-page="${i}">${i}</button>`;
     }
 
-    for (let i = 1; i <= totalPages; i++) {
-      html += `<button class="page-btn${i === current ? ' page-btn--active' : ''}" data-p="${i}">${i}</button>`;
+    // Next
+    if (page < total) {
+      html += `<button class="page-btn" data-page="${page + 1}">Next →</button>`;
+    } else {
+      html += `<span class="page-btn page-btn--disabled">Next →</span>`;
     }
 
-    if (current < totalPages) {
-      html += `<button class="page-btn" data-p="${current + 1}">Next →</button>`;
-    }
+    paginNav.innerHTML = html;
 
-    html += '</div>';
-    pagWrap.innerHTML = html;
-
-    pagWrap.querySelectorAll('.page-btn').forEach(btn => {
+    // Bind pagination clicks
+    paginNav.querySelectorAll('[data-page]').forEach(btn => {
       btn.addEventListener('click', () => {
-        page = parseInt(btn.dataset.p, 10);
+        currentPage = Number(btn.dataset.page);
         render();
-        root?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
   }
 
-  /* ── search ── */
-  input?.addEventListener('input', e => {
-    clearTimeout(debounce);
-    debounce = setTimeout(() => {
-      query = e.target.value.toLowerCase().trim();
-      page  = 1;
+  // ── Search debounce ────────────────────────────────────
+  let debounceTimer;
+  searchEl?.addEventListener('input', e => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      query = e.target.value.trim().toLowerCase();
+      currentPage = 1;
       render();
     }, 200);
   });
 
-  /* ── tag filter ── */
+  // ── Tag filter ─────────────────────────────────────────
   tagBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const tag = btn.dataset.tag;
       if (activeTag === tag) {
         activeTag = '';
-        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+        btn.classList.remove('tag-pill--active');
       } else {
         activeTag = tag;
-        tagBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        tagBtns.forEach(b => {
+          b.setAttribute('aria-pressed', 'false');
+          b.classList.remove('tag-pill--active');
+        });
+        btn.setAttribute('aria-pressed', 'true');
+        btn.classList.add('tag-pill--active');
       }
-      page = 1;
+      currentPage = 1;
       render();
     });
   });
 
-  /* ── initial render ── */
+  // Initial render
   render();
 </script>
 
 <style>
-  .blog-search-root {
+  .search-wrap {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  /* Search bar */
-  .search-bar-wrapper { /* intentionally empty — full width */ }
-
-  .search-input-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .search-icon {
-    position: absolute;
-    left: 12px;
-    color: var(--muted);
-    pointer-events: none;
-    flex-shrink: 0;
+    gap: 16px;
+    margin-bottom: 40px;
   }
 
   .search-input {
     width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.65rem 1rem 0.65rem 2.5rem;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    color: var(--parchment);
     font-family: var(--font-body);
     font-size: 14px;
-    color: var(--text);
-    transition: border-color var(--t);
+    font-weight: 300;
+    padding: 10px 14px;
+    transition: border-color 150ms ease;
   }
-
-  .search-input::placeholder {
-    color: var(--muted);
-  }
-
+  .search-input::placeholder { color: var(--parchment-4); }
   .search-input:focus {
     outline: none;
-    border-color: var(--secondary);
+    border-color: var(--parchment-4);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--copper) 25%, transparent);
   }
 
-  /* Tag filters */
-  .tag-filter-row {
+  .tag-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 8px;
   }
 
-  .tag-filter-btn {
+  .tag-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--parchment-4);
+    background: none;
+    border: 1px solid var(--ink-4);
+    border-radius: 2px;
+    padding: 4px 10px;
     cursor: pointer;
-    user-select: none;
+    transition: border-color 150ms ease, color 150ms ease;
+  }
+  .tag-pill:hover {
+    border-color: var(--parchment-4);
+    color: var(--parchment-3);
+  }
+  .tag-pill--active {
+    border-color: var(--copper);
+    color: var(--parchment-2);
   }
 
-  /* Post grid */
+  .search-meta {
+    color: var(--parchment-4);
+    min-height: 1em;
+  }
+
   .post-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 16px;
+    margin-bottom: 40px;
   }
 
-  .post-grid-item {
-    opacity: 1;
-    transition: opacity 200ms ease;
-  }
-
-  /* Empty state */
   .no-results {
-    font-size: 14px;
-    color: var(--muted);
     text-align: center;
-    padding: 2rem 0;
-    font-style: italic;
+    padding: 40px 0;
+    color: var(--parchment-4);
   }
 
   /* Pagination */
@@ -302,35 +294,34 @@ const postsData = posts.map(p => ({
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.4rem;
+    gap: 4px;
     flex-wrap: wrap;
+    margin-top: 8px;
   }
 
   .page-btn {
     font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 4px 10px;
-    transition: color var(--t), border-color var(--t);
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--parchment-4);
+    background: none;
+    border: none;
+    padding: 6px 10px;
     cursor: pointer;
-    background: transparent;
+    transition: color 150ms ease;
+    border-radius: 2px;
   }
-
-  .page-btn:hover {
-    color: var(--secondary);
-    border-color: var(--secondary);
-  }
-
-  .page-btn--active {
-    color: var(--secondary);
-    border-color: var(--secondary);
+  .page-btn:hover { color: var(--parchment-2); }
+  .page-btn--active { color: var(--parchment); }
+  .page-btn--disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
   }
 
   @media (max-width: 600px) {
-    .post-grid {
-      grid-template-columns: 1fr;
-    }
+    .post-grid { grid-template-columns: 1fr; }
   }
 </style>

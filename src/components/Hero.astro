@@ -2,184 +2,151 @@
 import CardCluster from './CardCluster.astro';
 ---
 
-<section class="hero" aria-labelledby="hero-title">
-  <div class="container hero-inner">
+<section class="hero container">
+  <div class="hero-content">
+    <!-- Eyebrow label -->
+    <span class="hero-eyebrow label">
+      Industrial Engineering · Data Analysis · Product
+    </span>
 
-    <!-- Left: Text -->
-    <div class="hero-text">
-      <span class="hero-eyebrow section-label">Industrial Engineering · Data Analysis · Product Management</span>
+    <!-- Headline -->
+    <h1 class="display hero-headline">
+      Engineering systems,<br>
+      <em>building products</em>
+    </h1>
 
-      <h1 class="hero-title" id="hero-title">
-        Engineering systems,<br>
-        <em>building products</em>
-      </h1>
+    <!-- Body -->
+    <p class="hero-body">
+      I'm Rajan — a B.E. Industrial Engineering student and data
+      analyst at Innovative Nepal Group. I use systems thinking and
+      data to understand how things break, and product thinking to
+      build what fixes them. Working toward a career in Product Management.
+    </p>
 
-      <p class="hero-tagline">
-        I'm Rajan — a B.E. Industrial Engineering student and data analyst at
-        Innovative Nepal Group. I use systems thinking and data to understand how
-        things break, and product thinking to build what fixes them. Working toward
-        a career in Product Management.
-      </p>
-
-      <div class="hero-cta">
-        <a href="/work/pm-roadmap-tracker" class="btn btn--primary">See my work</a>
-        <a href="/writing" class="btn btn--ghost">Read my thinking</a>
-      </div>
+    <!-- CTAs -->
+    <div class="hero-ctas">
+      <a href="/work/pm-roadmap-tracker" class="cta-primary">
+        View work →
+      </a>
+      <a href="/writing" class="cta-secondary">
+        Read writing →
+      </a>
     </div>
+  </div>
 
-    <!-- Right: 3D card cluster -->
-    <div class="hero-visual">
-      <CardCluster />
-    </div>
-
+  <!-- 3D card cluster — desktop only -->
+  <div class="hero-cluster">
+    <CardCluster />
   </div>
 </section>
 
 <style>
   .hero {
-    padding-block: clamp(4rem, 10vw, 7rem) 3rem;
-  }
-
-  .hero-inner {
     display: grid;
-    grid-template-columns: 55fr 45fr;
-    gap: 4rem;
+    grid-template-columns: 1fr auto;
     align-items: center;
+    gap: 48px;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid var(--ink-4);
+    min-height: 480px;
   }
 
-  /* Text column */
-  .hero-text {
+  .hero-content {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 24px;
+    max-width: 480px;
+  }
+
+  /* Staggered fade-up on page load */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-eyebrow {
+      opacity: 0;
+      animation: fadeUp 400ms ease forwards;
+      animation-delay: 0ms;
+    }
+    .hero-headline {
+      opacity: 0;
+      animation: fadeUp 400ms ease forwards;
+      animation-delay: 80ms;
+    }
+    .hero-body {
+      opacity: 0;
+      animation: fadeUp 400ms ease forwards;
+      animation-delay: 200ms;
+    }
+    .hero-ctas {
+      opacity: 0;
+      animation: fadeUp 400ms ease forwards;
+      animation-delay: 320ms;
+    }
   }
 
   .hero-eyebrow {
-    margin-bottom: 0.25rem;
-    /* wrap gracefully on narrow screens */
-    white-space: normal;
-    line-height: 1.6;
+    display: block;
   }
 
-  .hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 6vw, 64px);
-    font-weight: 400;
-    line-height: 1.1;
-    color: var(--text);
+  .hero-headline {
+    /* Inherits from .display in global.css */
   }
 
-  .hero-title em {
-    font-style: italic;
-    color: var(--secondary);
+  .hero-body {
+    max-width: 440px;
   }
 
-  .hero-tagline {
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 48ch;
-  }
-
-  .hero-inline-link {
-    color: var(--secondary);
-    border-bottom: 1px solid var(--accent);
-    transition: border-color var(--t), color var(--t);
-  }
-
-  .hero-inline-link:hover {
-    color: var(--text);
-    border-color: var(--secondary);
-  }
-
-  .hero-cta {
+  .hero-ctas {
     display: flex;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 24px;
     flex-wrap: wrap;
-    margin-top: 0.25rem;
   }
 
-  /* Buttons */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 0.6rem 1.4rem;
-    border-radius: 5px;
-    border: 1px solid transparent;
-    transition: background var(--t), border-color var(--t), color var(--t), transform var(--t);
+  .cta-primary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--parchment-2);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--parchment-4);
+    transition: color 180ms ease, border-color 180ms ease;
+  }
+  .cta-primary:hover {
+    color: var(--copper);
+    border-color: var(--copper);
   }
 
-  .btn--primary {
-    background: var(--surface);
-    border-color: var(--border);
-    color: var(--text);
+  .cta-secondary {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--parchment-4);
+    transition: color 180ms ease;
   }
+  .cta-secondary:hover { color: var(--copper); }
 
-  .btn--primary:hover {
-    border-color: var(--secondary);
-    color: var(--secondary);
-    transform: translate3d(0, -2px, 0);
-  }
-
-  .btn--ghost {
-    background: transparent;
-    border-color: var(--border);
-    color: var(--muted);
-  }
-
-  .btn--ghost:hover {
-    border-color: var(--accent);
-    color: var(--text);
-    transform: translate3d(0, -2px, 0);
-  }
-
-  /* Visual column */
-  .hero-visual {
+  /* Card cluster column */
+  .hero-cluster {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
   }
 
-  /* Staggered fade-up on load */
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-eyebrow  { animation: fadeUp 0.55s ease both; animation-delay: 0ms; }
-    .hero-title    { animation: fadeUp 0.55s ease both; animation-delay: 80ms; }
-    .hero-tagline  { animation: fadeUp 0.55s ease both; animation-delay: 160ms; }
-    .hero-cta      { animation: fadeUp 0.55s ease both; animation-delay: 240ms; }
-    .hero-visual   { animation: fadeUp 0.55s ease both; animation-delay: 100ms; }
-  }
-
-  /* Responsive: stack on mobile */
+  /* Mobile: stack, hide cluster */
   @media (max-width: 767px) {
-    .hero-inner {
+    .hero {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      padding-top: 56px;
+      padding-bottom: 56px;
+      min-height: unset;
+      gap: 32px;
     }
-
-    .hero-title {
-      font-size: clamp(32px, 9vw, 48px);
-    }
-
-    .hero-tagline {
-      font-size: 15px;
-    }
-
-    .hero-cta {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .hero-visual {
-      order: -1;
-    }
+    .hero-cluster { display: none; }
+    .hero-content { max-width: 100%; }
+    .cta-primary, .cta-secondary { font-size: 10px; }
   }
 </style>

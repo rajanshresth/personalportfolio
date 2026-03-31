@@ -3,32 +3,35 @@ import BlogPostLayout from '../../layouts/BlogPost.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('writing', p => !p.data.draft);
+  const posts = (await getCollection('writing', ({ data }) => !data.draft))
+    .sort((a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf());
 
-  // Sort by date for prev/next computation
-  const sorted = posts.sort(
-    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
-  );
-
-  return sorted.map((post, index) => {
-    const prev = index < sorted.length - 1 ? sorted[index + 1] : null;
-    const next = index > 0                 ? sorted[index - 1] : null;
-
-    return {
-      params: { slug: post.slug },
-      props: {
-        post,
-        prev: prev ? { slug: prev.slug, title: prev.data.title } : null,
-        next: next ? { slug: next.slug, title: next.data.title } : null,
-      },
-    };
-  });
+  return posts.map((post, i) => ({
+    params: { slug: post.slug },
+    props: {
+      post,
+      prev: i > 0 ? { slug: posts[i - 1].slug, title: posts[i - 1].data.title } : null,
+      next: i < posts.length - 1 ? { slug: posts[i + 1].slug, title: posts[i + 1].data.title } : null,
+    },
+  }));
 }
 
 const { post, prev, next } = Astro.props;
 const { Content, headings } = await render(post);
+
+// Word count estimate from headings + raw content
+const wordCount = post.body?.split(/\s+/).length ?? 200;
 ---
 
-<BlogPostLayout post={post} headings={headings} prev={prev} next={next}>
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  publishedAt={post.data.publishedAt}
+  tags={post.data.tags}
+  headings={headings}
+  wordCount={wordCount}
+  prev={prev}
+  next={next}
+>
   <Content />
 </BlogPostLayout>

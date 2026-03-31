@@ -5,10 +5,8 @@ const workCollection = defineCollection({
   schema: z.object({
     title:       z.string(),
     description: z.string(),
-    stage:       z.string(),
     tags:        z.array(z.string()),
     order:       z.number().default(0),
-    featured:    z.boolean().optional().default(false),
     link:        z.string().optional(),
   }),
 });

@@ -1,0 +1,114 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  items: CollectionEntry<'work'>[];
+}
+
+const { items } = Astro.props;
+const sorted = items.sort((a, b) => a.data.order - b.data.order);
+---
+
+<ol class="work-list" role="list">
+  {sorted.map((item, i) => (
+    <li class="work-row">
+      <a
+        href={`/work/${item.slug}`}
+        class="work-row-inner"
+        aria-label={item.data.title}
+      >
+        <span class="work-num label">{String(i + 1).padStart(2, '0')}</span>
+
+        <div class="work-meta">
+          <h2 class="work-title">{item.data.title}</h2>
+          <p class="work-desc">{item.data.description}</p>
+          <div class="work-tags">
+            {item.data.tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        <span class="work-arrow" aria-hidden="true">→</span>
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .work-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-row {
+    border-bottom: 1px solid var(--ink-4);
+  }
+  .work-row:first-child {
+    border-top: 1px solid var(--ink-4);
+  }
+
+  .work-row-inner {
+    display: grid;
+    grid-template-columns: 36px 1fr 24px;
+    align-items: start;
+    gap: 20px;
+    padding: 24px 0;
+    transition: background 180ms ease;
+    border-radius: 2px;
+  }
+  .work-row-inner:hover {
+    background: var(--ink-2);
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 0 -12px;
+  }
+  .work-row-inner:hover .work-arrow {
+    transform: translateX(4px);
+  }
+  .work-row-inner:hover .work-title {
+    color: var(--parchment);
+  }
+
+  .work-num {
+    padding-top: 3px;
+    line-height: 1;
+  }
+
+  .work-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .work-title {
+    font-size: 18px;
+  }
+
+  .work-desc {
+    font-size: 13px;
+  }
+
+  .work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .work-arrow {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--parchment-4);
+    padding-top: 4px;
+    transition: transform 180ms ease;
+    line-height: 1;
+  }
+
+  @media (max-width: 600px) {
+    .work-row-inner {
+      grid-template-columns: 28px 1fr 20px;
+      gap: 12px;
+    }
+  }
+</style>

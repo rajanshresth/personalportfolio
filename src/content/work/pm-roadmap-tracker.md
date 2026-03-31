@@ -1,50 +1,35 @@
 ---
-title: "PM Roadmap Tracker"
-description: "A dark-themed single-page progress dashboard built with Google Apps Script Web App. Tracks PM skill milestones, learning resources, and transition goals in one place."
-stage: "Shipped"
-tags: ["Tooling", "Productivity"]
-order: 2
-featured: false
+title: PM Roadmap Tracker
+description: Dark-themed SPA dashboard tracking a 6-month PM transition — live progress, tabbed navigation, backed by Google Sheets.
+tags: [GAS, Tooling, Product]
+order: 1
 ---
 
 ## Overview
 
-The PM Roadmap Tracker is a personal dashboard I built to manage my own transition from Data Analyst to Product Manager. It lives as a Google Apps Script Web App — zero hosting cost, always available, synced with Google Sheets as the data backend.
+A single-page dashboard I built to hold myself accountable through a structured 6-month transition from Industrial Engineering into Product Management.
 
-The core insight behind building it: most "PM roadmap" content online is either a generic checklist or a paid course funnel. I wanted something opinionated and personalised — tracking not just what I'd learned, but what I'd applied and what evidence I had for each skill.
+The app sits in Google Apps Script and reads directly from a Google Sheets backend. Every learning milestone, resource completed, and project shipped is tracked in the spreadsheet — the dashboard just makes it visual.
 
-## Why I built it
+## Why I built this
 
-When I started mapping my PM transition seriously, I had tabs open across Notion, a Google Sheet, Obsidian notes, and three bookmark folders. The context-switching was the biggest overhead.
+Most PM transition resources are generic. I wanted something that reflected my specific path: an IE background, a data analysis day job, and no PM internship to point to.
 
-The tracker collapses everything into a single view:
+The tracker forced me to break "become a PM" into discrete, measurable milestones. Once it was in a spreadsheet, I could query it, chart it, and surface it in a dashboard — which is also a good signal that you understand data-backed product thinking.
 
-- **Skills matrix** — each PM competency rated by current proficiency, target proficiency, and evidence link
-- **Resource log** — books, courses, and articles with completion status and key takeaways
-- **Milestone board** — the high-level career goals with progress indicators
-- **Weekly log** — a rolling record of what I shipped, read, or practised each week
+## What it does
 
-## Technical choices
+- Live progress bars per topic area (product strategy, user research, metrics, PRD writing, SQL)
+- Tabbed navigation between monthly phases without page reloads
+- Resource list with completion status — books, courses, case studies
+- Auto-updating: editing the Google Sheet updates the dashboard in real time
 
-**Google Apps Script** was the right call for this use case:
+## Stack
 
-- No deployment pipeline to maintain
-- Sheets as the database means easy editing without a UI
-- Runs on a personal Google account — no dependency on external services
-- Dohtml/CSS/JS with the `HtmlService` API gives full control over the frontend
+Built entirely inside Google Apps Script with vanilla HTML, CSS, and JavaScript served via `HtmlService`. The backend is a Google Sheet with named ranges that the GAS server reads on each request.
 
-The dark theme was intentional — this is a tool I have open constantly. High-contrast light themes cause fatigue over long sessions.
+No external dependencies. No build step. Runs anywhere with a Google account.
 
 ## What I learned
 
-Building tooling for yourself is the fastest way to understand user pain. Every friction point I hit while using the tracker became a product decision I had to reason through:
-
-- When does filtering help vs. adding cognitive load?
-- What's the right granularity for progress tracking?
-- How do you design for motivation, not just information?
-
-These are questions I now bring into every product decision I make.
-
-## Source
-
-The tracker is deployed as a private web app (personal use). The pattern — Apps Script + Sheets + dark-themed SPA — is replicable for small internal tools at companies that live in Google Workspace.
+Building this reinforced something I didn't expect: the product decisions — what to show, in what order, what to omit — were harder than the engineering. A tracker that shows everything is useless. Deciding what mattered, and what to cut, was the actual product work.
