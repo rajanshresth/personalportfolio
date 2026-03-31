@@ -20,6 +20,8 @@ const writingCollection = defineCollection({
     tags:        z.array(z.string()),
     featured:    z.boolean().optional().default(false),
     draft:       z.boolean().optional().default(false),
+    image:       z.string().optional(),        // relative path or URL for og:image / cover
+    imageAlt:    z.string().optional(),
   }),
 });
 
