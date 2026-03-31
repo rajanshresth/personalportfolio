@@ -1,0 +1,185 @@
+---
+import CardCluster from './CardCluster.astro';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-inner">
+
+    <!-- Left: Text -->
+    <div class="hero-text">
+      <span class="hero-eyebrow section-label">Industrial Engineering · Data Analysis · Product Management</span>
+
+      <h1 class="hero-title" id="hero-title">
+        Engineering systems,<br>
+        <em>building products</em>
+      </h1>
+
+      <p class="hero-tagline">
+        I'm Rajan — a B.E. Industrial Engineering student and data analyst at
+        Innovative Nepal Group. I use systems thinking and data to understand how
+        things break, and product thinking to build what fixes them. Working toward
+        a career in Product Management.
+      </p>
+
+      <div class="hero-cta">
+        <a href="/work/pm-roadmap-tracker" class="btn btn--primary">See my work</a>
+        <a href="/writing" class="btn btn--ghost">Read my thinking</a>
+      </div>
+    </div>
+
+    <!-- Right: 3D card cluster -->
+    <div class="hero-visual">
+      <CardCluster />
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(4rem, 10vw, 7rem) 3rem;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 55fr 45fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  /* Text column */
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 0.25rem;
+    /* wrap gracefully on narrow screens */
+    white-space: normal;
+    line-height: 1.6;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--text);
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--secondary);
+  }
+
+  .hero-tagline {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 48ch;
+  }
+
+  .hero-inline-link {
+    color: var(--secondary);
+    border-bottom: 1px solid var(--accent);
+    transition: border-color var(--t), color var(--t);
+  }
+
+  .hero-inline-link:hover {
+    color: var(--text);
+    border-color: var(--secondary);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0.6rem 1.4rem;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    transition: background var(--t), border-color var(--t), color var(--t), transform var(--t);
+  }
+
+  .btn--primary {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  .btn--primary:hover {
+    border-color: var(--secondary);
+    color: var(--secondary);
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--muted);
+  }
+
+  .btn--ghost:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    transform: translate3d(0, -2px, 0);
+  }
+
+  /* Visual column */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Staggered fade-up on load */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-eyebrow  { animation: fadeUp 0.55s ease both; animation-delay: 0ms; }
+    .hero-title    { animation: fadeUp 0.55s ease both; animation-delay: 80ms; }
+    .hero-tagline  { animation: fadeUp 0.55s ease both; animation-delay: 160ms; }
+    .hero-cta      { animation: fadeUp 0.55s ease both; animation-delay: 240ms; }
+    .hero-visual   { animation: fadeUp 0.55s ease both; animation-delay: 100ms; }
+  }
+
+  /* Responsive: stack on mobile */
+  @media (max-width: 767px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .hero-title {
+      font-size: clamp(32px, 9vw, 48px);
+    }
+
+    .hero-tagline {
+      font-size: 15px;
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .hero-visual {
+      order: -1;
+    }
+  }
+</style>

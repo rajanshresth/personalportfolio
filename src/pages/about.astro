@@ -1,0 +1,277 @@
+---
+import Base       from '../layouts/Base.astro';
+import SkillPills from '../components/SkillPills.astro';
+---
+
+<Base
+  title="About — Rajan"
+  description="B.E Industrial Engineering student at T.U I.O.E Thapathali Campus and Data Analyst at Innovative Nepal Group, Nepal. Working toward Product Management."
+>
+  <div class="container about-layout">
+
+    <!-- Header -->
+    <header class="about-header">
+      <span class="section-label">About</span>
+      <h1 class="about-title">The longer version</h1>
+    </header>
+
+    <hr class="divider" />
+
+    <div class="about-columns">
+
+      <!-- Main bio -->
+      <div class="about-main">
+
+        <section class="about-section">
+          <h2 class="about-section-title">Background</h2>
+          <div class="about-prose">
+            <p>
+              I'm a B.E. Industrial Engineering student at T.U I.O.E Thapathali Campus and a Data Analyst at
+              <strong>Innovative Nepal Group (ING)</strong> — Nepal's largest education-focused holding company,
+              with a portfolio that spans colleges, tech ventures, and a publishing arm.
+            </p>
+            <p>
+              My daily work involves building dashboards that surface operational patterns across the portfolio,
+              writing analyses that inform board-level decisions, and increasingly, defining what data we should
+              be collecting and why. That last part is what pushed me toward product.
+            </p>
+            <p>
+              Industrial Engineering gave me a useful mental model: systems thinking. The habit of mapping
+              processes, identifying bottlenecks, and asking "what would this look like if it were optimised?"
+              transfers directly to product work. Operations Research taught me to define objectives precisely
+              before solving. Both habits show up in how I write PRDs and run discovery.
+            </p>
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h2 class="about-section-title">What I'm working on</h2>
+          <div class="about-prose">
+            <p>
+              At ING, I own the data infrastructure for our educational reporting: enrolment analytics,
+              attendance trend dashboards, and the operational KPI reports that the board reviews quarterly.
+              I also run ad-hoc analyses for specific strategic questions — market sizing for new programme
+              launches, attrition drivers, resource utilisation patterns.
+            </p>
+            <p>
+              Outside of work I'm building toward Product Management — documenting my learning,
+              practising PRD writing, running user research exercises, and building a portfolio
+              of work that reads as product work, not just analysis.
+            </p>
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h2 class="about-section-title">How I approach work</h2>
+          <div class="about-prose">
+            <p>
+              My frameworks for project work draw from Agile and Waterfall depending on context —
+              Agile for iterative, discovery-heavy work where requirements will evolve; Waterfall where
+              scope is fixed and sequencing matters. I'm pragmatic about methodology: the right process
+              is the one that helps the team make better decisions, not the one that looks best on paper.
+            </p>
+            <p>
+              For product thinking specifically, I lean on JTBD, opportunity trees, and AARRR metrics.
+              Not because they're popular, but because each has been useful in the specific contexts
+              I've applied them. I'm sceptical of framework rigidity.
+            </p>
+          </div>
+        </section>
+
+        <section class="about-section">
+          <h2 class="about-section-title">If you want to connect</h2>
+          <div class="about-prose">
+            <p>
+              I'm open to conversations about data, product, building in Nepal, or anything you've
+              read here that you have a strong opinion about. LinkedIn is the best place to reach me.
+            </p>
+          </div>
+          <div class="about-cta-row">
+            <a href="https://www.linkedin.com/in/rajan10x/" target="_blank" rel="noopener noreferrer" class="about-cta-link">
+              Connect on LinkedIn →
+            </a>
+            <a href="/writing" class="about-cta-link about-cta-link--ghost">
+              Read my writing →
+            </a>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="about-sidebar">
+        <div class="sidebar-block">
+          <span class="section-label">Currently</span>
+          <ul class="sidebar-list">
+            <li>Data Analyst @ ING, Nepal</li>
+            <li>B.E. IE @ T.U I.O.E Thapathali</li>
+            <li>Building toward PM roles</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <span class="section-label">Open to</span>
+          <ul class="sidebar-list sidebar-list--accent">
+            <li>Remote PM roles</li>
+            <li>EdTech / SaaS</li>
+            <li>APAC timezone overlap</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-block">
+          <SkillPills />
+        </div>
+      </aside>
+
+    </div>
+
+  </div>
+</Base>
+
+<style>
+  .about-layout {
+    padding-block: 2.5rem 5rem;
+  }
+
+  .about-header {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .about-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--text);
+    margin-top: 0.5rem;
+  }
+
+  /* Two-column layout */
+  .about-columns {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  /* Main bio */
+  .about-main {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .about-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-section-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--text);
+  }
+
+  .about-prose {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-prose p {
+    font-size: 15px;
+    font-weight: 300;
+    color: color-mix(in srgb, var(--text) 85%, var(--muted));
+    line-height: 1.8;
+    max-width: 65ch;
+  }
+
+  .about-prose strong {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .about-cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .about-cta-link {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--secondary);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.55rem 1.1rem;
+    transition: border-color var(--t), color var(--t), transform var(--t);
+  }
+
+  .about-cta-link:hover {
+    border-color: var(--secondary);
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .about-cta-link--ghost {
+    color: var(--muted);
+  }
+
+  .about-cta-link--ghost:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  /* Sidebar */
+  .about-sidebar {
+    position: sticky;
+    top: calc(var(--nav-height) + 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .sidebar-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .sidebar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar-list li {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--border);
+  }
+
+  .sidebar-list--accent li {
+    color: var(--secondary);
+    border-left-color: var(--accent);
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .about-columns {
+      grid-template-columns: 1fr;
+    }
+
+    .about-sidebar {
+      position: static;
+      order: -1;
+    }
+  }
+</style>

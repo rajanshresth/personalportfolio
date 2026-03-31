@@ -1,0 +1,70 @@
+---
+import Base        from '../../layouts/Base.astro';
+import BlogSearch  from '../../components/BlogSearch.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('writing', p => !p.data.draft);
+
+// Sort by date descending
+const posts = allPosts.sort((a, b) =>
+  b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+---
+
+<Base
+  title="Writing — Rajan"
+  description="Thinking on product management, data analysis, the transition from analyst to PM, and building in South Asia."
+>
+  <div class="container writing-layout">
+
+    <header class="writing-header">
+      <span class="section-label">Writing</span>
+      <h1 class="writing-title">Notes on product, data, and transition</h1>
+      <p class="writing-lead">
+        Thinking about product management, the data–product intersection, and what it takes
+        to build and ship things from Nepal.
+      </p>
+    </header>
+
+    <hr class="divider" />
+
+    <div class="writing-body">
+      <BlogSearch posts={posts} />
+    </div>
+
+  </div>
+</Base>
+
+<style>
+  .writing-layout {
+    padding-block: 2.5rem 5rem;
+  }
+
+  .writing-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    max-width: 58ch;
+  }
+
+  .writing-title {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 3.5vw, 38px);
+    color: var(--text);
+    margin-top: 0.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .writing-lead {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .writing-body {
+    margin-top: 2.5rem;
+  }
+</style>

@@ -1,0 +1,336 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+  posts: CollectionEntry<'writing'>[];
+}
+
+const { posts } = Astro.props;
+
+// Build unique tags list
+const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
+
+const POSTS_PER_PAGE = 6;
+
+// Serialise post metadata for the client-side script
+const postsData = posts.map(p => ({
+  slug:        p.slug,
+  title:       p.data.title.toLowerCase(),
+  description: p.data.description.toLowerCase(),
+  tags:        p.data.tags.map(t => t.toLowerCase()),
+}));
+---
+
+<div class="blog-search-root" id="blog-search-root">
+
+  <!-- Search input -->
+  <div class="search-bar-wrapper">
+    <label for="post-search" class="sr-only">Search posts</label>
+    <div class="search-input-wrap">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input
+        type="search"
+        id="post-search"
+        class="search-input"
+        placeholder="Search by title, tag, or description…"
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+  </div>
+
+  <!-- Tag filters -->
+  {allTags.length > 0 && (
+    <div class="tag-filter-row" id="tag-filters" role="group" aria-label="Filter by tag">
+      {allTags.map(tag => (
+        <button
+          class="tag tag-filter-btn"
+          data-tag={tag.toLowerCase()}
+          type="button"
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
+  )}
+
+  <!-- Posts grid — all cards rendered; JS controls visibility -->
+  <div class="post-grid" id="post-grid" role="list">
+    {posts.map(post => (
+      <div
+        class="post-grid-item"
+        data-slug={post.slug}
+        role="listitem"
+      >
+        <BlogCard
+          title={post.data.title}
+          description={post.data.description}
+          publishedAt={post.data.publishedAt}
+          tags={post.data.tags}
+          slug={post.slug}
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- Empty state -->
+  <p class="no-results" id="no-results" hidden>
+    No posts found. Try a different search or clear the filters.
+  </p>
+
+  <!-- Pagination (rendered client-side) -->
+  <nav class="pagination-wrapper" id="pagination-wrapper" aria-label="Page navigation"></nav>
+
+</div>
+
+<script define:vars={{ postsData, POSTS_PER_PAGE }}>
+  const root    = document.getElementById('blog-search-root');
+  const input   = document.getElementById('post-search');
+  const tagBtns = document.querySelectorAll('.tag-filter-btn');
+  const grid    = document.getElementById('post-grid');
+  const items   = document.querySelectorAll('.post-grid-item');
+  const noRes   = document.getElementById('no-results');
+  const pagWrap = document.getElementById('pagination-wrapper');
+
+  let query     = '';
+  let activeTag = '';
+  let page      = 1;
+  let debounce;
+
+  /* ── helpers ── */
+  function getMatching() {
+    return postsData.filter(p => {
+      const matchSearch = !query ||
+        p.title.includes(query) ||
+        p.description.includes(query) ||
+        p.tags.some(t => t.includes(query));
+      const matchTag = !activeTag || p.tags.includes(activeTag);
+      return matchSearch && matchTag;
+    });
+  }
+
+  function showItem(el) {
+    el.style.display = '';
+    requestAnimationFrame(() => { el.style.opacity = '1'; });
+  }
+
+  function hideItem(el) {
+    el.style.opacity = '0';
+    setTimeout(() => { el.style.display = 'none'; }, 200);
+  }
+
+  function render() {
+    const matched   = getMatching();
+    const searching = query || activeTag;
+
+    let visible;
+    if (searching) {
+      visible = matched;
+      renderPagination(0, 0);   // hide pagination during search
+    } else {
+      const total = matched.length;
+      const start = (page - 1) * POSTS_PER_PAGE;
+      visible = matched.slice(start, start + POSTS_PER_PAGE);
+      renderPagination(total, page);
+    }
+
+    const visibleSlugs = new Set(visible.map(p => p.slug));
+
+    items.forEach(item => {
+      if (visibleSlugs.has(item.dataset.slug)) {
+        showItem(item);
+      } else {
+        hideItem(item);
+      }
+    });
+
+    if (noRes) noRes.hidden = visible.length > 0;
+  }
+
+  function renderPagination(total, current) {
+    if (!pagWrap) return;
+    const totalPages = Math.ceil(total / POSTS_PER_PAGE);
+
+    if (totalPages <= 1) {
+      pagWrap.innerHTML = '';
+      return;
+    }
+
+    let html = '<div class="pagination">';
+
+    if (current > 1) {
+      html += `<button class="page-btn" data-p="${current - 1}">← Prev</button>`;
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+      html += `<button class="page-btn${i === current ? ' page-btn--active' : ''}" data-p="${i}">${i}</button>`;
+    }
+
+    if (current < totalPages) {
+      html += `<button class="page-btn" data-p="${current + 1}">Next →</button>`;
+    }
+
+    html += '</div>';
+    pagWrap.innerHTML = html;
+
+    pagWrap.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        page = parseInt(btn.dataset.p, 10);
+        render();
+        root?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  /* ── search ── */
+  input?.addEventListener('input', e => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => {
+      query = e.target.value.toLowerCase().trim();
+      page  = 1;
+      render();
+    }, 200);
+  });
+
+  /* ── tag filter ── */
+  tagBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.tag;
+      if (activeTag === tag) {
+        activeTag = '';
+        btn.classList.remove('active');
+      } else {
+        activeTag = tag;
+        tagBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      page = 1;
+      render();
+    });
+  });
+
+  /* ── initial render ── */
+  render();
+</script>
+
+<style>
+  .blog-search-root {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Search bar */
+  .search-bar-wrapper { /* intentionally empty — full width */ }
+
+  .search-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--muted);
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.65rem 1rem 0.65rem 2.5rem;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text);
+    transition: border-color var(--t);
+  }
+
+  .search-input::placeholder {
+    color: var(--muted);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--secondary);
+  }
+
+  /* Tag filters */
+  .tag-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag-filter-btn {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Post grid */
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .post-grid-item {
+    opacity: 1;
+    transition: opacity 200ms ease;
+  }
+
+  /* Empty state */
+  .no-results {
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    padding: 2rem 0;
+    font-style: italic;
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .page-btn {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    transition: color var(--t), border-color var(--t);
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .page-btn:hover {
+    color: var(--secondary);
+    border-color: var(--secondary);
+  }
+
+  .page-btn--active {
+    color: var(--secondary);
+    border-color: var(--secondary);
+  }
+
+  @media (max-width: 600px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

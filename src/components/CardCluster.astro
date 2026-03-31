@@ -1,0 +1,455 @@
+---
+// 3D card cluster — the focal point of the hero section.
+// Pure CSS perspective + rotateX/Y transforms. Parallax via vanilla JS.
+---
+
+<div class="cluster-wrapper" id="card-cluster-wrapper" aria-hidden="true">
+  <div class="cluster" id="card-cluster">
+
+    <!-- Card 1: back — CampusIQ PRD document -->
+    <div class="card card--back">
+      <div class="card-chrome">
+        <span class="card-chrome-dot"></span>
+        <span class="card-chrome-dot"></span>
+        <span class="card-chrome-dot"></span>
+      </div>
+      <div class="card-label-bar">
+        <span class="card-file-label">ing-analytics-spec.md</span>
+      </div>
+      <div class="card-body">
+        <div class="doc-section">
+          <div class="doc-heading-line"></div>
+          <div class="doc-line doc-line--long"></div>
+          <div class="doc-line doc-line--med"></div>
+        </div>
+        <div class="doc-section">
+          <div class="doc-heading-line"></div>
+          <div class="doc-line doc-line--long"></div>
+          <div class="doc-line doc-line--short"></div>
+          <div class="doc-line doc-line--med"></div>
+        </div>
+        <div class="doc-metrics">
+          <div class="doc-metric">
+            <span class="doc-metric-label">MAU</span>
+            <div class="doc-metric-bar"><div class="doc-metric-fill" style="width:68%"></div></div>
+          </div>
+          <div class="doc-metric">
+            <span class="doc-metric-label">NPS</span>
+            <div class="doc-metric-bar"><div class="doc-metric-fill" style="width:82%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: middle — analytics / metrics view -->
+    <div class="card card--middle">
+      <div class="card-label-bar">
+        <span class="card-file-label">analytics.view</span>
+        <span class="card-badge">live</span>
+      </div>
+      <div class="card-body">
+        <div class="metric-row">
+          <div class="metric-block">
+            <div class="metric-value">2.4k</div>
+            <div class="metric-name">Students</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value metric-value--accent">91%</div>
+            <div class="metric-name">Retention</div>
+          </div>
+          <div class="metric-block">
+            <div class="metric-value">↑ 14%</div>
+            <div class="metric-name">Enrolment</div>
+          </div>
+        </div>
+        <div class="chart-area">
+          <div class="chart-bar" style="height:55%"></div>
+          <div class="chart-bar" style="height:72%"></div>
+          <div class="chart-bar" style="height:60%"></div>
+          <div class="chart-bar" style="height:88%"></div>
+          <div class="chart-bar chart-bar--active" style="height:78%"></div>
+          <div class="chart-bar" style="height:65%"></div>
+          <div class="chart-bar" style="height:91%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: front — CampusIQ product interface -->
+    <div class="card card--front">
+      <div class="card-header-row">
+        <span class="product-logo">AI product</span>
+        <div class="product-nav-dots">
+          <span class="nav-dot"></span>
+          <span class="nav-dot"></span>
+          <span class="nav-dot"></span>
+          <span class="nav-dot nav-dot--active"></span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="product-hero-line"></div>
+        <div class="product-sub-line"></div>
+        <div class="product-feature-list">
+          <div class="feature-row">
+            <span class="feature-dot feature-dot--on"></span>
+            <div class="feature-text-line feature-text-line--med"></div>
+          </div>
+          <div class="feature-row">
+            <span class="feature-dot feature-dot--on"></span>
+            <div class="feature-text-line feature-text-line--long"></div>
+          </div>
+          <div class="feature-row">
+            <span class="feature-dot"></span>
+            <div class="feature-text-line feature-text-line--short"></div>
+          </div>
+        </div>
+        <div class="product-cta-row">
+          <div class="product-btn product-btn--primary"></div>
+          <div class="product-btn"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Parallax: shift card cluster on scroll (transform only — no layout reflow)
+  const wrapper = document.getElementById('card-cluster-wrapper');
+
+  if (wrapper) {
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const offset  = scrollY * 0.12;
+          wrapper.style.transform = `translateY(${-offset}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  /* ── Wrapper & perspective ── */
+  .cluster-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    will-change: transform;
+  }
+
+  .cluster {
+    position: relative;
+    width: 300px;
+    height: 220px;
+    perspective: 900px;
+    perspective-origin: 50% 40%;
+  }
+
+  /* ── Shared card styles ── */
+  .card {
+    position: absolute;
+    inset: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  /* ── Individual card positions ── */
+  .card--back {
+    transform: rotateX(6deg) rotateY(-12deg) translate3d(-28px, -22px, -55px);
+    opacity: 0.65;
+    filter: brightness(0.8);
+  }
+
+  .card--middle {
+    transform: rotateX(4deg) rotateY(-7deg) translate3d(-14px, -11px, -25px);
+    opacity: 0.82;
+    filter: brightness(0.9);
+  }
+
+  .card--front {
+    transform: rotateX(2deg) rotateY(-3deg) translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  /* ── Card chrome dots (macOS-style) ── */
+  .card-chrome {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .card-chrome-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  /* ── Label bar ── */
+  .card-label-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 10px;
+  }
+
+  .card-file-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .card-badge {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--status);
+    border: 1px solid var(--status);
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ── Back card — PRD doc lines ── */
+  .doc-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .doc-heading-line {
+    height: 6px;
+    width: 55%;
+    background: var(--accent);
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .doc-line {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .doc-line--long  { width: 100%; }
+  .doc-line--med   { width: 75%; }
+  .doc-line--short { width: 50%; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .doc-line { animation: shimmerLine 3s ease-in-out infinite; }
+    .doc-line:nth-child(2) { animation-delay: 0.4s; }
+    .doc-line:nth-child(3) { animation-delay: 0.8s; }
+  }
+
+  .doc-metrics {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .doc-metric {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .doc-metric-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--muted);
+    width: 24px;
+    flex-shrink: 0;
+  }
+
+  .doc-metric-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .doc-metric-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* ── Middle card — metrics ── */
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .metric-block {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .metric-value {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .metric-value--accent {
+    color: var(--secondary);
+  }
+
+  .metric-name {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  .chart-area {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    height: 52px;
+    margin-top: 4px;
+    padding: 0 2px;
+  }
+
+  .chart-bar {
+    flex: 1;
+    background: var(--border);
+    border-radius: 2px 2px 0 0;
+    transition: background var(--t);
+  }
+
+  .chart-bar--active {
+    background: var(--accent);
+  }
+
+  /* ── Front card — product UI ── */
+  .card-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .product-logo {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .product-nav-dots {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .nav-dot--active {
+    background: var(--secondary);
+  }
+
+  .product-hero-line {
+    height: 8px;
+    width: 85%;
+    background: var(--text);
+    border-radius: 2px;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+
+  .product-sub-line {
+    height: 5px;
+    width: 60%;
+    background: var(--muted);
+    border-radius: 2px;
+    margin-bottom: 12px;
+  }
+
+  .product-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .feature-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .feature-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .feature-dot--on {
+    background: var(--status);
+  }
+
+  .feature-text-line {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  .feature-text-line--long  { width: 75%; }
+  .feature-text-line--med   { width: 55%; }
+  .feature-text-line--short { width: 40%; }
+
+  .product-cta-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .product-btn {
+    height: 22px;
+    flex: 1;
+    border-radius: 4px;
+    background: var(--border);
+  }
+
+  .product-btn--primary {
+    background: var(--accent);
+    flex: 1.5;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 400px) {
+    .cluster {
+      width: 260px;
+      height: 195px;
+    }
+  }
+</style>
