@@ -30,6 +30,8 @@ const wordCount = post.body?.split(/\s+/).length ?? 200;
   tags={post.data.tags}
   headings={headings}
   wordCount={wordCount}
+  image={post.data.image}
+  imageAlt={post.data.imageAlt}
   prev={prev}
   next={next}
 >

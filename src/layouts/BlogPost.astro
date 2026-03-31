@@ -9,6 +9,8 @@ interface Props {
   tags:        string[];
   headings:    { depth: number; slug: string; text: string }[];
   wordCount:   number;
+  image?:      string;
+  imageAlt?:   string;
   prev?:       { slug: string; title: string } | null;
   next?:       { slug: string; title: string } | null;
 }
@@ -20,6 +22,8 @@ const {
   tags,
   headings,
   wordCount,
+  image,
+  imageAlt,
   prev,
   next,
 } = Astro.props;
@@ -36,7 +40,34 @@ const dateStr = publishedAt.toLocaleDateString('en-US', {
 const tocItems = headings.filter(h => h.depth === 2 || h.depth === 3);
 ---
 
-<Base title={`${title} — Rajan`} description={description}>
+<Base
+  title={`${title} — Rajan`}
+  description={description}
+  image={image}
+  imageAlt={imageAlt ?? title}
+  type="article"
+  publishedAt={publishedAt}
+  tags={tags}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": title,
+    "description": description,
+    "datePublished": publishedAt.toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Rajan Shrestha",
+      "url": "https://rajanbuilds.com/about"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Rajan Shrestha",
+      "url": "https://rajanbuilds.com"
+    },
+    ...(image && { "image": image }),
+    "keywords": tags.join(", "),
+  })} />
   <div class="post-layout container">
     <!-- Sticky breadcrumb -->
     <a href="/writing" class="breadcrumb label">← Writing</a>
@@ -44,6 +75,13 @@ const tocItems = headings.filter(h => h.depth === 2 || h.depth === 3);
     <div class="post-grid">
       <!-- Article -->
       <article class="post-article">
+        <!-- Cover image -->
+        {image && (
+          <div class="post-cover">
+            <img src={image} alt={imageAlt ?? title} loading="lazy" decoding="async" />
+          </div>
+        )}
+
         <!-- Header -->
         <header class="post-header">
           <div class="post-meta">
@@ -135,6 +173,21 @@ const tocItems = headings.filter(h => h.depth === 2 || h.depth === 3);
     grid-template-columns: 1fr 200px;
     gap: 64px;
     align-items: start;
+  }
+
+  /* Cover image */
+  .post-cover {
+    margin-bottom: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--ink-4);
+  }
+  .post-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 420px;
+    object-fit: cover;
   }
 
   /* Article */
@@ -259,6 +312,31 @@ const tocItems = headings.filter(h => h.depth === 2 || h.depth === 3);
     margin: 2.5em 0;
   }
 
+  /* Images in prose */
+  .prose img {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+    border: 1px solid var(--ink-4);
+    margin: 1.8em 0;
+    display: block;
+  }
+
+  .prose figure {
+    margin: 2em 0;
+  }
+  .prose figure img {
+    margin: 0 0 0.6em;
+  }
+  .prose figcaption {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--parchment-4);
+    text-align: center;
+  }
+
   /* TOC sidebar */
   .toc-sidebar {
     position: sticky;
@@ -306,9 +384,12 @@ const tocItems = headings.filter(h => h.depth === 2 || h.depth === 3);
 
   /* Mobile */
   @media (max-width: 767px) {
-    .post-grid {
-      grid-template-columns: 1fr;
-    }
+    .post-layout { padding-top: 32px; padding-bottom: 56px; }
+    .post-grid { grid-template-columns: 1fr; gap: 0; }
     .toc-sidebar { display: none; }
+    .breadcrumb { margin-bottom: 28px; }
+    .post-cover { margin-bottom: 28px; }
+    .post-cover img { max-height: 260px; }
+    .post-title { letter-spacing: -0.5px; }
   }
 </style>

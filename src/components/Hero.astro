@@ -140,13 +140,18 @@ import CardCluster from './CardCluster.astro';
   @media (max-width: 767px) {
     .hero {
       grid-template-columns: 1fr;
-      padding-top: 56px;
-      padding-bottom: 56px;
+      padding-top: 48px;
+      padding-bottom: 48px;
       min-height: unset;
-      gap: 32px;
+      gap: 28px;
     }
     .hero-cluster { display: none; }
-    .hero-content { max-width: 100%; }
+    .hero-content { max-width: 100%; gap: 20px; }
     .cta-primary, .cta-secondary { font-size: 10px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-ctas { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .cta-primary { width: 100%; text-align: center; padding: 12px 0; }
   }
 </style>
