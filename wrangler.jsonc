@@ -1,8 +1,6 @@
 {
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "rajan-portfolio",
-  "compatibility_date": "2026-01-18",
-  "pages_build_output_dir": "./dist",
-  "observability": {
-    "enabled": true
-  }
+  "compatibility_date": "2026-03-31",
+  "pages_build_output_dir": "./dist"
 }
