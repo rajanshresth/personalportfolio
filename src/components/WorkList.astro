@@ -13,7 +13,7 @@ const sorted = items.sort((a, b) => a.data.order - b.data.order);
   {sorted.map((item, i) => (
     <li class="work-row">
       <a
-        href={`/work/${item.slug}`}
+        href={`/work/${item.id.replace(/\.md$/, '')}`}
         class="work-row-inner"
         aria-label={item.data.title}
       >

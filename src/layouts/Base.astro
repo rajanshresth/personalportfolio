@@ -14,10 +14,10 @@ interface Props {
 }
 
 const {
-  title       = 'Rajan — Industrial Engineering & Product',
+  title       = 'Rajan Shrestha — Industrial Engineering & Product',
   description = 'B.E. Industrial Engineering student and data analyst at Innovative Nepal Group. Applying systems thinking toward a career in Product Management.',
   image,
-  imageAlt    = 'Rajan — portfolio',
+  imageAlt    = 'Rajan Shrestha — portfolio',
   type        = 'website',
   publishedAt,
   tags        = [],
@@ -27,7 +27,28 @@ const siteUrl   = Astro.site ?? new URL('https://rajanbuilds.com');
 const canonical = new URL(Astro.url.pathname, siteUrl).href;
 const ogImage   = image
   ? (image.startsWith('http') ? image : new URL(image, siteUrl).href)
-  : new URL('/og-default.png', siteUrl).href;
+  : new URL('/og/default.png', siteUrl).href;
+
+// WebSite + Person structured data (homepage only, via type=website)
+const websiteSchema = {
+  '@context':  'https://schema.org',
+  '@type':     'WebSite',
+  name:        'Rajan Shrestha',
+  url:         siteUrl.href,
+  description: 'Portfolio of Rajan Shrestha — industrial engineering, data analysis, and product management.',
+  author: {
+    '@type': 'Person',
+    name:    'Rajan Shrestha',
+    url:     new URL('/about', siteUrl).href,
+    jobTitle: 'Data Analyst & Aspiring Product Manager',
+    worksFor: { '@type': 'Organization', name: 'Innovative Nepal Group' },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'T.U. I.O.E. Thapathali Campus' },
+    sameAs: [
+      'https://www.linkedin.com/in/rajan10x/',
+      'https://github.com/rajanshresth',
+    ],
+  },
+};
 ---
 
 <!doctype html>
@@ -47,12 +68,15 @@ const ogImage   = image
     <meta name="author" content="Rajan Shrestha" />
 
     <!-- Open Graph -->
-    <meta property="og:site_name" content="Rajan" />
+    <meta property="og:site_name" content="Rajan Shrestha" />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:locale" content="en_US" />
 
@@ -71,12 +95,24 @@ const ogImage   = image
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={imageAlt} />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/og/default.png" />
+
+    <!-- Structured data: WebSite + Person -->
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.fontshare.com" />
 
     <!-- Cormorant Garamond + Geist Mono via Google Fonts -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Geist+Mono:wght@400;500&display=swap"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"

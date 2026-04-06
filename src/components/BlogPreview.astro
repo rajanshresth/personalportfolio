@@ -13,7 +13,7 @@ const { posts } = Astro.props;
   {posts.map(post => (
     <BlogCard
       title={post.data.title}
-      slug={post.slug}
+      slug={post.id.replace(/\.md$/, '')}
       description={post.data.description}
       publishedAt={post.data.publishedAt}
       tags={post.data.tags}

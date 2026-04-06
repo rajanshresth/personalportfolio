@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const workCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/work' }),
   schema: z.object({
     title:       z.string(),
     description: z.string(),
@@ -12,7 +13,7 @@ const workCollection = defineCollection({
 });
 
 const writingCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/writing' }),
   schema: z.object({
     title:       z.string(),
     description: z.string(),
@@ -20,7 +21,7 @@ const writingCollection = defineCollection({
     tags:        z.array(z.string()),
     featured:    z.boolean().optional().default(false),
     draft:       z.boolean().optional().default(false),
-    image:       z.string().optional(),        // relative path or URL for og:image / cover
+    image:       z.string().optional(),
     imageAlt:    z.string().optional(),
   }),
 });

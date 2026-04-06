@@ -14,7 +14,7 @@ const allTags = [...new Set(posts.flatMap(p => p.data.tags))].sort();
 
 // Serialize posts for client-side JS
 const postsData = posts.map(p => ({
-  slug:        p.slug,
+  slug:        p.id.replace(/\.md$/, ''),
   title:       p.data.title,
   description: p.data.description,
   tags:        p.data.tags,
@@ -61,7 +61,7 @@ const postsData = posts.map(p => ({
   {posts.map(post => (
     <BlogCard
       title={post.data.title}
-      slug={post.slug}
+      slug={post.id.replace(/\.md$/, '')}
       description={post.data.description}
       publishedAt={post.data.publishedAt}
       tags={post.data.tags}

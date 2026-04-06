@@ -1,12 +1,29 @@
 ---
 import Base from '../layouts/Base.astro';
 import SkillPills from '../components/SkillPills.astro';
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type':    'Person',
+  name:       'Rajan Shrestha',
+  url:        'https://rajanbuilds.com/about',
+  jobTitle:   'Data Analyst',
+  description: 'B.E. Industrial Engineering student and data analyst at Innovative Nepal Group, building toward a career in Product Management.',
+  worksFor:   { '@type': 'Organization', name: 'Innovative Nepal Group' },
+  alumniOf:   { '@type': 'CollegeOrUniversity', name: 'T.U. I.O.E. Thapathali Campus' },
+  address:    { '@type': 'PostalAddress', addressCountry: 'NP' },
+  sameAs: [
+    'https://www.linkedin.com/in/rajan10x/',
+    'https://github.com/rajanshresth',
+  ],
+};
 ---
 
 <Base
-  title="About — Rajan"
+  title="About — Rajan Shrestha"
   description="B.E. Industrial Engineering student and data analyst at Innovative Nepal Group, building toward a career in Product Management."
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <div class="container about-layout">
     <!-- Page header -->
     <header class="about-header section">
