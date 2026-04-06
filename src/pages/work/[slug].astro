@@ -5,16 +5,42 @@ import { getCollection, render } from 'astro:content';
 export async function getStaticPaths() {
   const items = await getCollection('work');
   return items.map(item => ({
-    params: { slug: item.slug },
+    params: { slug: item.id.replace(/\.md$/, '') },
     props: { item },
   }));
 }
 
 const { item } = Astro.props;
 const { Content } = await render(item);
+
+const itemSlug  = item.id.replace(/\.md$/, '');
+const siteUrl   = Astro.site ?? new URL('https://rajanbuilds.com');
+const ogImage   = `/og/work/${itemSlug}.png`;
+const canonical = new URL(`/work/${itemSlug}`, siteUrl).href;
+
+const workSchema = {
+  '@context':   'https://schema.org',
+  '@type':      'CreativeWork',
+  name:         item.data.title,
+  description:  item.data.description,
+  url:          canonical,
+  author: {
+    '@type': 'Person',
+    name:    'Rajan Shrestha',
+    url:     new URL('/about', siteUrl).href,
+  },
+  keywords: item.data.tags.join(', '),
+};
 ---
 
-<Base title={`${item.data.title} — Rajan`} description={item.data.description}>
+<Base
+  title={`${item.data.title} — Rajan`}
+  description={item.data.description}
+  image={ogImage}
+  imageAlt={item.data.title}
+  tags={item.data.tags}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(workSchema)} />
   <div class="container work-page">
     <!-- Breadcrumb -->
     <a href="/#work-heading" class="breadcrumb label">← Work</a>

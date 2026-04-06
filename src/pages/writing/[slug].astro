@@ -6,12 +6,14 @@ export async function getStaticPaths() {
   const posts = (await getCollection('writing', ({ data }) => !data.draft))
     .sort((a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf());
 
+  const slug = (p: (typeof posts)[0]) => p.id.replace(/\.md$/, '');
+
   return posts.map((post, i) => ({
-    params: { slug: post.slug },
+    params: { slug: slug(post) },
     props: {
       post,
-      prev: i > 0 ? { slug: posts[i - 1].slug, title: posts[i - 1].data.title } : null,
-      next: i < posts.length - 1 ? { slug: posts[i + 1].slug, title: posts[i + 1].data.title } : null,
+      prev: i > 0 ? { slug: slug(posts[i - 1]), title: posts[i - 1].data.title } : null,
+      next: i < posts.length - 1 ? { slug: slug(posts[i + 1]), title: posts[i + 1].data.title } : null,
     },
   }));
 }
@@ -19,8 +21,12 @@ export async function getStaticPaths() {
 const { post, prev, next } = Astro.props;
 const { Content, headings } = await render(post);
 
-// Word count estimate from headings + raw content
-const wordCount = post.body?.split(/\s+/).length ?? 200;
+const postSlug  = post.id.replace(/\.md$/, '');
+// Word count: body may be a string (glob loader provides it)
+const wordCount = (typeof post.body === 'string' ? post.body.split(/\s+/).length : null) ?? 200;
+
+// Use post's own cover image for og:image if set, else the generated card
+const ogImage = post.data.image ?? `/og/writing/${postSlug}.png`;
 ---
 
 <BlogPostLayout
@@ -30,8 +36,8 @@ const wordCount = post.body?.split(/\s+/).length ?? 200;
   tags={post.data.tags}
   headings={headings}
   wordCount={wordCount}
-  image={post.data.image}
-  imageAlt={post.data.imageAlt}
+  image={ogImage}
+  imageAlt={post.data.imageAlt ?? post.data.title}
   prev={prev}
   next={next}
 >
