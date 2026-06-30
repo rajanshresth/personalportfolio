@@ -57,7 +57,7 @@ const tiers = [
         {tier.features.map(f => (
           <li>
             <img
-              src="https://img.icons8.com/ios-filled/40/718355/checkmark.png"
+              src="https://img.icons8.com/ios-filled/40/9c5526/checkmark.png"
               alt=""
               width="11"
               height="11"
@@ -96,17 +96,20 @@ const tiers = [
     gap: 16px;
     background: var(--ink-2);
     border: 1px solid var(--ink-4);
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 28px 24px;
+    box-shadow: var(--shadow-sm);
     transition: transform 200ms ease, box-shadow 200ms ease;
   }
   .pricing-card:hover {
     transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
   }
 
   .pricing-card--highlight {
     border-color: var(--copper);
-    box-shadow: 0 12px 32px -20px rgba(0, 0, 0, 0.35);
+    border-width: 2px;
+    box-shadow: var(--shadow-lg);
   }
 
   .pricing-badge {

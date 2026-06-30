@@ -33,6 +33,15 @@
     </div>
     <span class="card-pct">&lt;2min response</span>
   </div>
+
+  <!-- Pipeline diagram — echoes the card stack with connected, "live" nodes -->
+  <svg class="cluster-diagram" viewBox="0 0 250 210" aria-hidden="true">
+    <path id="diagram-path" d="M170 140 L196 162 L218 184" class="diagram-line" />
+    <circle cx="170" cy="140" r="3" class="diagram-node" />
+    <circle cx="196" cy="162" r="3" class="diagram-node" />
+    <circle cx="218" cy="184" r="3" class="diagram-node" />
+    <circle id="diagram-pulse" cx="170" cy="140" r="3.5" class="diagram-pulse" />
+  </svg>
 </div>
 
 <script>
@@ -42,9 +51,20 @@
   const cards = cluster ? Array.from(cluster.querySelectorAll<HTMLElement>('.card')) : [];
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const diagramPath = document.getElementById('diagram-path') as SVGPathElement | null;
+  const diagramNodes = cluster ? Array.from(cluster.querySelectorAll('.diagram-node')) : [];
+  const pulse = document.getElementById('diagram-pulse');
+  const nodePoints = [
+    { x: 170, y: 140 },
+    { x: 196, y: 162 },
+    { x: 218, y: 184 },
+  ];
+
   if (cluster) {
     if (prefersReducedMotion) {
       gsap.set(cards, { opacity: 1 });
+      gsap.set([diagramPath, ...diagramNodes], { opacity: 1 });
+      if (pulse) gsap.set(pulse, { opacity: 0 });
     } else {
       // Entrance: cluster scales/fades in, cards stagger in back-to-front.
       gsap.fromTo(
@@ -57,6 +77,40 @@
         { opacity: 0 },
         { opacity: 1, duration: 0.5, ease: 'power2.out', stagger: 0.12, delay: 0.45 },
       );
+
+      // Diagram: draw the connector path, pop the nodes, then start the
+      // pulse traveling along it — a small "automation is live" motif.
+      if (diagramPath) {
+        const length = diagramPath.getTotalLength();
+        gsap.set(diagramPath, { opacity: 1, strokeDasharray: length, strokeDashoffset: length });
+        gsap.to(diagramPath, {
+          strokeDashoffset: 0,
+          duration: 0.6,
+          ease: 'power2.inOut',
+          delay: 0.9,
+        });
+      }
+      gsap.fromTo(
+        diagramNodes,
+        { opacity: 0, scale: 0, transformOrigin: 'center' },
+        { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(3)', stagger: 0.15, delay: 1.0 },
+      );
+
+      if (pulse) {
+        const tl = gsap.timeline({ delay: 1.6, repeat: -1, repeatDelay: 0.6 });
+        nodePoints.forEach((point, i) => {
+          if (i === 0) {
+            tl.set(pulse, { attr: { cx: point.x, cy: point.y }, opacity: 1 });
+          } else {
+            tl.to(pulse, {
+              attr: { cx: point.x, cy: point.y },
+              duration: 0.5,
+              ease: 'power1.inOut',
+            });
+          }
+        });
+        tl.to(pulse, { opacity: 0, duration: 0.2 });
+      }
 
       // Smooth scroll parallax via GSAP's interpolated quickTo.
       const yTo = gsap.quickTo(cluster, 'y', { duration: 0.5, ease: 'power2.out' });
@@ -73,22 +127,56 @@
   /* Pre-hide for JS-driven entrance — avoided when motion is reduced or
      JS never runs, so the cluster is never permanently invisible. */
   :global(.js) .cluster-wrap,
-  :global(.js) .card {
+  :global(.js) .card,
+  :global(.js) .diagram-line,
+  :global(.js) .diagram-node {
     opacity: 0;
   }
   @media (prefers-reduced-motion: reduce) {
     :global(.js) .cluster-wrap,
-    :global(.js) .card {
+    :global(.js) .card,
+    :global(.js) .diagram-line,
+    :global(.js) .diagram-node {
       opacity: 1;
     }
   }
 
   .cluster-wrap {
     position: relative;
-    width: 220px;
-    height: 200px;
+    width: 250px;
+    height: 210px;
     flex-shrink: 0;
     will-change: transform;
+  }
+
+  /* Pipeline diagram overlay — small "automation is live" graphic that
+     echoes the cards' staircase offset in the cluster's open corner. */
+  .cluster-diagram {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    overflow: visible;
+  }
+
+  .diagram-line {
+    fill: none;
+    stroke: var(--ink-4);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .diagram-node {
+    fill: var(--ink);
+    stroke: var(--copper);
+    stroke-width: 1.5;
+  }
+
+  .diagram-pulse {
+    fill: var(--copper);
+    opacity: 0;
   }
 
   .card {
@@ -155,7 +243,7 @@
 
   .card-bar-fill {
     height: 100%;
-    background: var(--parchment-4);
+    background: var(--copper);
     border-radius: 1px;
   }
 

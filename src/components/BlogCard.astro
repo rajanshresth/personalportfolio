@@ -40,13 +40,15 @@ const dateStr = publishedAt.toLocaleDateString('en-US', {
 <style>
   .blog-card {
     border: 1px solid var(--ink-4);
-    border-radius: 3px;
+    border-radius: 6px;
     background: var(--ink-2);
-    transition: border-color 180ms ease, transform 180ms ease;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
   }
   .blog-card:hover {
-    border-color: var(--ink-3);
+    border-color: var(--copper);
     transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
   }
 
   .blog-card-link {

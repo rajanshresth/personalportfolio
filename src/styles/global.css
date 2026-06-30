@@ -1,23 +1,38 @@
 /* ─────────────────────────────────────────────────────────────
    CSS Custom Properties — Sage Palette Design System
+
+   Surfaces stay in the same soft sage family as before, but lifted
+   out of "mint candy" into a warmer, paper-like neutral. Text moves
+   from flat all-black to a real four-step hierarchy (headings read
+   darkest, meta/labels recede). The accent moves off dusty-olive
+   (which was identical to the border color and so had no pop) onto
+   a true copper/terracotta — the warm complement the name promised.
    ───────────────────────────────────────────────────────────── */
 :root {
-  /* Surfaces — light, from page bg to deepest surface */
-  --ink:         #e9f5db; /* Frosted Mint */
-  --ink-2:       #cfe1b9; /* Tea Green */
-  --ink-3:       #b5c99a; /* Muted Olive */
-  --ink-4:       #718355; /* Dusty Olive — borders, needs to read clearly against ink/ink-2 */
+  /* Surfaces — page bg → card → deeper surface → border */
+  --ink:         #f4f7ec; /* page background — warm sage-tinted paper */
+  --ink-2:       #e8edd9; /* card / elevated surface */
+  --ink-3:       #d8e1c2; /* deeper surface — icon tiles, pill hover */
+  --ink-4:       #b9c5a0; /* default border — visible but soft */
 
-  /* Text — black, for maximum contrast against the light green surfaces. */
-  --parchment:   #000000;
-  --parchment-2: #000000;
-  --parchment-3: #000000;
-  --parchment-4: #000000;
+  /* Text — warm near-black down to muted meta, real hierarchy */
+  --parchment:   #14180f; /* headings */
+  --parchment-2: #232a1a; /* strong body / emphasis */
+  --parchment-3: #444c38; /* body copy */
+  --parchment-4: #6c735f; /* muted — labels, meta, captions */
 
-  /* Accent — copper appears ONLY where specified */
-  --copper:      #718355; /* Dusty Olive */
-  /* Status dot exception */
-  --green:       #87986a; /* Palm Leaf */
+  /* Accent — true copper, distinct from the greens so CTAs/links pop.
+     Tuned to clear 4.5:1 contrast against both the page background and
+     --ink button text, not just the large display headline. */
+  --copper:      #9c5526;
+  --copper-dark: #7c4019;
+  /* Status dot — a clearer green, kept separate from the copper accent */
+  --green:       #5b8a44;
+
+  /* Elevation */
+  --shadow-sm: 0 2px 10px -6px rgba(20, 24, 15, 0.18);
+  --shadow-md: 0 16px 36px -20px rgba(20, 24, 15, 0.28);
+  --shadow-lg: 0 24px 56px -24px rgba(20, 24, 15, 0.32);
 
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -58,9 +73,9 @@ body {
   background-color: var(--ink);
   color: var(--parchment-3);
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 300;
-  line-height: 1.8;
+  line-height: 1.75;
   min-height: 100dvh;
 }
 
@@ -86,32 +101,33 @@ ul, ol { list-style: none; }
 /* Display — hero headline only */
 .display {
   font-family: var(--font-display);
-  font-size: clamp(38px, 6.5vw, 60px);
+  font-size: clamp(40px, 7vw, 68px);
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -1.5px;
+  line-height: 1.04;
+  letter-spacing: -1.8px;
   color: var(--parchment);
 }
 .display em {
   font-style: italic;
-  color: var(--parchment-2);
+  color: var(--copper);
 }
 
 /* Section headings + project/blog titles on index */
 h2 {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: clamp(26px, 3.2vw, 34px);
   font-weight: 500;
   color: var(--parchment);
-  line-height: 1.2;
+  line-height: 1.18;
+  letter-spacing: -0.4px;
 }
 
 /* Body text */
 p {
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 300;
-  line-height: 1.8;
+  line-height: 1.75;
   color: var(--parchment-3);
 }
 
@@ -119,7 +135,7 @@ p {
 .label {
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 400;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--parchment-4);
@@ -205,7 +221,8 @@ a:hover { color: var(--copper); }
   padding: 12px 22px;
 }
 .btn-primary:hover {
-  opacity: 0.85;
+  background: var(--copper-dark);
+  border-color: var(--copper-dark);
   color: var(--ink);
 }
 
