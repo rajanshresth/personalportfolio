@@ -6,32 +6,55 @@ import CardCluster from './CardCluster.astro';
   <div class="hero-content">
     <!-- Eyebrow label -->
     <span class="hero-eyebrow label">
-      Industrial Engineering · Data Analysis · Product
+      AI & Automation · n8n · Python · Docker
     </span>
 
     <!-- Headline -->
     <h1 class="display hero-headline">
-      Engineering systems,<br>
-      <em>building products</em>
+      Automation that runs<br>
+      <em>your revenue engine</em>
     </h1>
 
     <!-- Body -->
     <p class="hero-body">
-      I'm Rajan — a B.E. Industrial Engineering student and data
-      analyst at Innovative Nepal Group. I use systems thinking and
-      data to understand how things break, and product thinking to
-      build what fixes them. Working toward a career in Product Management.
+      I design and build n8n, Python, and Docker systems for GTM, RevOps,
+      and supply chain & logistics teams — pricing engines, lead routing,
+      ad allocation, and ops dashboards that replace manual work with
+      systems that run on their own.
     </p>
 
     <!-- CTAs -->
     <div class="hero-ctas">
-      <a href="/work/pm-roadmap-tracker" class="cta-primary">
-        View work →
-      </a>
-      <a href="/writing" class="cta-secondary">
-        Read writing →
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-magnetic
+        data-cal-link="rajan10x/meeting-ai"
+        data-cal-namespace="meeting-ai"
+        data-cal-config={`{"layout":"month_view"}`}
+      >
+        Book a call →
+      </button>
+      <a href="/#work-heading" class="cta-secondary">
+        See case studies →
       </a>
     </div>
+
+    <!-- Trust strip -->
+    <ul class="hero-trust" role="list">
+      <li>
+        <img src="https://img.icons8.com/ios-filled/40/718355/clock.png" alt="" width="16" height="16" class="icon" />
+        <span>&lt;2 min lead response</span>
+      </li>
+      <li>
+        <img src="https://img.icons8.com/ios-filled/40/718355/shield.png" alt="" width="16" height="16" class="icon" />
+        <span>24/7 autonomous uptime</span>
+      </li>
+      <li>
+        <img src="https://img.icons8.com/ios-filled/40/718355/workflow.png" alt="" width="16" height="16" class="icon" />
+        <span>n8n · Python · Docker</span>
+      </li>
+    </ul>
   </div>
 
   <!-- 3D card cluster — desktop only -->
@@ -81,6 +104,11 @@ import CardCluster from './CardCluster.astro';
       animation: fadeUp 400ms ease forwards;
       animation-delay: 320ms;
     }
+    .hero-trust {
+      opacity: 0;
+      animation: fadeUp 400ms ease forwards;
+      animation-delay: 420ms;
+    }
   }
 
   .hero-eyebrow {
@@ -102,22 +130,6 @@ import CardCluster from './CardCluster.astro';
     flex-wrap: wrap;
   }
 
-  .cta-primary {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--parchment-2);
-    padding: 10px 0;
-    border-bottom: 1px solid var(--parchment-4);
-    transition: color 180ms ease, border-color 180ms ease;
-  }
-  .cta-primary:hover {
-    color: var(--copper);
-    border-color: var(--copper);
-  }
-
   .cta-secondary {
     font-family: var(--font-mono);
     font-size: 11px;
@@ -128,6 +140,27 @@ import CardCluster from './CardCluster.astro';
     transition: color 180ms ease;
   }
   .cta-secondary:hover { color: var(--copper); }
+
+  /* Trust strip */
+  .hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    padding-top: 4px;
+  }
+
+  .hero-trust li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--parchment-4);
+  }
 
   /* Card cluster column */
   .hero-cluster {
@@ -147,10 +180,11 @@ import CardCluster from './CardCluster.astro';
     }
     .hero-cluster { display: none; }
     .hero-content { max-width: 100%; gap: 20px; }
-    .cta-primary, .cta-secondary { font-size: 10px; }
+    .cta-secondary { font-size: 10px; }
   }
 
   @media (max-width: 480px) {
     .hero-ctas { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .hero-trust { gap: 12px 18px; }
   }
 </style>

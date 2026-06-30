@@ -1,27 +1,65 @@
 ---
-const highlighted = ['Product Management', 'Data Analysis', 'SQL'];
-
-const standard = [
-  'JavaScript', 'TypeScript', 'Python', 'AI',
-  'Google Sheets', 'Apps Script', 'Excel',
-  'Figma', 'Agile', 'User Research', 'PRD Writing',
+const categories = [
+  {
+    name: 'Automation & Orchestration',
+    items: ['n8n (self-hosted, Docker)', 'Make.com', 'Zapier', 'Google Apps Script', 'Cloudflare Workers'],
+    icon: 'workflow',
+  },
+  {
+    name: 'AI / LLM Engineering',
+    items: ['Claude API (tool use, structured outputs)', 'OpenAI API', 'RAG pipelines', 'pgvector', 'prompt engineering', 'agentic workflows'],
+    icon: 'robot',
+  },
+  {
+    name: 'Integrations & Data',
+    items: ['HubSpot API', 'Apollo.io API', 'Airtable', 'Google Sheets', 'Supabase', 'Google Data Studio', 'SQL'],
+    icon: 'puzzle',
+  },
+  {
+    name: 'Programming & Infrastructure',
+    items: ['Python (requests, httpx, async/await)', 'PostgreSQL/Redis', 'Railway', 'Cloudflare Pages', 'Apify Actors', 'Docker', 'GitHub'],
+    icon: 'code',
+  },
 ];
 ---
 
-<div class="skills-wrap">
-  <div class="skill-row">
-    {highlighted.map(skill => (
-      <span class="skill-pill skill-pill--highlight">{skill}</span>
-    ))}
-    {standard.map(skill => (
-      <span class="skill-pill">{skill}</span>
-    ))}
-  </div>
+<div class="skills-wrap" data-reveal-group>
+  {categories.map(category => (
+    <div class="skill-category">
+      <span class="skill-category-label label">
+        <img
+          src={`https://img.icons8.com/ios-filled/40/718355/${category.icon}.png`}
+          alt=""
+          width="14"
+          height="14"
+          class="icon"
+        />
+        {category.name}
+      </span>
+      <div class="skill-row">
+        {category.items.map(skill => (
+          <span class="skill-pill">{skill}</span>
+        ))}
+      </div>
+    </div>
+  ))}
 </div>
 
 <style>
   .skills-wrap {
-    /* no extra wrapper needed */
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .skill-category-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--copper);
+    margin-bottom: 10px;
   }
 
   .skill-row {
@@ -49,13 +87,9 @@ const standard = [
     color: var(--parchment-3);
   }
 
-  .skill-pill--highlight {
-    color: var(--parchment-2);
-    border-color: var(--ink-3);
-    background: var(--ink-3);
-  }
-  .skill-pill--highlight:hover {
-    background: var(--ink-4);
-    color: var(--parchment);
+  @media (max-width: 600px) {
+    .skills-wrap {
+      width: 100%;
+    }
   }
 </style>

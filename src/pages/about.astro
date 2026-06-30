@@ -7,10 +7,9 @@ const personSchema = {
   '@type':    'Person',
   name:       'Rajan Shrestha',
   url:        'https://rajanbuilds.com/about',
-  jobTitle:   'Data Analyst',
-  description: 'B.E. Industrial Engineering student and data analyst at Innovative Nepal Group, building toward a career in Product Management.',
-  worksFor:   { '@type': 'Organization', name: 'Innovative Nepal Group' },
-  alumniOf:   { '@type': 'CollegeOrUniversity', name: 'T.U. I.O.E. Thapathali Campus' },
+  jobTitle:   'AI & Automation Consultant',
+  description: 'AI automation consultant building n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
+  knowsAbout: ['n8n', 'Python', 'Docker', 'GTM Automation', 'RevOps', 'Supply Chain & Logistics'],
   address:    { '@type': 'PostalAddress', addressCountry: 'NP' },
   sameAs: [
     'https://www.linkedin.com/in/rajan10x/',
@@ -21,7 +20,7 @@ const personSchema = {
 
 <Base
   title="About — Rajan Shrestha"
-  description="B.E. Industrial Engineering student and data analyst at Innovative Nepal Group, building toward a career in Product Management."
+  description="AI automation consultant building n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams."
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <div class="container about-layout">
@@ -30,106 +29,138 @@ const personSchema = {
       <span class="label">About</span>
       <h1 class="about-title">
         Engineering background,<br>
-        <em>product ambitions</em>
+        <em>automation focus</em>
       </h1>
     </header>
 
     <div class="about-grid section">
       <!-- Main content -->
       <main class="about-body">
-        <section class="about-section">
+        <section class="about-section" data-reveal>
           <h2>Background</h2>
           <p>
-            I'm Rajan — currently studying B.E. Industrial Engineering at T.U. I.O.E.
-            Thapathali Campus in Nepal. Alongside my studies, I work as a data analyst
-            at Innovative Nepal Group, where I build dashboards and tooling to track
-            operational performance.
+            I'm Rajan — an industrial engineer by training, which means I think in
+            systems before I think in tools: inputs, outputs, bottlenecks, and where
+            a process quietly leaks time or money. I started applying that lens to
+            data and operations work, and it kept leading to the same conclusion —
+            most businesses aren't short on tools, they're short on the glue between
+            them.
           </p>
           <p>
-            Industrial engineering gave me a framework for thinking about systems: how
-            inputs become outputs, where waste hides, and how small process changes
-            cascade into large results. I use that same lens when I think about products.
+            Now I build that glue. I design and ship automation systems with n8n,
+            Python, and Docker for teams in GTM, RevOps, and supply chain &
+            logistics — the functions where a slow manual process directly costs
+            revenue, not just time.
           </p>
         </section>
 
-        <section class="about-section">
-          <h2>What I'm working toward</h2>
+        <section class="about-section" data-reveal>
+          <h2>What I do</h2>
           <p>
-            My goal is a career in Product Management — specifically remote PM roles
-            where I can apply systems thinking and data analysis to help teams build
-            things people actually need.
+            I build systems, not one-off scripts. That usually means n8n handling
+            orchestration and integrations, Python handling the logic that actually
+            needs to compute something (scoring, optimization, allocation), and
+            Docker so the whole thing runs the same on my machine, a client's VPS,
+            or wherever it needs to live.
           </p>
           <p>
-            To get there, I'm building a foundation in product craft: writing PRDs,
-            studying user research methods, learning to frame engineering trade-offs as
-            product decisions, and documenting the process publicly on this site.
+            Typical engagements: lead routing and follow-up automation, capacity-based
+            pricing engines, ad spend allocation, route optimization, and the
+            connective layer that turns five disconnected SaaS tools into one
+            operating system. See <a href="/#work-heading">case studies</a> for
+            specifics.
           </p>
         </section>
 
-        <section class="about-section">
-          <h2>Skills</h2>
+        <section class="about-section" data-reveal>
+          <h2>Stack</h2>
           <SkillPills />
         </section>
 
-        <section class="about-section">
-          <h2>Education</h2>
+        <section class="about-section" data-reveal>
+          <h2>How I work</h2>
           <p>
-            B.E. Industrial Engineering — T.U. I.O.E. Thapathali Campus, Nepal
+            Every engagement starts as a fixed-price build, scoped on a short call —
+            you know the cost before anything starts. Most clients add a monthly
+            retainer afterward to keep the system maintained and growing. Full
+            breakdown on the <a href="/pricing">pricing page</a>.
           </p>
         </section>
 
-        <section class="about-section">
+        <section class="about-section" data-reveal>
           <h2>Get in touch</h2>
           <p>
-            I'm open to remote PM roles, freelance data work, and conversations about
-            product, systems, or Nepal's tech scene.
+            If your team is losing time to manual GTM, RevOps, or logistics work,
+            book a call and I'll scope what an automated version looks like.
           </p>
-          <a
-            href="https://www.linkedin.com/in/rajan10x/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="about-cta label"
+          <button
+            type="button"
+            class="btn btn-primary about-cta"
+            data-magnetic
+            data-cal-link="rajan10x/meeting-ai"
+            data-cal-namespace="meeting-ai"
+            data-cal-config={`{"layout":"month_view"}`}
           >
-            Connect on LinkedIn →
-          </a>
+            Book a call →
+          </button>
         </section>
       </main>
 
       <!-- Sidebar -->
-      <aside class="about-sidebar">
+      <aside class="about-sidebar" data-reveal>
         <div class="sidebar-card">
           <dl class="sidebar-list">
             <div class="sidebar-item">
-              <dt class="label">Currently</dt>
-              <dd>Data Analyst @ ING, Nepal</dd>
+              <dt class="label">Focus</dt>
+              <dd>AI & Automation Consulting</dd>
             </div>
             <div class="sidebar-item">
-              <dt class="label">Studying</dt>
-              <dd>B.E. IE @ T.U. I.O.E. Thapathali</dd>
+              <dt class="label">Niches</dt>
+              <dd>GTM · RevOps · Supply Chain</dd>
             </div>
             <div class="sidebar-item">
-              <dt class="label">Goal</dt>
-              <dd>Remote PM roles</dd>
+              <dt class="label">Stack</dt>
+              <dd>n8n · Python · Docker</dd>
             </div>
             <div class="sidebar-item">
               <dt class="label">Location</dt>
-              <dd>Nepal</dd>
+              <dd>Nepal (remote, async)</dd>
             </div>
           </dl>
 
           <div class="sidebar-links">
+            <button
+              type="button"
+              class="sidebar-link label sidebar-link--button"
+              data-cal-link="rajan10x/meeting-ai"
+              data-cal-namespace="meeting-ai"
+              data-cal-config={`{"layout":"month_view"}`}
+            >
+              <img src="https://img.icons8.com/ios-filled/40/718355/calendar-2.png" alt="" width="13" height="13" class="icon" />
+              Book a call
+            </button>
+            <a href="mailto:contact@rajanbuilds.com" class="sidebar-link label">
+              <img src="https://img.icons8.com/ios-filled/40/718355/mail.png" alt="" width="13" height="13" class="icon" />
+              Email
+            </a>
             <a
               href="https://www.linkedin.com/in/rajan10x/"
               target="_blank"
               rel="noopener noreferrer"
               class="sidebar-link label"
-            >LinkedIn</a>
+            >
+              <img src="https://img.icons8.com/color/48/linkedin.png" alt="" width="14" height="14" class="icon" />
+              LinkedIn
+            </a>
             <a
               href="https://github.com/rajanshresth"
               target="_blank"
               rel="noopener noreferrer"
               class="sidebar-link label"
-            >GitHub</a>
+            >
+              <img src="https://img.icons8.com/color/48/github.png" alt="" width="14" height="14" class="icon" />
+              GitHub
+            </a>
           </div>
         </div>
       </aside>
@@ -189,12 +220,8 @@ const personSchema = {
   .about-section p:last-of-type { margin-bottom: 0; }
 
   .about-cta {
-    display: inline-block;
     margin-top: 16px;
-    color: var(--copper);
-    transition: opacity 150ms ease;
   }
-  .about-cta:hover { color: var(--copper); opacity: 0.75; }
 
   /* Sidebar */
   .about-sidebar {
@@ -246,8 +273,19 @@ const personSchema = {
   }
 
   .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: var(--parchment-4);
     transition: color 150ms ease;
+  }
+
+  .sidebar-link--button {
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
   }
   .sidebar-link:hover { color: var(--copper); }
 

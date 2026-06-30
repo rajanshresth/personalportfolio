@@ -1,0 +1,189 @@
+---
+const tiers = [
+  {
+    name: 'Starter',
+    build: '$1,500 – $2,500',
+    retainer: '$500/mo optional',
+    desc: 'One workflow, fully automated. Good for a single bottleneck — lead routing, a daily report, one integration.',
+    features: [
+      'One automated workflow (n8n or Python)',
+      'Up to 2 tool integrations',
+      '2 weeks of post-launch support',
+      'Optional monthly monitoring & fixes',
+    ],
+  },
+  {
+    name: 'Growth',
+    build: '$3,000 – $5,000',
+    retainer: '$1,200/mo',
+    desc: 'A connected system across multiple workflows — for teams ready to automate a full process, not just one step.',
+    features: [
+      'Multi-workflow automation system',
+      'Up to 5 tool integrations',
+      'Custom Python logic where needed',
+      'Monthly retainer: monitoring, iteration, new workflows',
+    ],
+    highlight: true,
+  },
+  {
+    name: 'Operating Partner',
+    build: '$5,000 – $10,000',
+    retainer: '$2,500 – $4,000/mo',
+    desc: 'A full RevOps/GTM automation stack treated as infrastructure — built, hosted, and iterated on as your business changes.',
+    features: [
+      'Full automation stack (pricing, routing, reporting, ops)',
+      'Dockerized, self-hosted deployment',
+      'Priority support & same-week iteration',
+      'Monthly strategy check-in',
+    ],
+  },
+];
+---
+
+<div class="pricing-grid" data-reveal-group>
+  {tiers.map(tier => (
+    <div class:list={['pricing-card', { 'pricing-card--highlight': tier.highlight }]}>
+      {tier.highlight && <span class="pricing-badge label">Most common</span>}
+      <h3 class="pricing-name">{tier.name}</h3>
+      <p class="pricing-desc">{tier.desc}</p>
+
+      <div class="pricing-cost">
+        <span class="pricing-build">{tier.build}</span>
+        <span class="pricing-build-label label">one-time build</span>
+        <span class="pricing-retainer label">+ {tier.retainer}</span>
+      </div>
+
+      <ul class="pricing-features" role="list">
+        {tier.features.map(f => (
+          <li>
+            <img
+              src="https://img.icons8.com/ios-filled/40/718355/checkmark.png"
+              alt=""
+              width="11"
+              height="11"
+              class="icon"
+            />
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      <button
+        type="button"
+        class:list={['btn', tier.highlight ? 'btn-primary' : 'btn-secondary', 'pricing-cta']}
+        data-magnetic
+        data-cal-link="rajan10x/meeting-ai"
+        data-cal-namespace="meeting-ai"
+        data-cal-config={`{"layout":"month_view"}`}
+      >
+        Book a call →
+      </button>
+    </div>
+  ))}
+</div>
+
+<style>
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .pricing-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 4px;
+    padding: 28px 24px;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .pricing-card--highlight {
+    border-color: var(--copper);
+    box-shadow: 0 12px 32px -20px rgba(0, 0, 0, 0.35);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: var(--copper);
+    color: var(--ink);
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .pricing-name {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--parchment);
+  }
+
+  .pricing-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    flex-grow: 0;
+  }
+
+  .pricing-cost {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px 0;
+    border-top: 1px solid var(--ink-4);
+    border-bottom: 1px solid var(--ink-4);
+  }
+
+  .pricing-build {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--parchment);
+  }
+
+  .pricing-build-label {
+    margin-bottom: 6px;
+  }
+
+  .pricing-retainer {
+    color: var(--copper);
+  }
+
+  .pricing-features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+  }
+
+  .pricing-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--parchment-3);
+  }
+  .pricing-features li img {
+    margin-top: 4px;
+  }
+
+  .pricing-cta {
+    width: 100%;
+    justify-content: center;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

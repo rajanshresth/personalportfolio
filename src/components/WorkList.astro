@@ -9,7 +9,7 @@ const { items } = Astro.props;
 const sorted = items.sort((a, b) => a.data.order - b.data.order);
 ---
 
-<ol class="work-list" role="list">
+<ol class="work-list" role="list" data-reveal-group>
   {sorted.map((item, i) => (
     <li class="work-row">
       <a

@@ -14,10 +14,10 @@ interface Props {
 }
 
 const {
-  title       = 'Rajan Shrestha — Industrial Engineering & Product',
-  description = 'B.E. Industrial Engineering student and data analyst at Innovative Nepal Group. Applying systems thinking toward a career in Product Management.',
+  title       = 'Rajan Shrestha — AI & Automation for GTM, RevOps & Supply Chain',
+  description = 'I build n8n, Python, and Docker automation systems for GTM, RevOps, and supply chain & logistics teams — pricing engines, lead routing, ad allocation, and ops dashboards that run without you.',
   image,
-  imageAlt    = 'Rajan Shrestha — portfolio',
+  imageAlt    = 'Rajan Shrestha — AI & Automation Consultant',
   type        = 'website',
   publishedAt,
   tags        = [],
@@ -35,14 +35,13 @@ const websiteSchema = {
   '@type':     'WebSite',
   name:        'Rajan Shrestha',
   url:         siteUrl.href,
-  description: 'Portfolio of Rajan Shrestha — industrial engineering, data analysis, and product management.',
+  description: 'AI & automation consulting — n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
   author: {
     '@type': 'Person',
     name:    'Rajan Shrestha',
     url:     new URL('/about', siteUrl).href,
-    jobTitle: 'Data Analyst & Aspiring Product Manager',
-    worksFor: { '@type': 'Organization', name: 'Innovative Nepal Group' },
-    alumniOf: { '@type': 'CollegeOrUniversity', name: 'T.U. I.O.E. Thapathali Campus' },
+    jobTitle: 'AI & Automation Consultant',
+    knowsAbout: ['n8n', 'Python', 'Docker', 'GTM Automation', 'RevOps', 'Supply Chain & Logistics'],
     sameAs: [
       'https://www.linkedin.com/in/rajan10x/',
       'https://github.com/rajanshresth',
@@ -56,9 +55,13 @@ const websiteSchema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f0e0b" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#e9f5db" />
+    <meta name="color-scheme" content="light" />
     <link rel="canonical" href={canonical} />
+
+    <!-- Flag JS support before paint, so scroll-reveal CSS only hides
+         content when the motion script is actually going to run it. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
 
     <!-- Primary meta -->
     <title>{title}</title>
@@ -106,6 +109,7 @@ const websiteSchema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://img.icons8.com" />
 
     <!-- Cormorant Garamond + Geist Mono via Google Fonts -->
     <link
@@ -125,6 +129,40 @@ const websiteSchema = {
     />
 
     <slot name="head" />
+
+    <!-- Cal.com booking embed (element-click) -->
+    <script type="text/javascript">
+      (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+          let cal = C.Cal;
+          let ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement('script')).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () { p(api, arguments); };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === 'string') {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ['initNamespace', namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, 'https://app.cal.com/embed/embed.js', 'init');
+      Cal('init', 'meeting-ai', { origin: 'https://app.cal.com' });
+      Cal.config = Cal.config || {};
+      Cal.config.forwardQueryParams = true;
+      Cal.ns['meeting-ai']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
+    </script>
   </head>
   <body>
     <Nav />
@@ -132,5 +170,9 @@ const websiteSchema = {
       <slot />
     </main>
     <Footer />
+
+    <script>
+      import '../scripts/motion.ts';
+    </script>
   </body>
 </html>

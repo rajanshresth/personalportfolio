@@ -6,53 +6,83 @@
 <div class="cluster-wrap" id="card-cluster" aria-hidden="true">
   <!-- Back card -->
   <div class="card card--back">
-    <span class="card-label">pm roadmap</span>
-    <p class="card-text">6-month transition plan</p>
+    <span class="card-label">supply chain</span>
+    <p class="card-text">Route optimization</p>
     <div class="card-bar">
       <div class="card-bar-fill" style="width: 62%"></div>
     </div>
-    <span class="card-pct">62%</span>
+    <span class="card-pct">-31% miles</span>
   </div>
 
   <!-- Middle card -->
   <div class="card card--mid">
-    <span class="card-label">data analysis</span>
-    <p class="card-text">SQL · Python · Sheets</p>
+    <span class="card-label">revops</span>
+    <p class="card-text">n8n · Python · Docker</p>
     <div class="card-bar">
       <div class="card-bar-fill" style="width: 80%"></div>
     </div>
-    <span class="card-pct">80%</span>
+    <span class="card-pct">24/7 uptime</span>
   </div>
 
   <!-- Front card -->
   <div class="card card--front">
-    <span class="card-label">industrial eng.</span>
-    <p class="card-text">Systems thinking</p>
+    <span class="card-label">gtm</span>
+    <p class="card-text">Lead follow-up automation</p>
     <div class="card-bar">
       <div class="card-bar-fill" style="width: 90%"></div>
     </div>
-    <span class="card-pct">90%</span>
+    <span class="card-pct">&lt;2min response</span>
   </div>
 </div>
 
 <script>
+  import { gsap } from 'gsap';
+
   const cluster = document.getElementById('card-cluster');
+  const cards = cluster ? Array.from(cluster.querySelectorAll<HTMLElement>('.card')) : [];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   if (cluster) {
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const y = window.scrollY * 0.07;
-          cluster.style.transform = `translateY(${y}px)`;
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
+    if (prefersReducedMotion) {
+      gsap.set(cards, { opacity: 1 });
+    } else {
+      // Entrance: cluster scales/fades in, cards stagger in back-to-front.
+      gsap.fromTo(
+        cluster,
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out', delay: 0.35 },
+      );
+      gsap.fromTo(
+        cards,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5, ease: 'power2.out', stagger: 0.12, delay: 0.45 },
+      );
+
+      // Smooth scroll parallax via GSAP's interpolated quickTo.
+      const yTo = gsap.quickTo(cluster, 'y', { duration: 0.5, ease: 'power2.out' });
+      window.addEventListener(
+        'scroll',
+        () => yTo(window.scrollY * 0.07),
+        { passive: true },
+      );
+    }
   }
 </script>
 
 <style>
+  /* Pre-hide for JS-driven entrance — avoided when motion is reduced or
+     JS never runs, so the cluster is never permanently invisible. */
+  :global(.js) .cluster-wrap,
+  :global(.js) .card {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .cluster-wrap,
+    :global(.js) .card {
+      opacity: 1;
+    }
+  }
+
   .cluster-wrap {
     position: relative;
     width: 220px;
@@ -80,14 +110,14 @@
     transform: perspective(500px) rotateX(4deg) rotateY(-8deg)
                translate3d(-6px, -6px, -50px);
     z-index: 1;
-    box-shadow: -3px 3px 0 #0a0908;
+    box-shadow: -3px 3px 0 var(--ink);
   }
 
   .card--mid {
     transform: perspective(500px) rotateX(4deg) rotateY(-8deg)
                translate3d(-3px, -3px, -25px);
     z-index: 2;
-    box-shadow: -3px 3px 0 #0a0908;
+    box-shadow: -3px 3px 0 var(--ink);
   }
 
   .card--front {

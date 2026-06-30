@@ -72,6 +72,22 @@ const workSchema = {
     <div class="prose">
       <Content />
     </div>
+
+    <!-- Closing CTA -->
+    <div class="work-end-cta" data-reveal>
+      <h2>Want something like this built?</h2>
+      <p>Book a 20-minute call — I'll scope it and give you an exact number.</p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-magnetic
+        data-cal-link="rajan10x/meeting-ai"
+        data-cal-namespace="meeting-ai"
+        data-cal-config={`{"layout":"month_view"}`}
+      >
+        Book a call →
+      </button>
+    </div>
   </div>
 </Base>
 
@@ -145,4 +161,18 @@ const workSchema = {
   .prose pre { font-family: var(--font-mono); font-size: 12px; background: var(--ink-2); border: 1px solid var(--ink-4); border-radius: 4px; padding: 1rem 1.25rem; overflow-x: auto; margin-bottom: 1.4em; }
   .prose pre code { background: none; padding: 0; color: var(--parchment-2); }
   .prose a { color: var(--copper); }
+
+  /* Closing CTA */
+  .work-end-cta {
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid var(--ink-4);
+    text-align: center;
+  }
+  .work-end-cta h2 { margin-bottom: 8px; }
+  .work-end-cta p { margin-bottom: 20px; }
+
+  @media (max-width: 600px) {
+    .work-end-cta { margin-top: 40px; padding-top: 32px; }
+  }
 </style>

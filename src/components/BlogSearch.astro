@@ -26,6 +26,13 @@ const postsData = posts.map(p => ({
   <!-- Search input -->
   <div class="search-bar-wrap">
     <label for="blog-search" class="sr-only">Search posts</label>
+    <img
+      src="https://img.icons8.com/ios-filled/40/718355/search.png"
+      alt=""
+      width="14"
+      height="14"
+      class="search-icon"
+    />
     <input
       id="blog-search"
       type="search"
@@ -223,6 +230,18 @@ const postsData = posts.map(p => ({
     margin-bottom: 40px;
   }
 
+  .search-bar-wrap {
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
   .search-input {
     width: 100%;
     background: var(--ink-2);
@@ -232,7 +251,7 @@ const postsData = posts.map(p => ({
     font-family: var(--font-body);
     font-size: 14px;
     font-weight: 300;
-    padding: 10px 14px;
+    padding: 10px 14px 10px 36px;
     transition: border-color 150ms ease;
   }
   .search-input::placeholder { color: var(--parchment-4); }

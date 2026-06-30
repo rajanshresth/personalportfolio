@@ -6,24 +6,44 @@ const year = new Date().getFullYear();
   <div class="container footer-inner">
     <div class="footer-status">
       <span class="status-dot" aria-hidden="true"></span>
-      <span class="label">Open to remote PM roles</span>
+      <span class="label">Open for automation builds</span>
     </div>
 
     <div class="footer-links">
+      <button
+        type="button"
+        class="footer-link label footer-link--button"
+        data-cal-link="rajan10x/meeting-ai"
+        data-cal-namespace="meeting-ai"
+        data-cal-config={`{"layout":"month_view"}`}
+      >
+        <img src="https://img.icons8.com/ios-filled/40/718355/calendar-2.png" alt="" width="13" height="13" class="icon" />
+        Book a call
+      </button>
+      <a href="mailto:contact@rajanbuilds.com" class="footer-link label">
+        <img src="https://img.icons8.com/ios-filled/40/718355/mail.png" alt="" width="13" height="13" class="icon" />
+        Email
+      </a>
       <a
         href="https://www.linkedin.com/in/rajan10x/"
         target="_blank"
         rel="noopener noreferrer"
         class="footer-link label"
         aria-label="LinkedIn profile"
-      >LinkedIn</a>
+      >
+        <img src="https://img.icons8.com/color/48/linkedin.png" alt="" width="14" height="14" class="icon" />
+        LinkedIn
+      </a>
       <a
         href="https://github.com/rajanshresth"
         target="_blank"
         rel="noopener noreferrer"
         class="footer-link label"
         aria-label="GitHub profile"
-      >GitHub</a>
+      >
+        <img src="https://img.icons8.com/color/48/github.png" alt="" width="14" height="14" class="icon" />
+        GitHub
+      </a>
     </div>
 
     <p class="footer-copy label">
@@ -64,14 +84,25 @@ const year = new Date().getFullYear();
 
   .footer-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
   }
 
   .footer-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: var(--parchment-4);
     transition: color 150ms ease;
   }
   .footer-link:hover { color: var(--copper); }
+
+  .footer-link--button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
 
   .footer-copy {
     color: var(--parchment-4);

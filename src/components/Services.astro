@@ -1,0 +1,93 @@
+---
+const services = [
+  {
+    name: 'GTM Automation',
+    desc: 'Lead routing, instant follow-up, and ad spend allocation that respond in minutes, not days.',
+    tools: ['n8n', 'CRM APIs', 'Ad Platform APIs'],
+    icon: 'speed',
+  },
+  {
+    name: 'RevOps Automation',
+    desc: 'Pricing engines, ops digests, and the connective layer between CRM, finance, and delivery tools.',
+    tools: ['Python', 'n8n', 'Docker'],
+    icon: 'workflow',
+  },
+  {
+    name: 'Supply Chain & Logistics',
+    desc: 'Route optimization and ops reporting that cut drive time and surface what needs a decision today.',
+    tools: ['Python', 'Google Routes API', 'n8n'],
+    icon: 'route',
+  },
+];
+---
+
+<div class="services-grid" data-reveal-group>
+  {services.map(s => (
+    <div class="service-card">
+      <div class="icon-tile">
+        <img
+          src={`https://img.icons8.com/ios-filled/40/718355/${s.icon}.png`}
+          alt=""
+          width="20"
+          height="20"
+        />
+      </div>
+      <h3 class="service-name">{s.name}</h3>
+      <p class="service-desc">{s.desc}</p>
+      <div class="service-tools">
+        {s.tools.map(tool => (
+          <span class="tag">{tool}</span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    transition: transform 200ms ease, border-color 200ms ease;
+  }
+  .service-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--copper);
+  }
+
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--parchment);
+  }
+
+  .service-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .service-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 700px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -9,7 +9,7 @@ interface Props {
 const { posts } = Astro.props;
 ---
 
-<div class="blog-preview-grid">
+<div class="blog-preview-grid" data-reveal-group>
   {posts.map(post => (
     <BlogCard
       title={post.data.title}

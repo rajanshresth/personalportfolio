@@ -3,9 +3,9 @@ import { generateOGPng } from '../../lib/ogImage';
 
 export const GET: APIRoute = async () => {
   const png = await generateOGPng({
-    title:       'Engineering systems, building products',
-    description: 'B.E. Industrial Engineering student and data analyst. Applying systems thinking toward a career in Product Management.',
-    tags:        ['Product', 'Data', 'Systems'],
+    title:       'Automation that runs your revenue engine',
+    description: 'n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
+    tags:        ['n8n', 'Python', 'Docker'],
   });
   return new Response(png, {
     headers: {

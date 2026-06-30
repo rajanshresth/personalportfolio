@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
-    "astro": "^6.1.4"
+    "astro": "^7.0.4",
+    "gsap": "^3.15.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

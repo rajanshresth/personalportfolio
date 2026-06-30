@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
 import WorkList from '../components/WorkList.astro';
 import BlogPreview from '../components/BlogPreview.astro';
 import SkillPills from '../components/SkillPills.astro';
@@ -16,18 +17,26 @@ const allPosts = (await getCollection('writing', ({ data }) => !data.draft))
   <!-- Hero -->
   <Hero />
 
+  <!-- Services section -->
+  <section class="section container" aria-labelledby="services-heading">
+    <div class="section-header" data-reveal>
+      <h2 id="services-heading">Where I focus</h2>
+    </div>
+    <Services />
+  </section>
+
   <!-- Work section -->
   <section class="section container" aria-labelledby="work-heading">
-    <div class="section-header">
-      <h2 id="work-heading">Work</h2>
-      <a href="/work/pm-roadmap-tracker" class="section-more">All projects →</a>
+    <div class="section-header" data-reveal>
+      <h2 id="work-heading">Case studies</h2>
+      <a href="/pricing" class="section-more">See pricing →</a>
     </div>
     <WorkList items={allWork} />
   </section>
 
   <!-- Writing section -->
   <section class="section container" aria-labelledby="writing-heading">
-    <div class="section-header">
+    <div class="section-header" data-reveal>
       <h2 id="writing-heading">Writing</h2>
       <a href="/writing" class="section-more">All posts →</a>
     </div>
@@ -36,8 +45,8 @@ const allPosts = (await getCollection('writing', ({ data }) => !data.draft))
 
   <!-- Skills section -->
   <section class="section container" aria-labelledby="skills-heading">
-    <div class="section-header">
-      <h2 id="skills-heading">Skills</h2>
+    <div class="section-header" data-reveal>
+      <h2 id="skills-heading">Stack</h2>
     </div>
     <SkillPills />
   </section>

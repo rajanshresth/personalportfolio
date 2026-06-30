@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import PricingTable from '../components/PricingTable.astro';
+---
+
+<Base
+  title="Pricing — Rajan Shrestha"
+  description="Automation builds and retainers for GTM, RevOps, and supply chain teams. One-time builds from $1,500, retainers from $500/mo."
+>
+  <div class="container pricing-page">
+    <header class="pricing-header section" data-reveal>
+      <span class="label">Pricing</span>
+      <h1 class="pricing-title">
+        Pay for a build,<br>
+        <em>not a headcount</em>
+      </h1>
+      <p class="pricing-intro">
+        Every engagement starts as a fixed-price build — you know the cost before
+        we start. Most clients add a monthly retainer afterward to keep the
+        system maintained and growing as their process changes.
+      </p>
+    </header>
+
+    <section class="section" aria-label="Pricing tiers">
+      <PricingTable />
+    </section>
+
+    <section class="section pricing-faq">
+      <h2 data-reveal>How this works</h2>
+      <div class="faq-item" data-reveal>
+        <h3>Why a build fee plus a retainer?</h3>
+        <p>
+          The build fee covers the initial system — discovery, design, and
+          implementation. The retainer covers what comes after: monitoring,
+          fixing what breaks when an upstream API changes, and adding new
+          workflows as your process evolves. You're never required to take
+          the retainer, but most clients do once the system is live and
+          they see what it's worth maintaining.
+        </p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3>What determines where I land in a price range?</h3>
+        <p>
+          Number of integrations, whether the logic needs custom Python
+          (versus standard n8n nodes), and how much historical data needs
+          migrating or cleaning. You'll get an exact number after a short
+          scoping call — not a guess.
+        </p>
+      </div>
+      <div class="faq-item" data-reveal>
+        <h3>Do you work outside GTM, RevOps, and supply chain?</h3>
+        <p>
+          Those are where I specialize because the patterns repeat —
+          pricing logic, lead routing, ops reporting, route optimization.
+          If your problem looks like one of the case studies, it's
+          probably a fit.
+        </p>
+      </div>
+    </section>
+
+    <section class="section pricing-cta-section" data-reveal>
+      <h2>Not sure which tier fits?</h2>
+      <p>
+        Book a 20-minute call — I'll scope the build and give you an exact
+        number, not a range.
+      </p>
+      <button
+        type="button"
+        class="btn btn-primary pricing-final-cta"
+        data-magnetic
+        data-cal-link="rajan10x/meeting-ai"
+        data-cal-namespace="meeting-ai"
+        data-cal-config={`{"layout":"month_view"}`}
+      >
+        Book a call →
+      </button>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .pricing-page {
+    padding-bottom: 80px;
+  }
+
+  .pricing-header {
+    padding-top: 64px;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .pricing-title {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 400;
+    color: var(--parchment);
+    line-height: 1.08;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  .pricing-title em {
+    font-style: italic;
+    color: var(--parchment-2);
+  }
+
+  .pricing-intro {
+    max-width: 520px;
+    font-size: 14px;
+  }
+
+  .pricing-faq h2 {
+    margin-bottom: 24px;
+  }
+
+  .faq-item {
+    margin-bottom: 28px;
+  }
+  .faq-item:last-child { margin-bottom: 0; }
+
+  .faq-item h3 {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--parchment-2);
+    margin-bottom: 8px;
+  }
+
+  .faq-item p {
+    font-size: 13px;
+    max-width: 600px;
+  }
+
+  .pricing-cta-section {
+    text-align: center;
+    border-bottom: none;
+  }
+
+  .pricing-cta-section h2 {
+    margin-bottom: 8px;
+  }
+
+  .pricing-cta-section p {
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 600px) {
+    .pricing-header { padding-top: 44px; }
+  }
+</style>
