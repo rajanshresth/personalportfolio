@@ -16,7 +16,7 @@ const dateStr = publishedAt.toLocaleDateString('en-US', {
 });
 ---
 
-<article class="blog-card" data-slug={slug} data-title={title.toLowerCase()} data-tags={tags.join(',').toLowerCase()} data-desc={description.toLowerCase()}>
+<article class="blog-card" data-spotlight data-slug={slug} data-title={title.toLowerCase()} data-tags={tags.join(',').toLowerCase()} data-desc={description.toLowerCase()}>
   <a href={`/writing/${slug}`} class="blog-card-link" aria-label={title}>
     <time class="blog-card-date label" datetime={publishedAt.toISOString()}>
       {dateStr}
@@ -41,7 +41,7 @@ const dateStr = publishedAt.toLocaleDateString('en-US', {
   .blog-card {
     border: 1px solid var(--ink-4);
     border-radius: 6px;
-    background: var(--ink-2);
+    background-color: var(--ink-2);
     box-shadow: var(--shadow-sm);
     transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
   }

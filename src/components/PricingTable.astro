@@ -42,7 +42,7 @@ const tiers = [
 
 <div class="pricing-grid" data-reveal-group>
   {tiers.map(tier => (
-    <div class:list={['pricing-card', { 'pricing-card--highlight': tier.highlight }]}>
+    <div class:list={['pricing-card', { 'pricing-card--highlight border-beam': tier.highlight }]} data-spotlight>
       {tier.highlight && <span class="pricing-badge label">Most common</span>}
       <h3 class="pricing-name">{tier.name}</h3>
       <p class="pricing-desc">{tier.desc}</p>
@@ -94,7 +94,7 @@ const tiers = [
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: var(--ink-2);
+    background-color: var(--ink-2);
     border: 1px solid var(--ink-4);
     border-radius: 8px;
     padding: 28px 24px;

@@ -75,3 +75,35 @@ if (canHover && !prefersReducedMotion) {
     });
   });
 }
+
+// ── Spotlight cards: cursor-tracked glow (fine pointer only) ───────────────
+// CSS owns the fade in/out via :hover; this just keeps --spot-x/--spot-y
+// aimed at the cursor so the glow follows it instead of sitting static.
+if (canHover) {
+  gsap.utils.toArray<HTMLElement>('[data-spotlight]').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--spot-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
+      card.style.setProperty('--spot-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
+    });
+  });
+}
+
+// ── Count-up numbers (e.g. hero trust stats) ────────────────────────────────
+gsap.utils.toArray<HTMLElement>('[data-count-to]').forEach((el) => {
+  const target = parseFloat(el.dataset.countTo || '0');
+  if (prefersReducedMotion) {
+    el.textContent = String(target);
+    return;
+  }
+  const counter = { val: 0 };
+  gsap.to(counter, {
+    val: target,
+    duration: 1,
+    delay: 1.0,
+    ease: 'power2.out',
+    onUpdate: () => {
+      el.textContent = String(Math.round(counter.val));
+    },
+  });
+});

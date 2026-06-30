@@ -44,11 +44,11 @@ import CardCluster from './CardCluster.astro';
     <ul class="hero-trust" role="list">
       <li>
         <img src="https://img.icons8.com/ios-filled/40/6c735f/clock.png" alt="" width="16" height="16" class="icon" />
-        <span>&lt;2 min lead response</span>
+        <span>&lt;<span data-count-to="2">0</span> min lead response</span>
       </li>
       <li>
         <img src="https://img.icons8.com/ios-filled/40/6c735f/shield.png" alt="" width="16" height="16" class="icon" />
-        <span>24/7 autonomous uptime</span>
+        <span><span data-count-to="24">0</span>/7 autonomous uptime</span>
       </li>
       <li>
         <img src="https://img.icons8.com/ios-filled/40/6c735f/workflow.png" alt="" width="16" height="16" class="icon" />
@@ -62,6 +62,33 @@ import CardCluster from './CardCluster.astro';
     <CardCluster />
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { SplitText } from 'gsap/SplitText';
+
+  gsap.registerPlugin(SplitText);
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const headline = document.querySelector<HTMLElement>('.hero-headline');
+
+  if (headline) {
+    if (prefersReducedMotion) {
+      gsap.set(headline, { opacity: 1 });
+    } else {
+      const split = new SplitText(headline, { type: 'words', wordsClass: 'hero-word' });
+      gsap.set(headline, { opacity: 1 });
+      gsap.from(split.words, {
+        opacity: 0,
+        y: 18,
+        duration: 0.6,
+        ease: 'power2.out',
+        stagger: 0.05,
+        delay: 0.08,
+      });
+    }
+  }
+</script>
 
 <style>
   .hero {
@@ -89,11 +116,6 @@ import CardCluster from './CardCluster.astro';
       animation: fadeUp 400ms ease forwards;
       animation-delay: 0ms;
     }
-    .hero-headline {
-      opacity: 0;
-      animation: fadeUp 400ms ease forwards;
-      animation-delay: 80ms;
-    }
     .hero-body {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
@@ -117,6 +139,17 @@ import CardCluster from './CardCluster.astro';
 
   .hero-headline {
     /* Inherits from .display in global.css */
+  }
+
+  /* Pre-hide for the SplitText word-stagger entrance; reduced-motion and
+     no-JS both fall through to the default visible opacity:1. */
+  :global(.js) .hero-headline {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .hero-headline {
+      opacity: 1;
+    }
   }
 
   .hero-body {

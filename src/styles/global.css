@@ -251,6 +251,134 @@ a:hover { color: var(--copper); }
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Property registrations — lets the browser smoothly interpolate
+   custom properties used by the spotlight/beam/shimmer effects
+   below, instead of snapping instantly between values.
+   ───────────────────────────────────────────────────────────── */
+@property --spot-a {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+@property --beam-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Spotlight — cursor-tracked glow on card surfaces. JS sets
+   --spot-x/--spot-y on mousemove (see motion.ts); CSS only
+   handles the fade in/out, so there's no layout/stacking cost.
+   ───────────────────────────────────────────────────────────── */
+[data-spotlight] {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  --spot-a: 0;
+  position: relative;
+  background-image: radial-gradient(
+    220px circle at var(--spot-x) var(--spot-y),
+    rgb(156 85 38 / var(--spot-a)),
+    transparent 70%
+  );
+  transition: --spot-a 400ms ease;
+}
+[data-spotlight]:hover {
+  --spot-a: 0.14;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Border beam — a light traveling around a card's edge, for the
+   one element per view that should visually win ("this is the
+   recommended tier"). Pure CSS: conic-gradient ring + mask cutout.
+   ───────────────────────────────────────────────────────────── */
+.border-beam {
+  position: relative;
+}
+.border-beam::after {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0%,
+    var(--copper) 6%,
+    #e0a672 10%,
+    transparent 22%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: beam-rotate 5s linear infinite;
+  pointer-events: none;
+}
+@keyframes beam-rotate {
+  to { --beam-angle: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .border-beam::after { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Shimmer sweep — a light pass across the primary CTA on hover.
+   Subtle, one-shot, not a looping attention-grab.
+   ───────────────────────────────────────────────────────────── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgb(255 255 255 / 0.4), transparent);
+  transform: skewX(-18deg);
+  transition: left 550ms ease;
+  pointer-events: none;
+}
+.btn-primary:hover::after {
+  left: 130%;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Marquee — infinite horizontal scroll, paused on hover/focus.
+   Content is duplicated in markup; this only moves the strip.
+   ───────────────────────────────────────────────────────────── */
+.marquee {
+  --marquee-duration: 28s;
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 40px;
+  padding-right: 40px;
+  animation: marquee-scroll var(--marquee-duration) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  to { transform: translateX(-100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee { overflow-x: auto; }
+}
+
+/* ─────────────────────────────────────────────────────────────
    Icon utilities — icons8 glyphs used across cards, lists, links
    ───────────────────────────────────────────────────────────── */
 .icon {

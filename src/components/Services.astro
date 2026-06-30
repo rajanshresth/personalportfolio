@@ -23,7 +23,7 @@ const services = [
 
 <div class="services-grid" data-reveal-group>
   {services.map(s => (
-    <div class="service-card">
+    <div class="service-card" data-spotlight>
       <div class="icon-tile">
         <img
           src={`https://img.icons8.com/ios-filled/40/9c5526/${s.icon}.png`}
@@ -55,7 +55,7 @@ const services = [
     flex-direction: column;
     gap: 10px;
     padding: 22px;
-    background: var(--ink-2);
+    background-color: var(--ink-2);
     border: 1px solid var(--ink-4);
     border-radius: 6px;
     box-shadow: var(--shadow-sm);

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
+import ToolsMarquee from '../components/ToolsMarquee.astro';
 import Services from '../components/Services.astro';
 import WorkList from '../components/WorkList.astro';
 import BlogPreview from '../components/BlogPreview.astro';
@@ -16,6 +17,9 @@ const allPosts = (await getCollection('writing', ({ data }) => !data.draft))
 <Base>
   <!-- Hero -->
   <Hero />
+
+  <!-- Tools marquee -->
+  <ToolsMarquee />
 
   <!-- Services section -->
   <section class="section container" aria-labelledby="services-heading">
