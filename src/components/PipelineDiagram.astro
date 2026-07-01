@@ -1,0 +1,101 @@
+---
+// Static "data → automation engine → storage" visual used on the homepage
+// hero and the About hero — echoes the Stitch mockup's abstract technical
+// representation without pulling in per-page photography.
+---
+
+<div class="pipeline-diagram">
+  <div class="pipeline-grid" aria-hidden="true"></div>
+  <div class="pipeline-stack">
+    <div class="pipeline-card pipeline-card--offset-a">
+      <img src="https://img.icons8.com/ios-filled/40/a1d1bf/source-code.png" alt="" width="16" height="16" class="icon" />
+      <span>Ingest.py</span>
+    </div>
+    <div class="pipeline-connector" aria-hidden="true"></div>
+    <div class="pipeline-card pipeline-card--active pipeline-card--offset-b">
+      <img src="https://img.icons8.com/ios-filled/40/0c1513/settings.png" alt="" width="16" height="16" class="icon" />
+      <span>n8n Engine</span>
+    </div>
+    <div class="pipeline-connector" aria-hidden="true"></div>
+    <div class="pipeline-card pipeline-card--offset-c">
+      <img src="https://img.icons8.com/ios-filled/40/d5ffee/database.png" alt="" width="16" height="16" class="icon" />
+      <span>PostgreSQL</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .pipeline-diagram {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid var(--ink-4);
+    background: var(--ink);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pipeline-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgb(219 229 225 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(219 229 225 / 0.05) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .pipeline-stack {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+  }
+
+  .pipeline-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    box-shadow: var(--shadow-md);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    color: var(--parchment-3);
+    white-space: nowrap;
+  }
+
+  .pipeline-card--offset-a { transform: translateX(-18px); }
+  .pipeline-card--offset-b { transform: translateX(18px); }
+  .pipeline-card--offset-c { transform: translateX(-10px); }
+
+  .pipeline-card--active {
+    background: var(--copper);
+    color: var(--ink);
+    font-weight: 600;
+    border-color: var(--copper);
+  }
+
+  .pipeline-connector {
+    width: 0;
+    height: 20px;
+    border-left: 1px dashed var(--ink-4);
+  }
+
+  @media (max-width: 480px) {
+    .pipeline-card--offset-a,
+    .pipeline-card--offset-b,
+    .pipeline-card--offset-c {
+      transform: none;
+    }
+  }
+</style>

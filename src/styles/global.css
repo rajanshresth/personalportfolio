@@ -1,43 +1,43 @@
 /* ─────────────────────────────────────────────────────────────
-   CSS Custom Properties — Sage Palette Design System
+   CSS Custom Properties — Synthetic Intelligence Design System
 
-   Surfaces stay in the same soft sage family as before, but lifted
-   out of "mint candy" into a warmer, paper-like neutral. Text moves
-   from flat all-black to a real four-step hierarchy (headings read
-   darkest, meta/labels recede). The accent moves off dusty-olive
-   (which was identical to the border color and so had no pop) onto
-   a true copper/terracotta — the warm complement the name promised.
+   Dark obsidian surfaces with a luminous mint accent — the
+   "engineering intelligence" palette used across the Stitch
+   mockups (Home, Work, About, Pricing). Text runs light-on-dark
+   with the same four-step hierarchy as before (headings brightest,
+   meta/labels recede); the accent moves from copper/terracotta to
+   an electric mint that reads as "the active state of AI."
    ───────────────────────────────────────────────────────────── */
 :root {
   /* Surfaces — page bg → card → deeper surface → border */
-  --ink:         #f4f7ec; /* page background — warm sage-tinted paper */
-  --ink-2:       #e8edd9; /* card / elevated surface */
-  --ink-3:       #d8e1c2; /* deeper surface — icon tiles, pill hover */
-  --ink-4:       #b9c5a0; /* default border — visible but soft */
+  --ink:         #0c1513; /* page background — deep obsidian */
+  --ink-2:       #18211f; /* card / elevated surface */
+  --ink-3:       #232c2a; /* deeper surface — icon tiles, pill hover */
+  --ink-4:       #404945; /* default border — visible but soft */
 
-  /* Text — warm near-black down to muted meta, real hierarchy */
-  --parchment:   #14180f; /* headings */
-  --parchment-2: #232a1a; /* strong body / emphasis */
-  --parchment-3: #444c38; /* body copy */
-  --parchment-4: #6c735f; /* muted — labels, meta, captions */
+  /* Text — near-white down to muted meta, real hierarchy */
+  --parchment:   #dbe5e1; /* headings */
+  --parchment-2: #dbe5e1; /* strong body / emphasis */
+  --parchment-3: #bfc9c3; /* body copy */
+  --parchment-4: #89938e; /* muted — labels, meta, captions */
 
-  /* Accent — true copper, distinct from the greens so CTAs/links pop.
-     Tuned to clear 4.5:1 contrast against both the page background and
-     --ink button text, not just the large display headline. */
-  --copper:      #9c5526;
-  --copper-dark: #7c4019;
-  /* Status dot — a clearer green, kept separate from the copper accent */
-  --green:       #5b8a44;
+  /* Accent — electric mint, distinct from the surfaces so CTAs/links pop.
+     Tuned to clear contrast against the dark page background and to work
+     as dark-on-mint button text via --ink. */
+  --copper:      #d5ffee;
+  --copper-dark: #a8e6cf;
+  /* Status dot — same mint accent as "systems online" */
+  --green:       #d5ffee;
 
   /* Elevation */
-  --shadow-sm: 0 2px 10px -6px rgba(20, 24, 15, 0.18);
-  --shadow-md: 0 16px 36px -20px rgba(20, 24, 15, 0.28);
-  --shadow-lg: 0 24px 56px -24px rgba(20, 24, 15, 0.32);
+  --shadow-sm: 0 2px 10px -6px rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 16px 36px -20px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 24px 56px -24px rgba(0, 0, 0, 0.6);
 
   /* Typography */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body:    'Switzer', system-ui, -apple-system, sans-serif;
-  --font-mono:    'Geist Mono', 'Courier New', monospace;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
   /* Layout */
   --max-w: 80%;
@@ -102,13 +102,13 @@ ul, ol { list-style: none; }
 .display {
   font-family: var(--font-display);
   font-size: clamp(40px, 7vw, 68px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.04;
-  letter-spacing: -1.8px;
+  letter-spacing: -0.02em;
   color: var(--parchment);
 }
 .display em {
-  font-style: italic;
+  font-style: normal;
   color: var(--copper);
 }
 
@@ -116,10 +116,10 @@ ul, ol { list-style: none; }
 h2 {
   font-family: var(--font-display);
   font-size: clamp(26px, 3.2vw, 34px);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--parchment);
   line-height: 1.18;
-  letter-spacing: -0.4px;
+  letter-spacing: -0.01em;
 }
 
 /* Body text */
@@ -176,6 +176,17 @@ a:hover { color: var(--copper); }
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--copper);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Section underline — small accent bar under a heading
+   ───────────────────────────────────────────────────────────── */
+.section-underline {
+  width: 64px;
+  height: 3px;
+  background: var(--copper);
+  margin-top: 14px;
+  border-radius: 2px;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -245,6 +256,16 @@ a:hover { color: var(--copper); }
 }
 .btn-ghost:hover { color: var(--copper); }
 
+.btn-outline {
+  background: transparent;
+  color: var(--copper);
+  border: 1px solid var(--copper);
+  padding: 12px 22px;
+}
+.btn-outline:hover {
+  background: rgb(213 255 238 / 0.1);
+}
+
 .btn-sm {
   font-size: 10px;
   padding: 8px 16px;
@@ -278,7 +299,7 @@ a:hover { color: var(--copper); }
   position: relative;
   background-image: radial-gradient(
     220px circle at var(--spot-x) var(--spot-y),
-    rgb(156 85 38 / var(--spot-a)),
+    rgb(213 255 238 / var(--spot-a)),
     transparent 70%
   );
   transition: --spot-a 400ms ease;
@@ -305,7 +326,7 @@ a:hover { color: var(--copper); }
     from var(--beam-angle),
     transparent 0%,
     var(--copper) 6%,
-    #e0a672 10%,
+    #eafff5 10%,
     transparent 22%
   );
   -webkit-mask:

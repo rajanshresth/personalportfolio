@@ -1,192 +1,230 @@
 ---
-const tiers = [
-  {
-    name: 'Starter',
-    build: '$1,500 – $2,500',
-    retainer: '$500/mo optional',
-    desc: 'One workflow, fully automated. Good for a single bottleneck — lead routing, a daily report, one integration.',
-    features: [
-      'One automated workflow (n8n or Python)',
-      'Up to 2 tool integrations',
-      '2 weeks of post-launch support',
-      'Optional monthly monitoring & fixes',
-    ],
-  },
-  {
-    name: 'Growth',
-    build: '$3,000 – $5,000',
-    retainer: '$1,200/mo',
-    desc: 'A connected system across multiple workflows — for teams ready to automate a full process, not just one step.',
-    features: [
-      'Multi-workflow automation system',
-      'Up to 5 tool integrations',
-      'Custom Python logic where needed',
-      'Monthly retainer: monitoring, iteration, new workflows',
-    ],
-    highlight: true,
-  },
-  {
-    name: 'Operating Partner',
-    build: '$5,000 – $10,000',
-    retainer: '$2,500 – $4,000/mo',
-    desc: 'A full RevOps/GTM automation stack treated as infrastructure — built, hosted, and iterated on as your business changes.',
-    features: [
-      'Full automation stack (pricing, routing, reporting, ops)',
-      'Dockerized, self-hosted deployment',
-      'Priority support & same-week iteration',
-      'Monthly strategy check-in',
-    ],
-  },
+const includes = [
+  'Full system architecture design',
+  'Custom AI pipeline integration',
+  'Rigorous security implementation',
+];
+
+const retainerFeatures = [
+  { icon: 'speed', label: 'Performance tuning' },
+  { icon: 'refresh', label: 'Model updates' },
+  { icon: 'headset', label: 'Priority support' },
 ];
 ---
 
-<div class="pricing-grid" data-reveal-group>
-  {tiers.map(tier => (
-    <div class:list={['pricing-card', { 'pricing-card--highlight border-beam': tier.highlight }]} data-spotlight>
-      {tier.highlight && <span class="pricing-badge label">Most common</span>}
-      <h3 class="pricing-name">{tier.name}</h3>
-      <p class="pricing-desc">{tier.desc}</p>
-
-      <div class="pricing-cost">
-        <span class="pricing-build">{tier.build}</span>
-        <span class="pricing-build-label label">one-time build</span>
-        <span class="pricing-retainer label">+ {tier.retainer}</span>
+<div class="pricing-bento">
+  <div class="pricing-card pricing-card--fixed" data-spotlight>
+    <div class="pricing-card-top">
+      <div>
+        <span class="pricing-phase label">Phase 1</span>
+        <h2 class="pricing-card-title">The Fixed Build</h2>
+        <p class="pricing-card-sub">Custom architecture, engineered from the ground up.</p>
       </div>
-
-      <ul class="pricing-features" role="list">
-        {tier.features.map(f => (
-          <li>
-            <img
-              src="https://img.icons8.com/ios-filled/40/9c5526/checkmark.png"
-              alt=""
-              width="11"
-              height="11"
-              class="icon"
-            />
-            {f}
-          </li>
-        ))}
-      </ul>
-
-      <button
-        type="button"
-        class:list={['btn', tier.highlight ? 'btn-primary' : 'btn-secondary', 'pricing-cta']}
-        data-magnetic
-        data-cal-link="rajan10x/meeting-ai"
-        data-cal-namespace="meeting-ai"
-        data-cal-config={`{"layout":"month_view"}`}
-      >
-        Book a call →
-      </button>
+      <img src="https://img.icons8.com/ios-filled/50/a1d1bf/blueprint.png" alt="" width="36" height="36" class="pricing-card-icon" />
     </div>
-  ))}
+
+    <div class="pricing-fixed-grid">
+      <div>
+        <h3 class="pricing-subhead label">Includes</h3>
+        <ul class="pricing-includes" role="list">
+          {includes.map(item => (
+            <li>
+              <img src="https://img.icons8.com/ios-filled/40/d5ffee/checkmark.png" alt="" width="14" height="14" class="icon" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="pricing-fixed-cost">
+        <span class="label">Starting at</span>
+        <span class="pricing-quote">Custom Quote</span>
+        <button
+          type="button"
+          class="btn btn-primary pricing-request-btn"
+          data-magnetic
+          data-cal-link="rajan10x/meeting-ai"
+          data-cal-namespace="meeting-ai"
+          data-cal-config={`{"layout":"month_view"}`}
+        >
+          Request Quote
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-card pricing-card--retainer" data-spotlight>
+    <div>
+      <span class="pricing-phase label pricing-phase--secondary">Phase 2</span>
+      <h2 class="pricing-card-title pricing-card-title--sm">Retainer</h2>
+      <p class="pricing-card-sub">Ongoing optimization & scaling.</p>
+    </div>
+
+    <ul class="pricing-retainer-list" role="list">
+      {retainerFeatures.map(f => (
+        <li>
+          <img src={`https://img.icons8.com/ios-filled/40/a1d1bf/${f.icon}.png`} alt="" width="16" height="16" class="icon" />
+          {f.label}
+        </li>
+      ))}
+    </ul>
+
+    <div class="pricing-retainer-note">
+      Available post-launch
+    </div>
+  </div>
 </div>
 
 <style>
-  .pricing-grid {
+  .pricing-bento {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: 8fr 4fr;
+    gap: 24px;
+    align-items: stretch;
   }
 
   .pricing-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    background-color: var(--ink-2);
+    background: var(--ink-2);
     border: 1px solid var(--ink-4);
     border-radius: 8px;
-    padding: 28px 24px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 200ms ease, box-shadow 200ms ease;
-  }
-  .pricing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .pricing-card--highlight {
-    border-color: var(--copper);
-    border-width: 2px;
-    box-shadow: var(--shadow-lg);
-  }
-
-  .pricing-badge {
-    position: absolute;
-    top: -10px;
-    left: 24px;
-    background: var(--copper);
-    color: var(--ink);
-    padding: 3px 10px;
-    border-radius: 2px;
-    font-weight: 500;
-  }
-
-  .pricing-name {
-    font-family: var(--font-display);
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--parchment);
-  }
-
-  .pricing-desc {
-    font-size: 13px;
-    line-height: 1.6;
-    flex-grow: 0;
-  }
-
-  .pricing-cost {
+    padding: 32px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    padding: 16px 0;
-    border-top: 1px solid var(--ink-4);
-    border-bottom: 1px solid var(--ink-4);
+    transition: border-color 200ms ease;
+  }
+  .pricing-card:hover { border-color: var(--copper); }
+
+  .pricing-card--fixed {
+    justify-content: space-between;
+    gap: 40px;
   }
 
-  .pricing-build {
-    font-family: var(--font-display);
-    font-size: 22px;
-    color: var(--parchment);
-  }
-
-  .pricing-build-label {
-    margin-bottom: 6px;
-  }
-
-  .pricing-retainer {
-    color: var(--copper);
-  }
-
-  .pricing-features {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex-grow: 1;
-  }
-
-  .pricing-features li {
+  .pricing-card-top {
     display: flex;
     align-items: flex-start;
-    gap: 8px;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--parchment-3);
-  }
-  .pricing-features li img {
-    margin-top: 4px;
+    justify-content: space-between;
+    gap: 20px;
   }
 
-  .pricing-cta {
-    width: 100%;
-    justify-content: center;
-    text-transform: uppercase;
+  .pricing-phase {
+    display: inline-block;
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    padding: 4px 10px;
+    color: var(--copper);
+    margin-bottom: 16px;
+  }
+  .pricing-phase--secondary { color: var(--parchment-3); }
+
+  .pricing-card-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--parchment);
+    margin-bottom: 8px;
+  }
+  .pricing-card-title--sm { font-size: 22px; }
+
+  .pricing-card-sub {
+    font-size: 14px;
+  }
+
+  .pricing-card-icon {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  .pricing-fixed-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: end;
+  }
+
+  .pricing-subhead {
+    border-bottom: 1px solid var(--ink-4);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+  }
+
+  .pricing-includes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .pricing-includes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--parchment-3);
+  }
+  .pricing-includes .icon { margin-top: 3px; flex-shrink: 0; }
+
+  .pricing-fixed-cost {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .pricing-quote {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--parchment);
+    margin-bottom: 10px;
+  }
+
+  .pricing-request-btn {
+    width: fit-content;
+  }
+
+  /* Retainer card */
+  .pricing-card--retainer {
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .pricing-retainer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 12px;
+  }
+  .pricing-retainer-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--parchment-3);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--ink-4);
+  }
+  .pricing-retainer-list li:last-child { border-bottom: none; }
+
+  .pricing-retainer-note {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--parchment-4);
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    border-radius: 4px;
+    padding: 14px;
   }
 
   @media (max-width: 900px) {
-    .pricing-grid {
+    .pricing-bento {
       grid-template-columns: 1fr;
     }
+    .pricing-fixed-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pricing-card { padding: 24px; }
   }
 </style>

@@ -1,28 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
 import PricingTable from '../components/PricingTable.astro';
+
+const steps = [
+  { num: '01', title: 'Discovery Call', desc: 'Aligning on technical requirements.' },
+  { num: '02', title: 'Architecture Proposal', desc: 'Detailed spec & fixed quote.' },
+  { num: '03', title: 'Execution', desc: 'System build & deployment.' },
+];
 ---
 
 <Base
   title="Pricing — Rajan Shrestha"
-  description="Automation builds and retainers for GTM, RevOps, and supply chain teams. One-time builds from $1,500, retainers from $500/mo."
+  description="Fixed-price automation builds for GTM, RevOps, and supply chain teams, with an optional retainer for ongoing optimization."
 >
   <div class="container pricing-page">
     <header class="pricing-header section" data-reveal>
-      <span class="label">Pricing</span>
       <h1 class="pricing-title">
-        Pay for a build,<br>
-        <em>not a headcount</em>
+        Transparent pricing for<br>
+        <em>complex engineering</em>.
       </h1>
       <p class="pricing-intro">
-        Every engagement starts as a fixed-price build — you know the cost before
-        we start. Most clients add a monthly retainer afterward to keep the
-        system maintained and growing as their process changes.
+        Every engagement starts as a fixed-price build to ensure architectural
+        precision and predictable delivery. Most clients add a monthly
+        retainer afterward for ongoing optimization.
       </p>
     </header>
 
     <section class="section" aria-label="Pricing tiers">
       <PricingTable />
+    </section>
+
+    <section class="section pricing-pipeline">
+      <h3 class="pricing-pipeline-heading label">The engagement pipeline</h3>
+      <div class="pipeline-steps">
+        <div class="pipeline-steps-rail" aria-hidden="true"></div>
+        {steps.map(step => (
+          <div class="pipeline-step">
+            <div class="pipeline-step-num label">{step.num}</div>
+            <h4>{step.title}</h4>
+            <p>{step.desc}</p>
+          </div>
+        ))}
+      </div>
     </section>
 
     <section class="section pricing-faq">
@@ -39,7 +58,7 @@ import PricingTable from '../components/PricingTable.astro';
         </p>
       </div>
       <div class="faq-item" data-reveal>
-        <h3>What determines where I land in a price range?</h3>
+        <h3>What determines my quote?</h3>
         <p>
           Number of integrations, whether the logic needs custom Python
           (versus standard n8n nodes), and how much historical data needs
@@ -59,21 +78,23 @@ import PricingTable from '../components/PricingTable.astro';
     </section>
 
     <section class="section pricing-cta-section" data-reveal>
-      <h2>Not sure which tier fits?</h2>
-      <p>
-        Book a 20-minute call — I'll scope the build and give you an exact
-        number, not a range.
-      </p>
-      <button
-        type="button"
-        class="btn btn-primary pricing-final-cta"
-        data-magnetic
-        data-cal-link="rajan10x/meeting-ai"
-        data-cal-namespace="meeting-ai"
-        data-cal-config={`{"layout":"month_view"}`}
-      >
-        Book a call →
-      </button>
+      <div class="pricing-cta-card">
+        <h2>Ready to architect a solution?</h2>
+        <p>
+          Book a brief discovery call to discuss your infrastructure needs
+          and request a fixed-price quote.
+        </p>
+        <button
+          type="button"
+          class="btn btn-primary pricing-final-cta"
+          data-magnetic
+          data-cal-link="rajan10x/meeting-ai"
+          data-cal-namespace="meeting-ai"
+          data-cal-config={`{"layout":"month_view"}`}
+        >
+          Book a call →
+        </button>
+      </div>
     </section>
   </div>
 </Base>
@@ -85,30 +106,86 @@ import PricingTable from '../components/PricingTable.astro';
 
   .pricing-header {
     padding-top: 64px;
-  }
-
-  .label {
-    display: block;
-    margin-bottom: 16px;
+    text-align: center;
   }
 
   .pricing-title {
     font-family: var(--font-display);
     font-size: clamp(30px, 5vw, 48px);
-    font-weight: 400;
+    font-weight: 700;
     color: var(--parchment);
     line-height: 1.08;
-    letter-spacing: -1px;
+    letter-spacing: -0.02em;
     margin-bottom: 20px;
   }
   .pricing-title em {
-    font-style: italic;
-    color: var(--parchment-2);
+    font-style: normal;
+    color: var(--copper);
   }
 
   .pricing-intro {
-    max-width: 520px;
-    font-size: 14px;
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 15px;
+  }
+
+  /* Engagement pipeline */
+  .pricing-pipeline-heading {
+    text-align: center;
+    margin-bottom: 48px;
+    color: var(--copper);
+  }
+
+  .pipeline-steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .pipeline-steps-rail {
+    position: absolute;
+    top: 15px;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    border-top: 1px dashed var(--ink-4);
+    z-index: 0;
+  }
+
+  .pipeline-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .pipeline-step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--copper);
+    margin-bottom: 8px;
+  }
+
+  .pipeline-step h4 {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--parchment-2);
+  }
+
+  .pipeline-step p {
+    font-size: 13px;
+    max-width: 180px;
   }
 
   .pricing-faq h2 {
@@ -134,19 +211,39 @@ import PricingTable from '../components/PricingTable.astro';
   }
 
   .pricing-cta-section {
-    text-align: center;
     border-bottom: none;
   }
 
-  .pricing-cta-section h2 {
+  .pricing-cta-card {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 8px;
+    padding: 56px 40px;
+  }
+
+  .pricing-cta-card h2 {
     margin-bottom: 8px;
   }
 
-  .pricing-cta-section p {
+  .pricing-cta-card p {
     margin-bottom: 24px;
+  }
+
+  @media (max-width: 700px) {
+    .pipeline-steps {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .pipeline-steps-rail {
+      display: none;
+    }
   }
 
   @media (max-width: 600px) {
     .pricing-header { padding-top: 44px; }
+    .pricing-cta-card { padding: 40px 24px; }
   }
 </style>

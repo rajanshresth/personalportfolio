@@ -55,8 +55,8 @@ const websiteSchema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f4f7ec" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#0c1513" />
+    <meta name="color-scheme" content="dark" />
     <link rel="canonical" href={canonical} />
 
     <!-- Flag JS support before paint, so scroll-reveal CSS only hides
@@ -108,61 +108,32 @@ const websiteSchema = {
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://img.icons8.com" />
 
-    <!-- Cormorant Garamond + Geist Mono via Google Fonts -->
+    <!-- Inter + JetBrains Mono via Google Fonts -->
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Geist+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Geist+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Switzer via Fontshare -->
-    <link
-      href="https://api.fontshare.com/v2/css?f[]=switzer@300,400,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
     <slot name="head" />
 
-    <!-- Cal.com booking embed (element-click) -->
+    <!-- Cal floating-popup embed code begins -->
     <script type="text/javascript">
-      (function (C, A, L) {
-        let p = function (a, ar) { a.q.push(ar); };
-        let d = C.document;
-        C.Cal = C.Cal || function () {
-          let cal = C.Cal;
-          let ar = arguments;
-          if (!cal.loaded) {
-            cal.ns = {};
-            cal.q = cal.q || [];
-            d.head.appendChild(d.createElement('script')).src = A;
-            cal.loaded = true;
-          }
-          if (ar[0] === L) {
-            const api = function () { p(api, arguments); };
-            const namespace = ar[1];
-            api.q = api.q || [];
-            if (typeof namespace === 'string') {
-              cal.ns[namespace] = cal.ns[namespace] || api;
-              p(cal.ns[namespace], ar);
-              p(cal, ['initNamespace', namespace]);
-            } else p(cal, ar);
-            return;
-          }
-          p(cal, ar);
-        };
-      })(window, 'https://app.cal.com/embed/embed.js', 'init');
-      Cal('init', 'meeting-ai', { origin: 'https://app.cal.com' });
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", "meeting-ai", {origin:"https://app.cal.com"});
       Cal.config = Cal.config || {};
       Cal.config.forwardQueryParams = true;
-      Cal.ns['meeting-ai']('ui', { hideEventTypeDetails: false, layout: 'month_view' });
+
+      Cal.ns["meeting-ai"]("floatingButton", {"calLink":"rajan10x/meeting-ai","config":{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}});
+      Cal.ns["meeting-ai"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
     </script>
+    <!-- Cal floating-popup embed code ends -->
   </head>
   <body>
     <Nav />

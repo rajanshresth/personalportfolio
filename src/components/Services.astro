@@ -2,21 +2,18 @@
 const services = [
   {
     name: 'GTM Automation',
-    desc: 'Lead routing, instant follow-up, and ad spend allocation that respond in minutes, not days.',
-    tools: ['n8n', 'CRM APIs', 'Ad Platform APIs'],
-    icon: 'speed',
+    desc: 'Architecting lead routing, enrichment pipelines, and personalized outreach sequences at scale. Connecting CRMs, intent data providers, and execution channels.',
+    icon: 'rocket',
   },
   {
     name: 'RevOps Automation',
-    desc: 'Pricing engines, ops digests, and the connective layer between CRM, finance, and delivery tools.',
-    tools: ['Python', 'n8n', 'Docker'],
-    icon: 'workflow',
+    desc: 'Synchronizing billing systems, contracting platforms, and CRM data. Ensuring revenue data integrity and automating commission calculations.',
+    icon: 'synchronize',
   },
   {
     name: 'Supply Chain & Logistics',
-    desc: 'Route optimization and ops reporting that cut drive time and surface what needs a decision today.',
-    tools: ['Python', 'Google Routes API', 'n8n'],
-    icon: 'route',
+    desc: 'Building bespoke inventory tracking, dynamic routing alerts, and vendor API integrations. Reducing manual data entry across fragmented logistics tools.',
+    icon: 'truck',
   },
 ];
 ---
@@ -24,21 +21,16 @@ const services = [
 <div class="services-grid" data-reveal-group>
   {services.map(s => (
     <div class="service-card" data-spotlight>
-      <div class="icon-tile">
+      <div class="service-icon">
         <img
-          src={`https://img.icons8.com/ios-filled/40/9c5526/${s.icon}.png`}
+          src={`https://img.icons8.com/ios-filled/40/a1d1bf/${s.icon}.png`}
           alt=""
-          width="20"
-          height="20"
+          width="22"
+          height="22"
         />
       </div>
       <h3 class="service-name">{s.name}</h3>
       <p class="service-desc">{s.desc}</p>
-      <div class="service-tools">
-        {s.tools.map(tool => (
-          <span class="tag">{tool}</span>
-        ))}
-      </div>
     </div>
   ))}
 </div>
@@ -47,44 +39,52 @@ const services = [
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    gap: 24px;
   }
 
   .service-card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 22px;
-    background-color: var(--ink-2);
+    gap: 12px;
+    padding: 32px;
+    background-color: var(--ink);
     border: 1px solid var(--ink-4);
-    border-radius: 6px;
-    box-shadow: var(--shadow-sm);
-    transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    border-radius: 8px;
+    transition: border-color 200ms ease, transform 200ms ease;
   }
   .service-card:hover {
     transform: translateY(-4px);
     border-color: var(--copper);
-    box-shadow: var(--shadow-md);
+  }
+
+  .service-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    margin-bottom: 12px;
+    transition: background 200ms ease, border-color 200ms ease;
+  }
+  .service-card:hover .service-icon {
+    background: var(--copper);
+    border-color: var(--copper);
   }
 
   .service-name {
     font-family: var(--font-display);
     font-size: 19px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--parchment);
   }
 
   .service-desc {
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.65;
     flex-grow: 1;
-  }
-
-  .service-tools {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 4px;
   }
 
   @media (max-width: 700px) {

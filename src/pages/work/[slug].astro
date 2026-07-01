@@ -43,7 +43,7 @@ const workSchema = {
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(workSchema)} />
   <div class="container work-page">
     <!-- Breadcrumb -->
-    <a href="/#work-heading" class="breadcrumb label">← Work</a>
+    <a href="/work" class="breadcrumb label">← Work</a>
 
     <!-- Header -->
     <header class="work-header">
@@ -124,10 +124,10 @@ const workSchema = {
   .work-title {
     font-family: var(--font-display);
     font-size: clamp(28px, 4.5vw, 44px);
-    font-weight: 400;
+    font-weight: 700;
     color: var(--parchment);
     line-height: 1.1;
-    letter-spacing: -1px;
+    letter-spacing: -0.02em;
   }
 
   .work-desc {
@@ -152,7 +152,7 @@ const workSchema = {
     line-height: 1.85;
   }
   .prose p { font-size: 15px; line-height: 1.85; color: var(--parchment-2); margin-bottom: 1.4em; }
-  .prose h2 { font-family: var(--font-display); font-size: 24px; font-weight: 500; color: var(--parchment); margin-top: 2em; margin-bottom: 0.6em; }
+  .prose h2 { font-family: var(--font-display); font-size: 24px; font-weight: 600; color: var(--parchment); margin-top: 2em; margin-bottom: 0.6em; }
   .prose h3 { font-family: var(--font-body); font-size: 16px; font-weight: 500; color: var(--parchment-2); margin-top: 1.6em; margin-bottom: 0.4em; }
   .prose ul { list-style: disc; padding-left: 1.5em; margin-bottom: 1.4em; }
   .prose ol { list-style: decimal; padding-left: 1.5em; margin-bottom: 1.4em; }

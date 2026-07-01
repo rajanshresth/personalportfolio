@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import SkillPills from '../components/SkillPills.astro';
 
 const personSchema = {
   '@context': 'https://schema.org',
@@ -16,6 +15,8 @@ const personSchema = {
     'https://github.com/rajanshresth',
   ],
 };
+
+const techStack = ['Python', 'TypeScript', 'n8n', 'LangChain', 'AWS'];
 ---
 
 <Base
@@ -23,285 +24,376 @@ const personSchema = {
   description="AI automation consultant building n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams."
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-  <div class="container about-layout">
-    <!-- Page header -->
-    <header class="about-header section">
-      <span class="label">About</span>
-      <h1 class="about-title">
-        Engineering background,<br>
-        <em>automation focus</em>
-      </h1>
-    </header>
+  <div class="container about-page">
+    <!-- Hero -->
+    <section class="about-hero" data-reveal>
+      <div class="about-hero-copy">
+        <h1 class="about-title">
+          I think in systems<br>
+          before I think in <em>tools</em>.
+        </h1>
+        <p class="about-lede">
+          I'm Rajan — an industrial engineer by training, now operating as an
+          AI & Automation Engineer. Most businesses aren't short on tools,
+          they're short on the glue between them. I build that glue.
+        </p>
+      </div>
+      <div class="about-hero-visual">
+        <img
+          src="/about/hero.jpg"
+          alt="A realistic technical diagram of an automation workflow showing Data Ingest, n8n Engine, and PostgreSQL database."
+          width="512"
+          height="512"
+          class="about-hero-img"
+        />
+      </div>
+    </section>
 
-    <div class="about-grid section">
-      <!-- Main content -->
-      <main class="about-body">
-        <section class="about-section" data-reveal>
-          <h2>Background</h2>
+    <!-- Bento: Background + What I do -->
+    <section class="about-bento" data-reveal-group>
+      <div class="bento-card bento-background" data-spotlight>
+        <h2>Background</h2>
+        <div class="bento-text">
           <p>
-            I'm Rajan — an industrial engineer by training, which means I think in
-            systems before I think in tools: inputs, outputs, bottlenecks, and where
-            a process quietly leaks time or money. I started applying that lens to
-            data and operations work, and it kept leading to the same conclusion —
-            most businesses aren't short on tools, they're short on the glue between
-            them.
+            My background in industrial engineering deeply informs how I
+            approach software and automation. It's not about writing code
+            for its own sake — it's about optimizing the entire production
+            line of a business.
           </p>
           <p>
-            Now I build that glue. I design and ship automation systems with n8n,
-            Python, and Docker for teams in GTM, RevOps, and supply chain &
-            logistics — the functions where a slow manual process directly costs
-            revenue, not just time.
+            I moved into technical engineering because I kept seeing the gap
+            between high-level strategic goals and the technical execution
+            required to hit them efficiently.
           </p>
-        </section>
+        </div>
+      </div>
 
-        <section class="about-section" data-reveal>
+      <div class="bento-card bento-whatido" data-spotlight>
+        <div>
           <h2>What I do</h2>
-          <p>
-            I build systems, not one-off scripts. That usually means n8n handling
-            orchestration and integrations, Python handling the logic that actually
-            needs to compute something (scoring, optimization, allocation), and
-            Docker so the whole thing runs the same on my machine, a client's VPS,
-            or wherever it needs to live.
+          <p class="bento-whatido-lede">
+            I architect and deploy autonomous systems that reduce
+            operational drag.
           </p>
-          <p>
-            Typical engagements: lead routing and follow-up automation, capacity-based
-            pricing engines, ad spend allocation, route optimization, and the
-            connective layer that turns five disconnected SaaS tools into one
-            operating system. See <a href="/#work-heading">case studies</a> for
-            specifics.
-          </p>
-        </section>
-
-        <section class="about-section" data-reveal>
-          <h2>Stack</h2>
-          <SkillPills />
-        </section>
-
-        <section class="about-section" data-reveal>
-          <h2>How I work</h2>
-          <p>
-            Every engagement starts as a fixed-price build, scoped on a short call —
-            you know the cost before anything starts. Most clients add a monthly
-            retainer afterward to keep the system maintained and growing. Full
-            breakdown on the <a href="/pricing">pricing page</a>.
-          </p>
-        </section>
-
-        <section class="about-section" data-reveal>
-          <h2>Get in touch</h2>
-          <p>
-            If your team is losing time to manual GTM, RevOps, or logistics work,
-            book a call and I'll scope what an automated version looks like.
-          </p>
-          <button
-            type="button"
-            class="btn btn-primary about-cta"
-            data-magnetic
-            data-cal-link="rajan10x/meeting-ai"
-            data-cal-namespace="meeting-ai"
-            data-cal-config={`{"layout":"month_view"}`}
-          >
-            Book a call →
-          </button>
-        </section>
-      </main>
-
-      <!-- Sidebar -->
-      <aside class="about-sidebar" data-reveal>
-        <div class="sidebar-card" data-spotlight>
-          <dl class="sidebar-list">
-            <div class="sidebar-item">
-              <dt class="label">Focus</dt>
-              <dd>AI & Automation Consulting</dd>
+        </div>
+        <div class="bento-feature-grid">
+          <div class="bento-feature">
+            <img src="https://img.icons8.com/ios-filled/40/a1d1bf/hub.png" alt="" width="20" height="20" class="icon" />
+            <h3 class="label">Workflow Integration</h3>
+            <p>Connecting disparate platforms into singular, reliable data pipelines.</p>
+          </div>
+          <div class="bento-feature">
+            <img src="https://img.icons8.com/ios-filled/40/a1d1bf/robot.png" alt="" width="20" height="20" class="icon" />
+            <h3 class="label">AI Agents</h3>
+            <p>Deploying LLMs contextually to handle reasoning tasks within fixed protocols.</p>
+          </div>
+          <div class="bento-feature bento-feature--wide">
+            <div class="bento-feature-header">
+              <span class="label bento-feature-eyebrow">Tech Stack</span>
+              <div class="bento-feature-divider" aria-hidden="true"></div>
             </div>
-            <div class="sidebar-item">
-              <dt class="label">Niches</dt>
-              <dd>GTM · RevOps · Supply Chain</dd>
+            <div class="bento-chip-row">
+              {techStack.map(tool => <span class="bento-chip">{tool}</span>)}
             </div>
-            <div class="sidebar-item">
-              <dt class="label">Stack</dt>
-              <dd>n8n · Python · Docker</dd>
-            </div>
-            <div class="sidebar-item">
-              <dt class="label">Location</dt>
-              <dd>Nepal (remote, async)</dd>
-            </div>
-          </dl>
-
-          <div class="sidebar-links">
-            <button
-              type="button"
-              class="sidebar-link label sidebar-link--button"
-              data-cal-link="rajan10x/meeting-ai"
-              data-cal-namespace="meeting-ai"
-              data-cal-config={`{"layout":"month_view"}`}
-            >
-              <img src="https://img.icons8.com/ios-filled/40/6c735f/calendar-2.png" alt="" width="13" height="13" class="icon" />
-              Book a call
-            </button>
-            <a href="mailto:contact@rajanbuilds.com" class="sidebar-link label">
-              <img src="https://img.icons8.com/ios-filled/40/6c735f/mail.png" alt="" width="13" height="13" class="icon" />
-              Email
-            </a>
-            <a
-              href="https://www.linkedin.com/in/rajan10x/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="sidebar-link label"
-            >
-              <img src="https://img.icons8.com/color/48/linkedin.png" alt="" width="14" height="14" class="icon" />
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/rajanshresth"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="sidebar-link label"
-            >
-              <img src="https://img.icons8.com/color/48/github.png" alt="" width="14" height="14" class="icon" />
-              GitHub
-            </a>
           </div>
         </div>
-      </aside>
-    </div>
+      </div>
+    </section>
+
+    <!-- How I work -->
+    <section class="how-i-work" data-reveal>
+      <h2 class="how-i-work-heading">How I work</h2>
+      <div class="how-i-work-grid">
+        <div class="work-mode">
+          <div class="work-mode-rail" aria-hidden="true"></div>
+          <div class="work-mode-dot" aria-hidden="true"></div>
+          <h3>Fixed-Price Builds</h3>
+          <p>
+            For defined scope and clear objectives. We map the entire system
+            upfront, agree on deliverables, and I execute. No hourly
+            surprises.
+          </p>
+          <ul class="work-mode-list" role="list">
+            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Architecture design</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Implementation & testing</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Handoff documentation</li>
+          </ul>
+        </div>
+        <div class="work-mode">
+          <div class="work-mode-rail" aria-hidden="true"></div>
+          <div class="work-mode-dot" aria-hidden="true"></div>
+          <h3>Retainer</h3>
+          <p>
+            For ongoing optimization and evolving systems. Consider me your
+            fractional engineering partner to continually refine the glue.
+          </p>
+          <ul class="work-mode-list" role="list">
+            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Continuous optimization</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> New integrations</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Priority support</li>
+          </ul>
+        </div>
+      </div>
+      <p class="how-i-work-footnote">
+        Full breakdown on the <a href="/pricing">pricing page</a>.
+      </p>
+    </section>
   </div>
 </Base>
 
 <style>
-  .about-layout {
+  .about-page {
+    padding-top: 64px;
     padding-bottom: 80px;
   }
 
-  .about-header {
-    padding-top: 64px;
-  }
-
-  .label {
-    display: block;
-    margin-bottom: 16px;
+  /* Hero */
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 48px;
+    align-items: center;
+    margin-bottom: 96px;
   }
 
   .about-title {
     font-family: var(--font-display);
-    font-size: clamp(30px, 5vw, 48px);
-    font-weight: 400;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
     color: var(--parchment);
-    line-height: 1.08;
-    letter-spacing: -1px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
   }
   .about-title em {
-    font-style: italic;
-    color: var(--parchment-2);
+    font-style: normal;
+    color: var(--copper);
   }
 
-  /* Two-column grid */
-  .about-grid {
+  .about-lede {
+    font-size: 17px;
+    max-width: 560px;
+    color: var(--parchment-3);
+  }
+
+  .about-hero-visual {
+    position: relative;
+  }
+  .about-hero-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--copper);
+    opacity: 0.1;
+    filter: blur(80px);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .about-hero-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+  }
+
+  /* Bento: Background + What I do */
+  .about-bento {
     display: grid;
-    grid-template-columns: 1fr 220px;
-    gap: 64px;
-    align-items: start;
+    grid-template-columns: 5fr 7fr;
+    gap: 24px;
+    margin-bottom: 96px;
   }
 
-  /* Main body */
-  .about-section {
-    margin-bottom: 48px;
-  }
-  .about-section:last-child { margin-bottom: 0; }
-
-  .about-section h2 {
-    margin-bottom: 16px;
-  }
-
-  .about-section p {
-    margin-bottom: 1em;
-    font-size: 14px;
-  }
-  .about-section p:last-of-type { margin-bottom: 0; }
-
-  .about-cta {
-    margin-top: 16px;
-  }
-
-  /* Sidebar */
-  .about-sidebar {
-    position: sticky;
-    top: 80px;
-  }
-
-  .sidebar-card {
-    background-color: var(--ink-2);
+  .bento-card {
+    background: var(--ink-2);
     border: 1px solid var(--ink-4);
     border-radius: 8px;
-    box-shadow: var(--shadow-sm);
-    padding: 20px;
+    padding: 32px;
+  }
+
+  .bento-card h2 {
+    margin-bottom: 20px;
+  }
+
+  .bento-text {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+  }
+  .bento-text p {
+    font-size: 14px;
   }
 
-  .sidebar-list {
+  .bento-whatido {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    justify-content: space-between;
+    gap: 24px;
   }
 
-  .sidebar-item dt {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--parchment-4);
-    margin-bottom: 3px;
-    display: block;
-  }
-
-  .sidebar-item dd {
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 300;
+  .bento-whatido-lede {
+    font-size: 16px;
     color: var(--parchment-2);
-    line-height: 1.4;
   }
 
-  .sidebar-links {
+  .bento-feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .bento-feature {
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    border-radius: 6px;
+    padding: 16px;
+  }
+  .bento-feature .icon { margin-bottom: 8px; }
+  .bento-feature h3 { color: var(--copper); margin-bottom: 6px; }
+  .bento-feature p { font-size: 13px; }
+
+  .bento-feature--wide {
+    grid-column: span 2;
+  }
+
+  .bento-feature-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .bento-feature-eyebrow { color: var(--copper); }
+  .bento-feature-divider {
+    height: 1px;
+    background: var(--ink-4);
+    flex-grow: 1;
+  }
+
+  .bento-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .bento-chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--parchment-2);
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    padding: 5px 10px;
+  }
+
+  /* Full stack section */
+  .about-section {
+    margin-bottom: 96px;
+  }
+  .about-section h2 {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* How I work */
+  .how-i-work-heading {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .how-i-work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .work-mode {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .work-mode-rail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border-left: 1px dashed var(--ink-4);
+  }
+
+  .work-mode-dot {
+    position: absolute;
+    left: -3px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--copper);
+  }
+
+  .work-mode h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--parchment);
+    margin-bottom: 12px;
+  }
+
+  .work-mode p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .work-mode-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding-top: 16px;
-    border-top: 1px solid var(--ink-4);
+    gap: 10px;
   }
 
-  .sidebar-link {
+  .work-mode-list li {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--parchment-4);
-    transition: color 150ms ease;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--parchment-3);
   }
 
-  .sidebar-link--button {
-    background: none;
-    border: none;
-    padding: 0;
-    text-align: left;
-    cursor: pointer;
+  .how-i-work-footnote {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 13px;
   }
-  .sidebar-link:hover { color: var(--copper); }
+  .how-i-work-footnote a {
+    color: var(--copper);
+  }
 
   /* Mobile */
-  @media (max-width: 767px) {
-    .about-layout { padding-bottom: 56px; }
-    .about-header { padding-top: 44px; }
-    .about-grid {
+  @media (max-width: 900px) {
+    .about-hero {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .about-hero-visual {
+      max-width: 240px;
+    }
+    .about-bento {
+      grid-template-columns: 1fr;
+    }
+    .how-i-work-grid {
       grid-template-columns: 1fr;
       gap: 40px;
     }
-    .about-sidebar {
-      position: static;
-      order: -1;
-    }
-    .about-section { margin-bottom: 36px; }
+  }
+
+  @media (max-width: 767px) {
+    .about-page { padding-top: 44px; }
+    .about-hero { margin-bottom: 56px; }
+    .about-bento { margin-bottom: 56px; gap: 20px; }
+    .about-section { margin-bottom: 56px; }
+    .bento-feature-grid { grid-template-columns: 1fr; }
+    .bento-feature--wide { grid-column: span 1; }
   }
 </style>

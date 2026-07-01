@@ -3,57 +3,91 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import ToolsMarquee from '../components/ToolsMarquee.astro';
 import Services from '../components/Services.astro';
-import WorkList from '../components/WorkList.astro';
-import BlogPreview from '../components/BlogPreview.astro';
-import SkillPills from '../components/SkillPills.astro';
-import { getCollection } from 'astro:content';
+import { getEntry } from 'astro:content';
 
-const allWork = await getCollection('work');
-const allPosts = (await getCollection('writing', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 4);
+const featuredWork = await getEntry('work', 'capacity-based-pricing-engine');
+const featuredSlug = featuredWork?.id.replace(/\.md$/, '');
 ---
 
 <Base>
   <!-- Hero -->
   <Hero />
 
-  <!-- Tools marquee -->
+  <!-- Tech stack strip -->
   <ToolsMarquee />
 
-  <!-- Services section -->
+  <!-- Core Competencies -->
   <section class="section container" aria-labelledby="services-heading">
     <div class="section-header" data-reveal>
-      <h2 id="services-heading">Where I focus</h2>
+      <div>
+        <h2 id="services-heading">Core Competencies</h2>
+        <div class="section-underline" aria-hidden="true"></div>
+      </div>
     </div>
     <Services />
   </section>
 
-  <!-- Work section -->
-  <section class="section container" aria-labelledby="work-heading">
-    <div class="section-header" data-reveal>
-      <h2 id="work-heading">Case studies</h2>
-      <a href="/pricing" class="section-more">See pricing →</a>
-    </div>
-    <WorkList items={allWork} />
-  </section>
+  <!-- Featured case study -->
+  {featuredWork && (
+    <section class="section container featured-case" aria-labelledby="featured-heading">
+      <div class="featured-eyebrow-row" data-reveal>
+        <span class="label featured-eyebrow">Featured case study</span>
+        <div class="featured-divider" aria-hidden="true"></div>
+      </div>
 
-  <!-- Writing section -->
-  <section class="section container" aria-labelledby="writing-heading">
-    <div class="section-header" data-reveal>
-      <h2 id="writing-heading">Writing</h2>
-      <a href="/writing" class="section-more">All posts →</a>
-    </div>
-    <BlogPreview posts={allPosts} />
-  </section>
+      <div class="featured-grid">
+        <div class="featured-copy" data-reveal>
+          <h2 id="featured-heading">Dynamic Capacity-Based Pricing Engine</h2>
+          <p>
+            A logistics client needed to adjust quotes based on real-time fleet
+            capacity and market rates. I engineered a solution using Python for
+            the pricing logic, orchestrated by n8n, and deployed via Docker.
+          </p>
 
-  <!-- Skills section -->
-  <section class="section container" aria-labelledby="skills-heading">
-    <div class="section-header" data-reveal>
-      <h2 id="skills-heading">Stack</h2>
-    </div>
-    <SkillPills />
-  </section>
+          <ul class="featured-results" role="list">
+            <li>
+              <img src="https://img.icons8.com/ios-filled/40/d5ffee/checkmark.png" alt="" width="16" height="16" class="icon" />
+              <div>
+                <span class="featured-result-label">Latency</span>
+                <span class="featured-result-desc">Reduced quote generation time from 15 minutes to &lt;2 seconds.</span>
+              </div>
+            </li>
+            <li>
+              <img src="https://img.icons8.com/ios-filled/40/d5ffee/checkmark.png" alt="" width="16" height="16" class="icon" />
+              <div>
+                <span class="featured-result-label">Margin Protection</span>
+                <span class="featured-result-desc">Automated rules prevented underpriced bookings during peak demand.</span>
+              </div>
+            </li>
+          </ul>
+
+          <a href={`/work/${featuredSlug}`} class="btn btn-secondary">
+            Read full technical breakdown
+          </a>
+        </div>
+
+        <div class="featured-code" data-reveal>
+          <div class="code-block">
+            <div class="code-block-header">
+              <span>pricing_engine.py</span>
+            </div>
+            <pre><code><span class="tok-kw">def</span> <span class="tok-fn">calculate_dynamic_rate</span>(base_rate, current_capacity, market_multiplier):
+    <span class="tok-str">"""Calculates the final rate based on real-time capacity."""</span>
+    <span class="tok-kw">if</span> current_capacity <span class="tok-op">&lt;</span> <span class="tok-num">0.2</span>:
+        <span class="tok-cm"># Critical capacity threshold</span>
+        surge_factor <span class="tok-op">=</span> <span class="tok-num">1.5</span>
+    <span class="tok-kw">elif</span> current_capacity <span class="tok-op">&lt;</span> <span class="tok-num">0.5</span>:
+        surge_factor <span class="tok-op">=</span> <span class="tok-num">1.2</span>
+    <span class="tok-kw">else</span>:
+        surge_factor <span class="tok-op">=</span> <span class="tok-num">1.0</span>
+
+    final_rate <span class="tok-op">=</span> base_rate <span class="tok-op">*</span> surge_factor <span class="tok-op">*</span> market_multiplier
+    <span class="tok-kw">return</span> <span class="tok-bi">round</span>(final_rate, <span class="tok-num">2</span>)</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
 </Base>
 
 <style>
@@ -65,15 +99,133 @@ const allPosts = (await getCollection('writing', ({ data }) => !data.draft))
     gap: 16px;
   }
 
-  .section-more {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+  /* Featured case study */
+  .featured-case {
+    background: var(--ink-2);
+    border-radius: 8px;
+    border: 1px solid var(--ink-4);
+    padding: 48px var(--pad);
+  }
+
+  .featured-eyebrow-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .featured-eyebrow {
     color: var(--copper);
-    transition: opacity 150ms ease;
     flex-shrink: 0;
   }
-  .section-more:hover { color: var(--copper); opacity: 0.75; }
+
+  .featured-divider {
+    height: 1px;
+    background: var(--ink-4);
+    flex-grow: 1;
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: center;
+  }
+
+  .featured-copy,
+  .featured-code {
+    min-width: 0;
+  }
+
+  .featured-copy h2 {
+    margin-bottom: 16px;
+  }
+
+  .featured-copy p {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .featured-results {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .featured-results li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .featured-results .icon {
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  .featured-result-label {
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--parchment);
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .featured-result-desc {
+    display: block;
+    font-size: 13px;
+    color: var(--parchment-3);
+    line-height: 1.6;
+  }
+
+  .code-block {
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    border-radius: 6px;
+    padding: 16px;
+    overflow-x: auto;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .code-block-header {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--parchment-4);
+    border-bottom: 1px solid var(--ink-4);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .code-block pre {
+    margin: 0;
+  }
+
+  .code-block code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--parchment-3);
+    white-space: pre;
+  }
+
+  .code-block :global(.tok-kw)  { color: #c678dd; }
+  .code-block :global(.tok-fn)  { color: #61afef; }
+  .code-block :global(.tok-str) { color: #5c6370; }
+  .code-block :global(.tok-cm)  { color: #5c6370; }
+  .code-block :global(.tok-op)  { color: #56b6c2; }
+  .code-block :global(.tok-num) { color: #d19a66; }
+  .code-block :global(.tok-bi)  { color: #e5c07b; }
+
+  @media (max-width: 900px) {
+    .featured-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+    .featured-case {
+      padding: 32px 20px;
+    }
+  }
 </style>

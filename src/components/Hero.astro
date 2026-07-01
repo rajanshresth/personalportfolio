@@ -1,26 +1,26 @@
 ---
-import CardCluster from './CardCluster.astro';
+import PipelineDiagram from './PipelineDiagram.astro';
 ---
 
 <section class="hero container">
   <div class="hero-content">
-    <!-- Eyebrow label -->
-    <span class="hero-eyebrow label">
-      AI & Automation · n8n · Python · Docker
+    <!-- Status badge -->
+    <span class="hero-status">
+      <span class="hero-status-dot" aria-hidden="true"></span>
+      <span class="label hero-status-label">Status: Systems Online</span>
     </span>
 
     <!-- Headline -->
     <h1 class="display hero-headline">
-      Automation that runs<br>
-      <em>your revenue engine</em>
+      Automation that runs your<br>
+      <em>revenue engine</em>.
     </h1>
 
     <!-- Body -->
     <p class="hero-body">
       I design and build n8n, Python, and Docker systems for GTM, RevOps,
-      and supply chain & logistics teams — pricing engines, lead routing,
-      ad allocation, and ops dashboards that replace manual work with
-      systems that run on their own.
+      and supply chain & logistics teams. High-leverage architecture over
+      manual execution.
     </p>
 
     <!-- CTAs -->
@@ -35,31 +35,31 @@ import CardCluster from './CardCluster.astro';
       >
         Book a call →
       </button>
-      <a href="/#work-heading" class="cta-secondary">
-        See case studies →
+      <a href="/work" class="btn btn-outline">
+        See case studies
       </a>
     </div>
 
     <!-- Trust strip -->
     <ul class="hero-trust" role="list">
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/6c735f/clock.png" alt="" width="16" height="16" class="icon" />
+        <img src="https://img.icons8.com/ios-filled/40/bfc9c3/clock.png" alt="" width="16" height="16" class="icon" />
         <span>&lt;<span data-count-to="2">0</span> min lead response</span>
       </li>
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/6c735f/shield.png" alt="" width="16" height="16" class="icon" />
+        <img src="https://img.icons8.com/ios-filled/40/bfc9c3/shield.png" alt="" width="16" height="16" class="icon" />
         <span><span data-count-to="24">0</span>/7 autonomous uptime</span>
       </li>
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/6c735f/workflow.png" alt="" width="16" height="16" class="icon" />
+        <img src="https://img.icons8.com/ios-filled/40/bfc9c3/workflow.png" alt="" width="16" height="16" class="icon" />
         <span>n8n · Python · Docker</span>
       </li>
     </ul>
   </div>
 
-  <!-- 3D card cluster — desktop only -->
+  <!-- Pipeline diagram — desktop only -->
   <div class="hero-cluster">
-    <CardCluster />
+    <PipelineDiagram />
   </div>
 </section>
 
@@ -93,9 +93,9 @@ import CardCluster from './CardCluster.astro';
 <style>
   .hero {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
     align-items: center;
-    gap: 48px;
+    gap: 56px;
     padding-top: 80px;
     padding-bottom: 80px;
     border-bottom: 1px solid var(--ink-4);
@@ -106,12 +106,13 @@ import CardCluster from './CardCluster.astro';
     display: flex;
     flex-direction: column;
     gap: 24px;
-    max-width: 480px;
+    max-width: 640px;
+    min-width: 0;
   }
 
   /* Staggered fade-up on page load */
   @media (prefers-reduced-motion: no-preference) {
-    .hero-eyebrow {
+    .hero-status {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
       animation-delay: 0ms;
@@ -133,8 +134,24 @@ import CardCluster from './CardCluster.astro';
     }
   }
 
-  .hero-eyebrow {
-    display: block;
+  /* Status badge */
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--copper);
+    animation: pulseDot 2.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  .hero-status-label {
+    color: var(--copper);
   }
 
   .hero-headline {
@@ -159,20 +176,9 @@ import CardCluster from './CardCluster.astro';
   .hero-ctas {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 16px;
     flex-wrap: wrap;
   }
-
-  .cta-secondary {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--parchment-4);
-    transition: color 180ms ease;
-  }
-  .cta-secondary:hover { color: var(--copper); }
 
   /* Trust strip */
   .hero-trust {
@@ -195,14 +201,19 @@ import CardCluster from './CardCluster.astro';
     color: var(--parchment-4);
   }
 
-  /* Card cluster column */
+  /* Pipeline diagram column */
   .hero-cluster {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    width: 100%;
+    min-width: 0;
+  }
+  .hero-cluster :global(.pipeline-diagram) {
+    max-width: 380px;
   }
 
-  /* Mobile: stack, hide cluster */
+  /* Mobile: stack, hide diagram */
   @media (max-width: 767px) {
     .hero {
       grid-template-columns: 1fr;
@@ -213,7 +224,6 @@ import CardCluster from './CardCluster.astro';
     }
     .hero-cluster { display: none; }
     .hero-content { max-width: 100%; gap: 20px; }
-    .cta-secondary { font-size: 10px; }
   }
 
   @media (max-width: 480px) {

@@ -1,28 +1,18 @@
 ---
-const year = new Date().getFullYear();
+const year = 2024;
 ---
 
 <footer class="footer">
   <div class="container footer-inner">
-    <div class="footer-status">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span class="label">Open for automation builds</span>
-    </div>
+    <div class="footer-logo">Rajan</div>
+
+    <p class="footer-copy">
+      &copy; {year} Rajan Shrestha. All rights reserved.
+    </p>
 
     <div class="footer-links">
-      <button
-        type="button"
-        class="footer-link label footer-link--button"
-        data-cal-link="rajan10x/meeting-ai"
-        data-cal-namespace="meeting-ai"
-        data-cal-config={`{"layout":"month_view"}`}
-      >
-        <img src="https://img.icons8.com/ios-filled/40/6c735f/calendar-2.png" alt="" width="13" height="13" class="icon" />
-        Book a call
-      </button>
-      <a href="mailto:contact@rajanbuilds.com" class="footer-link label">
-        <img src="https://img.icons8.com/ios-filled/40/6c735f/mail.png" alt="" width="13" height="13" class="icon" />
-        Email
+      <a href="mailto:shrestharajan726@gmail.com" class="footer-link label">
+        Email: shrestharajan726@gmail.com
       </a>
       <a
         href="https://www.linkedin.com/in/rajan10x/"
@@ -31,31 +21,17 @@ const year = new Date().getFullYear();
         class="footer-link label"
         aria-label="LinkedIn profile"
       >
-        <img src="https://img.icons8.com/color/48/linkedin.png" alt="" width="14" height="14" class="icon" />
         LinkedIn
       </a>
-      <a
-        href="https://github.com/rajanshresth"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="footer-link label"
-        aria-label="GitHub profile"
-      >
-        <img src="https://img.icons8.com/color/48/github.png" alt="" width="14" height="14" class="icon" />
-        GitHub
-      </a>
     </div>
-
-    <p class="footer-copy label">
-      &copy; {year} Rajan
-    </p>
   </div>
 </footer>
 
 <style>
   .footer {
     border-top: 1px solid var(--ink-4);
-    padding: 32px 0;
+    background: var(--ink-2);
+    padding: 24px 0;
     margin-top: auto;
   }
 
@@ -67,19 +43,17 @@ const year = new Date().getFullYear();
     flex-wrap: wrap;
   }
 
-  .footer-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--copper);
   }
 
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    animation: pulseDot 2.5s ease-in-out infinite;
-    flex-shrink: 0;
+  .footer-copy {
+    color: var(--parchment-4);
+    font-size: 13px;
   }
 
   .footer-links {
@@ -89,26 +63,14 @@ const year = new Date().getFullYear();
   }
 
   .footer-link {
-    display: flex;
-    align-items: center;
-    gap: 6px;
     color: var(--parchment-4);
     transition: color 150ms ease;
+    text-transform: none;
+    letter-spacing: 0.5px;
   }
   .footer-link:hover { color: var(--copper); }
 
-  .footer-link--button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .footer-copy {
-    color: var(--parchment-4);
-  }
-
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
     .footer-inner {
       flex-direction: column;
       align-items: flex-start;

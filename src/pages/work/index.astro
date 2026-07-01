@@ -1,0 +1,318 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Content, tags, and imagery mirror the Stitch "Work" screen exactly.
+// Each card links through to its full case study (content collection).
+const cases = [
+  {
+    slug: 'capacity-based-pricing-engine',
+    num: '01',
+    title: 'Dynamic Capacity-Based Pricing Engine',
+    desc: 'Architected a real-time pricing algorithm that adjusts supply-side variables autonomously, resulting in a 24% yield optimization across global logistics networks.',
+    tags: ['RevOps', 'Python', 'PostgreSQL'],
+    img: '/work/case-01.jpg',
+    alt: 'A highly detailed architectural diagram of a dynamic pricing engine, featuring glowing neon green data flow lines against a deep dark charcoal gray background.',
+  },
+  {
+    slug: 'ad-portfolio-allocator',
+    num: '02',
+    title: 'Algorithmic Ad Portfolio Allocator',
+    desc: 'Developed a machine learning model to dynamically shift spend across 15+ ad networks based on predicted LTV models, outperforming baseline ROAS by 38%.',
+    tags: ['GTM', 'TensorFlow'],
+    img: '/work/case-02.jpg',
+    alt: 'A sleek minimalist data visualization dashboard showing algorithmic portfolio allocation with crisp mint green bar charts on an abyssal black background.',
+  },
+  {
+    slug: 'ai-business-operating-system',
+    num: '03',
+    title: 'AI Business Operating System',
+    desc: 'Centralized operations by integrating ERP, CRM, and HR systems into a unified AI-driven interface for executive querying.',
+    tags: ['Ops', 'n8n'],
+    img: '/work/case-03.jpg',
+    alt: "A conceptual rendering of a business operating system's central nervous system, featuring precise minimalist node-based connections in sharp mint green on a dark background.",
+  },
+  {
+    slug: 'route-optimizer',
+    num: '04',
+    title: 'Shortest-Route Delivery Optimizer',
+    desc: 'Deployed a custom routing engine utilizing graph theory to minimize fleet fuel consumption and optimize delivery windows by 18%.',
+    tags: ['Supply Chain', 'Python'],
+    img: '/work/case-04.jpg',
+    alt: 'A dark sophisticated map visualization showing shortest-route delivery optimization, with sharp lines glowing faintly in pale green against a deep geographic overlay.',
+  },
+  {
+    slug: 'lead-follow-up-automation',
+    num: '05',
+    title: 'Lead Follow-Up Automation',
+    desc: 'Engineered a multi-touchpoint semantic follow-up sequence reducing manual sales effort.',
+    tags: ['RevOps', 'n8n'],
+  },
+  {
+    slug: 'morning-digest',
+    num: '06',
+    title: 'Production Morning Digest',
+    desc: 'Automated data aggregation from 5 distinct sources into a synthesized daily executive briefing.',
+    tags: ['Ops', 'Docker'],
+  },
+];
+
+const [big, tall, mdA, mdB, splitA, splitB] = cases;
+---
+
+<Base
+  title="Work — Rajan Shrestha"
+  description="Case studies in AI and automation for GTM, RevOps, and supply chain teams — pricing engines, ad allocation, routing, and ops systems."
+>
+  <div class="container work-index">
+    <header class="work-index-header" data-reveal>
+      <h1>Engineering Intelligence.</h1>
+      <p>
+        Discover how we've engineered the future for leading enterprises
+        through bespoke AI models and sophisticated automation workflows.
+      </p>
+    </header>
+
+    <div class="work-bento" data-reveal-group>
+      <!-- 01 — large feature -->
+      <a href={`/work/${big.slug}`} class="work-card work-card--lg">
+        <div class="work-card-visual">
+          <img src={big.img} alt={big.alt} loading="lazy" width="512" height="279" />
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            {big.tags.map(tag => <span class="tech-chip">{tag}</span>)}
+          </div>
+          <h2>{big.num}: {big.title}</h2>
+          <p>{big.desc}</p>
+        </div>
+      </a>
+
+      <!-- 02 — tall feature -->
+      <a href={`/work/${tall.slug}`} class="work-card work-card--tall">
+        <div class="work-card-visual">
+          <img src={tall.img} alt={tall.alt} loading="lazy" width="512" height="279" />
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            {tall.tags.map(tag => <span class="tech-chip">{tag}</span>)}
+          </div>
+          <h2>{tall.num}: {tall.title}</h2>
+          <p>{tall.desc}</p>
+        </div>
+      </a>
+
+      <!-- 03 -->
+      <a href={`/work/${mdA.slug}`} class="work-card work-card--md">
+        <div class="work-card-visual">
+          <img src={mdA.img} alt={mdA.alt} loading="lazy" width="512" height="279" />
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            {mdA.tags.map(tag => <span class="tech-chip">{tag}</span>)}
+          </div>
+          <h2>{mdA.num}: {mdA.title}</h2>
+          <p>{mdA.desc}</p>
+        </div>
+      </a>
+
+      <!-- 04 -->
+      <a href={`/work/${mdB.slug}`} class="work-card work-card--md">
+        <div class="work-card-visual">
+          <img src={mdB.img} alt={mdB.alt} loading="lazy" width="512" height="279" />
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            {mdB.tags.map(tag => <span class="tech-chip">{tag}</span>)}
+          </div>
+          <h2>{mdB.num}: {mdB.title}</h2>
+          <p>{mdB.desc}</p>
+        </div>
+      </a>
+
+      <!-- 05 + 06 — split text block -->
+      <div class="work-split">
+        <a href={`/work/${splitA.slug}`} class="work-card work-card--sm">
+          <div class="work-card-tags">
+            {splitA.tags.map(tag => <span class="tech-chip tech-chip--xs">{tag}</span>)}
+          </div>
+          <h2>{splitA.num}: {splitA.title}</h2>
+          <p>{splitA.desc}</p>
+        </a>
+        <a href={`/work/${splitB.slug}`} class="work-card work-card--sm">
+          <div class="work-card-tags">
+            {splitB.tags.map(tag => <span class="tech-chip tech-chip--xs">{tag}</span>)}
+          </div>
+          <h2>{splitB.num}: {splitB.title}</h2>
+          <p>{splitB.desc}</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .work-index {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+
+  .work-index-header {
+    max-width: 640px;
+    margin-bottom: 56px;
+  }
+
+  .work-index-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 700;
+    color: var(--copper);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .work-index-header p {
+    font-size: 17px;
+    max-width: 560px;
+  }
+
+  /* Bento grid */
+  .work-bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+
+  .work-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 200ms ease, transform 200ms ease;
+  }
+  .work-card:hover {
+    border-color: var(--copper);
+    transform: translateY(-3px);
+  }
+  .work-card:hover h2 { color: var(--copper); }
+
+  .work-card--lg   { grid-column: span 8; }
+  .work-card--tall { grid-column: span 4; }
+  .work-card--md   { grid-column: span 4; }
+  .work-split      { grid-column: span 4; display: flex; flex-direction: column; gap: 24px; }
+  .work-card--sm {
+    padding: 24px;
+    gap: 8px;
+    position: relative;
+    padding-left: 24px;
+    flex: 1;
+    justify-content: center;
+  }
+  .work-card--sm::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--ink-4);
+    transition: background 200ms ease;
+  }
+  .work-card--sm:hover { transform: none; }
+  .work-card--sm:hover::before { background: var(--copper); }
+
+  .work-card-visual {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink-3);
+    border-bottom: 1px solid var(--ink-4);
+  }
+  .work-card-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    transition: opacity 300ms ease;
+  }
+  .work-card:hover .work-card-visual img { opacity: 1; }
+
+  .work-card--lg .work-card-visual   { height: 300px; }
+  .work-card--tall .work-card-visual { height: 200px; flex-grow: 1; }
+  .work-card--md .work-card-visual   { height: 190px; }
+
+  .work-card-body {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
+  .work-card--tall .work-card-body,
+  .work-card--md .work-card-body { padding: 22px; }
+
+  .work-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .tech-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--copper);
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    padding: 3px 8px;
+  }
+  .tech-chip--xs {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .work-card h2 {
+    font-size: 18px;
+    color: var(--parchment);
+    transition: color 150ms ease;
+  }
+  .work-card--lg h2 { font-size: 24px; }
+  .work-card--md h2,
+  .work-card--tall h2 { font-size: 20px; }
+  .work-card--sm h2 { font-size: 15px; }
+
+  .work-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--parchment-3);
+  }
+  .work-card--sm p { font-size: 12px; }
+  .work-card--lg p {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+  }
+
+  @media (max-width: 900px) {
+    .work-bento {
+      grid-template-columns: 1fr;
+    }
+    .work-card--lg,
+    .work-card--tall,
+    .work-card--md,
+    .work-split {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .work-index { padding-top: 44px; }
+    .work-index-header { margin-bottom: 36px; }
+  }
+</style>
