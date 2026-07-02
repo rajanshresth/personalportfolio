@@ -12,21 +12,6 @@ const workCollection = defineCollection({
   }),
 });
 
-const writingCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/writing' }),
-  schema: z.object({
-    title:       z.string(),
-    description: z.string(),
-    publishedAt: z.date(),
-    tags:        z.array(z.string()),
-    featured:    z.boolean().optional().default(false),
-    draft:       z.boolean().optional().default(false),
-    image:       z.string().optional(),
-    imageAlt:    z.string().optional(),
-  }),
-});
-
 export const collections = {
-  work:    workCollection,
-  writing: writingCollection,
+  work: workCollection,
 };

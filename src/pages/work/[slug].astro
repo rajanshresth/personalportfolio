@@ -31,16 +31,27 @@ const workSchema = {
   },
   keywords: item.data.tags.join(', '),
 };
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type':    'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl.href },
+    { '@type': 'ListItem', position: 2, name: 'Work', item: new URL('/work', siteUrl).href },
+    { '@type': 'ListItem', position: 3, name: item.data.title, item: canonical },
+  ],
+};
 ---
 
 <Base
-  title={`${item.data.title} — Rajan`}
+  title={`${item.data.title} — Rajan Shrestha`}
   description={item.data.description}
   image={ogImage}
   imageAlt={item.data.title}
   tags={item.data.tags}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(workSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <div class="container work-page">
     <!-- Breadcrumb -->
     <a href="/work" class="breadcrumb label">← Work</a>
