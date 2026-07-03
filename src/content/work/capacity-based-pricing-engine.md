@@ -3,6 +3,7 @@ title: Dynamic Capacity-Based Pricing Engine
 description: A pricing engine for B2B digital agencies that adjusts rates in real time based on team capacity, utilization, and demand instead of a static rate card.
 tags: [RevOps, Python, Docker, Pricing]
 order: 1
+publishDate: 2025-02-11
 ---
 
 ## Overview

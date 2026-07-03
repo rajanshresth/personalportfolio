@@ -1,8 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
+import WorkflowDiagram from '../../components/WorkflowDiagram.astro';
+import { workflows } from '../../lib/workflows';
 
-// Content, tags, and imagery mirror the Stitch "Work" screen exactly.
-// Each card links through to its full case study (content collection).
+// Each card links through to its full case study (content collection). The
+// four feature cards show a compact, real workflow diagram in place of the
+// old abstract renders — the same pipeline that's detailed on the case page.
 const cases = [
   {
     slug: 'capacity-based-pricing-engine',
@@ -10,8 +13,6 @@ const cases = [
     title: 'Dynamic Capacity-Based Pricing Engine',
     desc: 'Architected a real-time pricing algorithm that adjusts supply-side variables autonomously, resulting in a 24% yield optimization across global logistics networks.',
     tags: ['RevOps', 'Python', 'PostgreSQL'],
-    img: '/work/case-01.jpg',
-    alt: 'A highly detailed architectural diagram of a dynamic pricing engine, featuring glowing neon green data flow lines against a deep dark charcoal gray background.',
   },
   {
     slug: 'ad-portfolio-allocator',
@@ -19,8 +20,6 @@ const cases = [
     title: 'Algorithmic Ad Portfolio Allocator',
     desc: 'Developed a machine learning model to dynamically shift spend across 15+ ad networks based on predicted LTV models, outperforming baseline ROAS by 38%.',
     tags: ['GTM', 'TensorFlow'],
-    img: '/work/case-02.jpg',
-    alt: 'A sleek minimalist data visualization dashboard showing algorithmic portfolio allocation with crisp mint green bar charts on an abyssal black background.',
   },
   {
     slug: 'ai-business-operating-system',
@@ -28,8 +27,6 @@ const cases = [
     title: 'AI Business Operating System',
     desc: 'Centralized operations by integrating ERP, CRM, and HR systems into a unified AI-driven interface for executive querying.',
     tags: ['Ops', 'n8n'],
-    img: '/work/case-03.jpg',
-    alt: "A conceptual rendering of a business operating system's central nervous system, featuring precise minimalist node-based connections in sharp mint green on a dark background.",
   },
   {
     slug: 'route-optimizer',
@@ -37,8 +34,6 @@ const cases = [
     title: 'Shortest-Route Delivery Optimizer',
     desc: 'Deployed a custom routing engine utilizing graph theory to minimize fleet fuel consumption and optimize delivery windows by 18%.',
     tags: ['Supply Chain', 'Python'],
-    img: '/work/case-04.jpg',
-    alt: 'A dark sophisticated map visualization showing shortest-route delivery optimization, with sharp lines glowing faintly in pale green against a deep geographic overlay.',
   },
   {
     slug: 'lead-follow-up-automation',
@@ -76,7 +71,7 @@ const [big, tall, mdA, mdB, splitA, splitB] = cases;
       <!-- 01 — large feature -->
       <a href={`/work/${big.slug}`} class="work-card work-card--lg">
         <div class="work-card-visual">
-          <img src={big.img} alt={big.alt} loading="lazy" width="512" height="279" />
+          <WorkflowDiagram workflow={workflows[big.slug]} compact />
         </div>
         <div class="work-card-body">
           <div class="work-card-tags">
@@ -90,7 +85,7 @@ const [big, tall, mdA, mdB, splitA, splitB] = cases;
       <!-- 02 — tall feature -->
       <a href={`/work/${tall.slug}`} class="work-card work-card--tall">
         <div class="work-card-visual">
-          <img src={tall.img} alt={tall.alt} loading="lazy" width="512" height="279" />
+          <WorkflowDiagram workflow={workflows[tall.slug]} compact />
         </div>
         <div class="work-card-body">
           <div class="work-card-tags">
@@ -104,7 +99,7 @@ const [big, tall, mdA, mdB, splitA, splitB] = cases;
       <!-- 03 -->
       <a href={`/work/${mdA.slug}`} class="work-card work-card--md">
         <div class="work-card-visual">
-          <img src={mdA.img} alt={mdA.alt} loading="lazy" width="512" height="279" />
+          <WorkflowDiagram workflow={workflows[mdA.slug]} compact />
         </div>
         <div class="work-card-body">
           <div class="work-card-tags">
@@ -118,7 +113,7 @@ const [big, tall, mdA, mdB, splitA, splitB] = cases;
       <!-- 04 -->
       <a href={`/work/${mdB.slug}`} class="work-card work-card--md">
         <div class="work-card-visual">
-          <img src={mdB.img} alt={mdB.alt} loading="lazy" width="512" height="279" />
+          <WorkflowDiagram workflow={workflows[mdB.slug]} compact />
         </div>
         <div class="work-card-body">
           <div class="work-card-tags">
@@ -226,21 +221,18 @@ const [big, tall, mdA, mdB, splitA, splitB] = cases;
   .work-card-visual {
     position: relative;
     overflow: hidden;
-    background: var(--ink-3);
+    background: var(--ink-2);
     border-bottom: 1px solid var(--ink-4);
+    display: flex;
   }
-  .work-card-visual img {
+  .work-card-visual :global(.wf-figure) {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.85;
-    transition: opacity 300ms ease;
+    display: flex;
   }
-  .work-card:hover .work-card-visual img { opacity: 1; }
 
-  .work-card--lg .work-card-visual   { height: 300px; }
-  .work-card--tall .work-card-visual { height: 200px; flex-grow: 1; }
-  .work-card--md .work-card-visual   { height: 190px; }
+  .work-card--lg .work-card-visual   { min-height: 300px; }
+  .work-card--tall .work-card-visual { flex-grow: 1; }
+  .work-card--md .work-card-visual   { min-height: 190px; }
 
   .work-card-body {
     padding: 28px;

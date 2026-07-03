@@ -1,0 +1,45 @@
+# Rajan Shrestha — AI & Automation Consultant
+
+> Rajan Shrestha is an AI & automation consultant and industrial engineer who builds n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams. Typical builds: capacity-based pricing engines, lead-routing and follow-up automation, ad-budget allocation, route optimization, and cross-tool ops dashboards. Engagements are fixed-price builds with an optional monthly retainer for ongoing optimization. Website: https://rajanbuilds.com
+
+## Summary
+
+- **Name:** Rajan Shrestha
+- **Role:** AI & Automation Consultant / Engineer (industrial engineer by training)
+- **What he does:** Designs and deploys automation systems that connect a company's existing tools so data entry happens once and downstream steps run without a human in the loop.
+- **Core stack:** n8n (orchestration), Python (custom logic, scoring, optimization), Docker (per-client deployment), PostgreSQL, LangChain, TypeScript, AWS.
+- **Industries served:** Go-to-market (GTM), Revenue Operations (RevOps), and supply chain & logistics.
+- **Engagement model:** Fixed-price build first (discovery → architecture spec + fixed quote → execution), then an optional monthly retainer for monitoring, fixes, and new workflows.
+- **Contact / booking:** 20-minute scoping call via https://cal.com/rajan10x/meeting-ai
+
+## Pages
+
+- [Home](https://rajanbuilds.com/): Overview of services, core competencies, and a featured pricing-engine case study.
+- [Work / Case studies](https://rajanbuilds.com/work): Detailed technical breakdowns of automation systems built for real problems.
+- [About](https://rajanbuilds.com/about): Background as an industrial engineer, how he approaches automation, and how engagements work.
+- [Pricing](https://rajanbuilds.com/pricing): Fixed-price build + optional retainer model, the engagement pipeline, and FAQs.
+- [Templates & Resources](https://rajanbuilds.com/templates): Download-ready n8n workflows and Python scripts (free and paid) that productize the case studies.
+
+## Case studies
+
+- [Dynamic Capacity-Based Pricing Engine](https://rajanbuilds.com/work/capacity-based-pricing-engine): Real-time pricing that adjusts quotes to live fleet capacity and market rates. Python pricing logic orchestrated by n8n, deployed via Docker. Cut quote generation from ~15 minutes to under 2 seconds.
+- [Algorithmic Ad Portfolio Allocator](https://rajanbuilds.com/work/ad-portfolio-allocator): Shifts ad spend across 15+ networks based on predicted LTV, treating budget like a rebalanced portfolio.
+- [AI Business Operating System](https://rajanbuilds.com/work/ai-business-operating-system): A central n8n + Python layer connecting CRM, finance, and ops tools into one automated decision system.
+- [Shortest-Route Delivery Optimizer](https://rajanbuilds.com/work/route-optimizer): A graph-theory routing engine that minimizes fleet fuel use and optimizes delivery windows.
+- [Lead Follow-Up Automation](https://rajanbuilds.com/work/lead-follow-up-automation): Catches an inbound lead, qualifies it, and fires an instant first-touch reply so no lead waits on a human.
+- [Production Morning Digest](https://rajanbuilds.com/work/morning-digest): A scheduled n8n + Python pipeline that aggregates overnight data into a one-page executive briefing.
+
+## Common questions
+
+- **Who is Rajan Shrestha?** An AI & automation consultant and industrial engineer who builds n8n, Python, and Docker systems for GTM, RevOps, and supply chain teams.
+- **What does he build?** Automation systems — pricing engines, lead routing, ad-budget allocation, route optimization, and cross-tool ops dashboards — that run without manual intervention.
+- **What tools does he use?** Primarily n8n, Python, and Docker, plus PostgreSQL, LangChain, TypeScript, and AWS.
+- **How does pricing work?** Every engagement starts as a fixed-price build after a short scoping call; most clients then add an optional monthly retainer for ongoing optimization.
+- **What industries does he serve?** GTM, RevOps, and supply chain & logistics — where the automation patterns repeat.
+- **How do you work with him?** Book a 20-minute scoping call at https://cal.com/rajan10x/meeting-ai to get an exact fixed-price quote.
+
+## More
+
+- [LinkedIn](https://www.linkedin.com/in/rajan10x/)
+- [GitHub](https://github.com/rajanshresth)
+- [Sitemap](https://rajanbuilds.com/sitemap-index.xml)

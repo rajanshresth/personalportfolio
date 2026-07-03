@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import WorkflowDiagram from '../../components/WorkflowDiagram.astro';
+import { workflows } from '../../lib/workflows';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -14,22 +16,38 @@ const { item } = Astro.props;
 const { Content } = await render(item);
 
 const itemSlug  = item.id.replace(/\.md$/, '');
+const workflow  = workflows[itemSlug];
 const siteUrl   = Astro.site ?? new URL('https://rajanbuilds.com');
 const ogImage   = `/og/work/${itemSlug}.png`;
 const canonical = new URL(`/work/${itemSlug}`, siteUrl).href;
 
+const published = item.data.publishDate;
+const modified  = item.data.updateDate ?? item.data.publishDate;
+
 const workSchema = {
   '@context':   'https://schema.org',
-  '@type':      'CreativeWork',
+  '@type':      'TechArticle',
+  headline:     item.data.title,
   name:         item.data.title,
   description:  item.data.description,
   url:          canonical,
+  mainEntityOfPage: canonical,
+  image:        new URL(ogImage, siteUrl).href,
+  ...(published && { datePublished: published.toISOString() }),
+  ...(modified  && { dateModified:  modified.toISOString() }),
   author: {
     '@type': 'Person',
+    '@id':   new URL('/about#person', siteUrl).href,
     name:    'Rajan Shrestha',
     url:     new URL('/about', siteUrl).href,
   },
+  publisher: {
+    '@type': 'Person',
+    '@id':   new URL('/about#person', siteUrl).href,
+    name:    'Rajan Shrestha',
+  },
   keywords: item.data.tags.join(', '),
+  about:    item.data.tags,
 };
 
 const breadcrumbSchema = {
@@ -49,6 +67,8 @@ const breadcrumbSchema = {
   image={ogImage}
   imageAlt={item.data.title}
   tags={item.data.tags}
+  type="article"
+  publishedAt={published}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(workSchema)} />
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -79,6 +99,14 @@ const breadcrumbSchema = {
       )}
     </header>
 
+    <!-- Workflow diagram -->
+    {workflow && (
+      <section class="work-workflow" data-reveal aria-label="Workflow overview">
+        <span class="label work-workflow-eyebrow">How it works</span>
+        <WorkflowDiagram workflow={workflow} />
+      </section>
+    )}
+
     <!-- Body -->
     <div class="prose">
       <Content />
@@ -88,16 +116,21 @@ const breadcrumbSchema = {
     <div class="work-end-cta" data-reveal>
       <h2>Want something like this built?</h2>
       <p>Book a 20-minute call — I'll scope it and give you an exact number.</p>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-magnetic
-        data-cal-link="rajan10x/meeting-ai"
-        data-cal-namespace="meeting-ai"
-        data-cal-config={`{"layout":"month_view"}`}
-      >
-        Book a call →
-      </button>
+      <div class="work-end-actions">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-magnetic
+          data-cal-link="rajan10x/meeting-ai"
+          data-cal-namespace="meeting-ai"
+          data-cal-config={`{"layout":"month_view"}`}
+        >
+          Book a call →
+        </button>
+        <a href="/templates" class="btn btn-secondary">
+          Or grab the template
+        </a>
+      </div>
     </div>
   </div>
 </Base>
@@ -154,6 +187,16 @@ const breadcrumbSchema = {
   }
   .work-cta:hover { color: var(--copper); opacity: 0.75; }
 
+  /* Workflow diagram */
+  .work-workflow {
+    margin-bottom: 44px;
+  }
+  .work-workflow-eyebrow {
+    display: block;
+    color: var(--copper);
+    margin-bottom: 16px;
+  }
+
   /* Prose */
   .prose {
     color: var(--parchment-2);
@@ -182,6 +225,13 @@ const breadcrumbSchema = {
   }
   .work-end-cta h2 { margin-bottom: 8px; }
   .work-end-cta p { margin-bottom: 20px; }
+  .work-end-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
 
   @media (max-width: 600px) {
     .work-end-cta { margin-top: 40px; padding-top: 32px; }

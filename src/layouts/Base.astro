@@ -29,24 +29,43 @@ const ogImage   = image
   ? (image.startsWith('http') ? image : new URL(image, siteUrl).href)
   : new URL('/og/default.png', siteUrl).href;
 
-// WebSite + Person structured data (homepage only, via type=website)
+// Global structured data: Person + WebSite, linked via @graph so answer
+// engines can resolve "who" and "what site" from a single stable node.
+const personId  = new URL('/about#person', siteUrl).href;
+const websiteId = `${siteUrl.href}#website`;
+
 const websiteSchema = {
-  '@context':  'https://schema.org',
-  '@type':     'WebSite',
-  name:        'Rajan Shrestha',
-  url:         siteUrl.href,
-  description: 'AI & automation consulting — n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
-  author: {
-    '@type': 'Person',
-    name:    'Rajan Shrestha',
-    url:     new URL('/about', siteUrl).href,
-    jobTitle: 'AI & Automation Consultant',
-    knowsAbout: ['n8n', 'Python', 'Docker', 'GTM Automation', 'RevOps', 'Supply Chain & Logistics'],
-    sameAs: [
-      'https://www.linkedin.com/in/rajan10x/',
-      'https://github.com/rajanshresth',
-    ],
-  },
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id':   personId,
+      name:    'Rajan Shrestha',
+      url:     new URL('/about', siteUrl).href,
+      jobTitle: 'AI & Automation Consultant',
+      description:
+        'Industrial engineer turned AI & automation consultant. Builds n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
+      knowsAbout: [
+        'n8n', 'Python', 'Docker', 'PostgreSQL', 'LangChain', 'TypeScript', 'AWS',
+        'GTM Automation', 'RevOps', 'Supply Chain & Logistics',
+        'Workflow Automation', 'AI Agents', 'Business Process Automation',
+      ],
+      sameAs: [
+        'https://www.linkedin.com/in/rajan10x/',
+        'https://github.com/rajanshresth',
+      ],
+    },
+    {
+      '@type':     'WebSite',
+      '@id':       websiteId,
+      name:        'Rajan Shrestha',
+      url:         siteUrl.href,
+      description: 'AI & automation consulting — n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
+      author:      { '@id': personId },
+      publisher:   { '@id': personId },
+      inLanguage:  'en',
+    },
+  ],
 };
 ---
 

@@ -3,6 +3,7 @@ title: Algorithmic Ad Portfolio Allocator
 description: A budget allocation system that rebalances ad spend across campaigns and channels daily based on performance, the way a portfolio manager rebalances assets.
 tags: [GTM, Python, Automation]
 order: 2
+publishDate: 2025-03-18
 ---
 
 ## Overview

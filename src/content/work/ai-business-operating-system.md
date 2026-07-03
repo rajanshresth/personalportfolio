@@ -3,6 +3,7 @@ title: AI Business Operating System
 description: A central n8n + Python layer that connects CRM, finance, and ops tools into one automated decision system, so data entry happens once and everything downstream updates itself.
 tags: [RevOps, n8n, Python, Docker]
 order: 3
+publishDate: 2025-04-22
 ---
 
 ## Overview

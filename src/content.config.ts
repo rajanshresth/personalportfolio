@@ -9,6 +9,8 @@ const workCollection = defineCollection({
     tags:        z.array(z.string()),
     order:       z.number().default(0),
     link:        z.string().optional(),
+    publishDate: z.coerce.date().optional(),
+    updateDate:  z.coerce.date().optional(),
   }),
 });
 

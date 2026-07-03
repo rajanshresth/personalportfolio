@@ -1,0 +1,307 @@
+---
+import Base from '../layouts/Base.astro';
+
+// ── Gumroad funnel ────────────────────────────────────────────────
+// Set this to your Gumroad store subdomain. Each template's `slug` is
+// appended as https://<GUMROAD_STORE>.gumroad.com/l/<slug>. Update the
+// store handle and the per-template slugs once the products are live.
+const GUMROAD_STORE = 'rajanbuilds';
+const gumroad = (slug: string) => `https://${GUMROAD_STORE}.gumroad.com/l/${slug}`;
+
+interface Template {
+  slug:  string;   // Gumroad product permalink
+  name:  string;
+  blurb: string;
+  tags:  string[];
+  price: number;   // USD; 0 = free lead magnet
+  /** Slug of the related case study, if this template productizes one. */
+  caseSlug?: string;
+}
+
+// The templates mirror the case studies — each is a starter version of a
+// system I've built, so the Work section and the store reinforce each other.
+const templates: Template[] = [
+  {
+    slug:  'lead-follow-up-n8n',
+    name:  'Lead Follow-Up Automation (n8n)',
+    blurb: 'The n8n workflow that catches an inbound lead, qualifies it, and fires an instant first-touch reply — so no lead waits on a human. Import the JSON, connect your CRM, done.',
+    tags:  ['n8n', 'GTM', 'Free'],
+    price: 0,
+    caseSlug: 'lead-follow-up-automation',
+  },
+  {
+    slug:  'morning-digest',
+    name:  'Production Morning Digest',
+    blurb: 'A scheduled n8n + Python pipeline that pulls overnight data and drops a one-page digest into Slack before standup. Includes the trend/anomaly script that decides what is worth flagging.',
+    tags:  ['n8n', 'Python', 'Reporting'],
+    price: 29,
+    caseSlug: 'morning-digest',
+  },
+  {
+    slug:  'ad-budget-rebalancer',
+    name:  'Ad Portfolio Rebalancer',
+    blurb: 'A Python script + n8n schedule that scores each campaign daily and shifts budget toward what is working, within guardrails. Treat ad spend like a portfolio, not a set-and-forget number.',
+    tags:  ['Python', 'GTM', 'Automation'],
+    price: 39,
+    caseSlug: 'ad-portfolio-allocator',
+  },
+  {
+    slug:  'route-optimizer-starter',
+    name:  'Route Optimizer Starter',
+    blurb: 'A Python starter built on the Google Routes API that turns a daily stop list into an optimized, traffic-aware multi-stop route with turn-by-turn output for drivers.',
+    tags:  ['Python', 'Supply Chain', 'Google Routes'],
+    price: 39,
+    caseSlug: 'route-optimizer',
+  },
+  {
+    slug:  'capacity-pricing-kit',
+    name:  'Capacity-Based Pricing Kit',
+    blurb: 'The capacity-index pricing model and n8n data pulls that turn live utilization into a recommended rate range in your CRM. Stop pricing off a rate card that never changes.',
+    tags:  ['n8n', 'Python', 'RevOps'],
+    price: 29,
+    caseSlug: 'capacity-based-pricing-engine',
+  },
+  {
+    slug:  'ai-ops-connector-pack',
+    name:  'AI Ops Connector Pack',
+    blurb: 'A set of n8n flows that sync CRM, invoicing, and ops tools so data entry happens once and everything downstream updates itself. The backbone of the AI Business Operating System build.',
+    tags:  ['n8n', 'Ops', 'Automation'],
+    price: 49,
+    caseSlug: 'ai-business-operating-system',
+  },
+];
+
+const priceLabel = (p: number) => (p === 0 ? 'Free' : `$${p}`);
+
+// ItemList of Products — gives the templates a shot at rich results and
+// ties each offer to a concrete price.
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type':    'ItemList',
+  name:       'Automation Templates & Resources',
+  itemListElement: templates.map((t, i) => ({
+    '@type':    'ListItem',
+    position:   i + 1,
+    item: {
+      '@type':       'Product',
+      name:          t.name,
+      description:   t.blurb,
+      url:           gumroad(t.slug),
+      brand:         { '@type': 'Brand', name: 'Rajan Shrestha' },
+      offers: {
+        '@type':        'Offer',
+        price:          t.price,
+        priceCurrency:  'USD',
+        availability:   'https://schema.org/InStock',
+        url:            gumroad(t.slug),
+      },
+    },
+  })),
+};
+---
+
+<Base
+  title="Automation Templates & Resources — Rajan Shrestha"
+  description="Download-ready n8n and Python automation templates for GTM, RevOps, and supply chain teams — lead follow-up, ops digests, ad budget rebalancing, route optimization, and more."
+  tags={['n8n templates', 'automation templates', 'n8n workflow', 'Python automation', 'RevOps', 'GTM']}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+
+  <div class="container templates-page">
+    <header class="templates-header" data-reveal>
+      <span class="label templates-eyebrow">Templates &amp; Resources</span>
+      <h1>Automation you can run today.</h1>
+      <p>
+        Starter versions of the systems on my <a href="/work">Work</a> page —
+        real n8n workflows and Python scripts for GTM, RevOps, and supply chain
+        teams. Import, connect your tools, and ship. Want the full build?
+        <a href="/pricing">Let's scope it</a>.
+      </p>
+    </header>
+
+    <div class="templates-grid" data-reveal-group>
+      {templates.map(t => (
+        <a
+          href={gumroad(t.slug)}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="template-card"
+        >
+          <div class="template-card-top">
+            <div class="template-tags">
+              {t.tags.map(tag => <span class="tech-chip">{tag}</span>)}
+            </div>
+            <span class:list={['template-price', { 'template-price--free': t.price === 0 }]}>
+              {priceLabel(t.price)}
+            </span>
+          </div>
+
+          <h2>{t.name}</h2>
+          <p>{t.blurb}</p>
+
+          <div class="template-card-foot">
+            <span class="template-cta label">
+              {t.price === 0 ? 'Download free' : 'Get the template'} →
+            </span>
+            {t.caseSlug && (
+              <span class="template-related label">See the build</span>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="templates-end-cta" data-reveal>
+      <h2>Need it wired into your stack?</h2>
+      <p>Templates get you 80% there. If you want it built, integrated, and monitored — book a call.</p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-magnetic
+        data-cal-link="rajan10x/meeting-ai"
+        data-cal-namespace="meeting-ai"
+        data-cal-config={`{"layout":"month_view"}`}
+      >
+        Book a call →
+      </button>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .templates-page {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+
+  .templates-header {
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+  .templates-eyebrow {
+    display: block;
+    color: var(--copper);
+    margin-bottom: 14px;
+  }
+  .templates-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 700;
+    color: var(--parchment);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .templates-header p {
+    font-size: 17px;
+    max-width: 560px;
+  }
+  .templates-header a { color: var(--copper); }
+
+  /* Grid */
+  .templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .template-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 8px;
+    transition: border-color 200ms ease, transform 200ms ease;
+  }
+  .template-card:hover {
+    border-color: var(--copper);
+    transform: translateY(-3px);
+  }
+  .template-card:hover h2 { color: var(--copper); }
+  .template-card:hover .template-cta { color: var(--copper); }
+
+  .template-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .template-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tech-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--copper);
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    padding: 3px 8px;
+  }
+
+  .template-price {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--parchment);
+    flex-shrink: 0;
+  }
+  .template-price--free { color: var(--copper); }
+
+  .template-card h2 {
+    font-size: 19px;
+    color: var(--parchment);
+    line-height: 1.25;
+    transition: color 150ms ease;
+    margin-top: 2px;
+  }
+
+  .template-card p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--parchment-3);
+    flex-grow: 1;
+  }
+
+  .template-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+    padding-top: 14px;
+    border-top: 1px solid var(--ink-4);
+  }
+  .template-cta {
+    color: var(--parchment-2);
+    transition: color 150ms ease;
+  }
+  .template-related {
+    color: var(--parchment-4);
+  }
+
+  /* Closing CTA */
+  .templates-end-cta {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--ink-4);
+    text-align: center;
+  }
+  .templates-end-cta h2 { margin-bottom: 8px; }
+  .templates-end-cta p { margin-bottom: 20px; }
+  .templates-end-cta .btn { margin: 0 auto; }
+
+  @media (max-width: 600px) {
+    .templates-page { padding-top: 44px; }
+    .templates-header { margin-bottom: 32px; }
+    .templates-end-cta { margin-top: 44px; padding-top: 36px; }
+  }
+</style>

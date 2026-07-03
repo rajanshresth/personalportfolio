@@ -3,6 +3,7 @@ title: Lead Follow-Up Automation
 description: An n8n workflow that responds to inbound leads within minutes, qualifies them, and routes them to the right rep — so no lead sits untouched waiting on a human.
 tags: [GTM, n8n, CRM, Automation]
 order: 5
+publishDate: 2025-06-17
 ---
 
 ## Overview

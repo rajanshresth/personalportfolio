@@ -3,6 +3,7 @@ title: Production Morning Digest
 description: A scheduled n8n + Python pipeline that pulls overnight production and ops data and delivers a one-page digest to leadership before standup, instead of a dashboard nobody opens.
 tags: [RevOps, n8n, Python, Reporting]
 order: 6
+publishDate: 2025-07-15
 ---
 
 ## Overview

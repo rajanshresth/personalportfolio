@@ -3,6 +3,7 @@ title: Shortest-Route Delivery Optimizer
 description: A logistics tool built on the Google Routes API that computes optimal multi-stop delivery routes, cutting drive time and fuel cost for last-mile and field teams.
 tags: [Supply Chain, Python, Google Routes API]
 order: 4
+publishDate: 2025-05-20
 ---
 
 ## Overview
