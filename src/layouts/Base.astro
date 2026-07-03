@@ -41,7 +41,7 @@ const websiteSchema = {
       '@type': 'Person',
       '@id':   personId,
       name:    'Rajan Shrestha',
-      url:     new URL('/about', siteUrl).href,
+      url:     new URL('/about/', siteUrl).href,
       jobTitle: 'AI & Automation Consultant',
       description:
         'Industrial engineer turned AI & automation consultant. Builds n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
@@ -143,6 +143,16 @@ const websiteSchema = {
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       />
     </noscript>
+
+    <!-- Google Analytics (GA4) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FCVD33YW3D"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FCVD33YW3D');
+    </script>
 
     <slot name="head" />
 
