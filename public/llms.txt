@@ -18,7 +18,6 @@
 - [Work / Case studies](https://rajanbuilds.com/work): Detailed technical breakdowns of automation systems built for real problems.
 - [About](https://rajanbuilds.com/about): Background as an industrial engineer, how he approaches automation, and how engagements work.
 - [Pricing](https://rajanbuilds.com/pricing): Fixed-price build + optional retainer model, the engagement pipeline, and FAQs.
-- [Templates & Resources](https://rajanbuilds.com/templates): Download-ready n8n workflows and Python scripts (free and paid) that productize the case studies.
 
 ## Case studies
 
