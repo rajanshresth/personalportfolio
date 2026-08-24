@@ -2,17 +2,10 @@
 # Cloudflare Pages reads this file. First match wins, so list the
 # specific mappings before the section-wide wildcards.
 
-# Old "writing" blog (section removed). Send the one post that maps
-# cleanly to its matching case study; everything else to the homepage.
-/writing/capacity-based-pricing-for-agencies   /work/capacity-based-pricing-engine/   301
-/writing/*                                      /                                      301
-/writing                                        /                                      301
+# Old "writing" blog (section removed) → homepage.
+/writing/*                                      /            301
+/writing                                        /            301
 
-# Old "projects" section → renamed to "work".
-/projects/logistics-ops                         /work/route-optimizer/                 301
-/projects/*                                      /work/                                 301
-/projects                                        /work/                                 301
-
-# Removed work case studies → work index.
-/work/pm-roadmap-tracker                         /work/                                 301
-/work/writing-notes                              /work/                                 301
+# "Work" / case studies replaced by the notebook-backed "Projects" section.
+/work/*                                         /projects    301
+/work                                           /projects    301

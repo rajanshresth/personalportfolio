@@ -1,25 +1,26 @@
 ---
-// Static "data → automation engine → storage" visual used on the homepage
-// hero and the About hero — echoes the Stitch mockup's abstract technical
-// representation without pulling in per-page photography.
+// Static "data → model → decision" visual used on the homepage hero and the
+// About hero — an abstract technical representation of the data-science
+// pipeline (SQL source, the model that does the work, and the decision it
+// produces) without pulling in per-page photography.
 ---
 
 <div class="pipeline-diagram">
   <div class="pipeline-grid" aria-hidden="true"></div>
   <div class="pipeline-stack">
     <div class="pipeline-card pipeline-card--offset-a">
-      <img src="https://img.icons8.com/ios-filled/40/a1d1bf/source-code.png" alt="" width="16" height="16" class="icon" />
-      <span>Ingest.py</span>
+      <img src="https://img.icons8.com/ios-filled/40/eb5e28/database.png" alt="" width="16" height="16" class="icon" />
+      <span>query.sql</span>
     </div>
     <div class="pipeline-connector" aria-hidden="true"></div>
     <div class="pipeline-card pipeline-card--active pipeline-card--offset-b">
-      <img src="https://img.icons8.com/ios-filled/40/0c1513/settings.png" alt="" width="16" height="16" class="icon" />
-      <span>n8n Engine</span>
+      <img src="https://img.icons8.com/ios-filled/40/252422/artificial-intelligence.png" alt="" width="16" height="16" class="icon" />
+      <span>model.fit()</span>
     </div>
     <div class="pipeline-connector" aria-hidden="true"></div>
     <div class="pipeline-card pipeline-card--offset-c">
-      <img src="https://img.icons8.com/ios-filled/40/d5ffee/database.png" alt="" width="16" height="16" class="icon" />
-      <span>PostgreSQL</span>
+      <img src="https://img.icons8.com/ios-filled/40/eb5e28/flow-chart.png" alt="" width="16" height="16" class="icon" />
+      <span>Decision</span>
     </div>
   </div>
 </div>
@@ -42,8 +43,8 @@
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(to right, rgb(219 229 225 / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(219 229 225 / 0.05) 1px, transparent 1px);
+      linear-gradient(to right, rgb(255 252 242 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 252 242 / 0.05) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 

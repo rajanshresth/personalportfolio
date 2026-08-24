@@ -1,0 +1,186 @@
+---
+import Base from '../../layouts/Base.astro';
+import { resolveProjects } from '../../lib/notebooks';
+
+// Shown in the order they're listed in src/data/notebooks.ts. Titles and
+// descriptions are resolved from each repo's README at build time.
+const projects = await resolveProjects();
+
+const siteUrl = Astro.site ?? new URL('https://rajanbuilds.com');
+
+// CollectionPage + ItemList so the listing itself is machine-readable.
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type':    'CollectionPage',
+  name:       'Projects — Rajan Shrestha',
+  description:
+    'Data science and analytics projects published from Jupyter notebooks — exploratory analysis, modeling, and visualization in Python and SQL.',
+  url:        new URL('/projects/', siteUrl).href,
+  isPartOf:   { '@id': `${siteUrl.href}#website` },
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: projects.map((p, i) => ({
+      '@type':   'ListItem',
+      position:  i + 1,
+      url:       new URL(`/projects/${p.slug}/`, siteUrl).href,
+      name:      p.title,
+    })),
+  },
+};
+
+const fmtDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+---
+
+<Base
+  title="Projects — Rajan Shrestha"
+  description="Data science and analytics projects, published straight from Jupyter notebooks — exploratory analysis, modeling, and visualization in Python and SQL."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(listSchema)} />
+  <div class="container projects-index">
+    <header class="projects-header" data-reveal>
+      <h1>Projects &amp; notebooks.</h1>
+      <p>
+        Analyses and models published straight from the notebook — code,
+        outputs, tables, and charts, exactly as they ran.
+      </p>
+    </header>
+
+    {projects.length === 0 ? (
+      <p class="projects-empty">New projects are on the way — check back soon.</p>
+    ) : (
+      <ul class="projects-list" role="list" data-reveal-group>
+        {projects.map(nb => (
+          <li>
+            <a href={`/projects/${nb.slug}`} class="project-card" data-spotlight>
+              <div class="project-card-head">
+                <div class="project-tags">
+                  {nb.tags.map(tag => <span class="tech-chip">{tag}</span>)}
+                </div>
+                {nb.publishDate && <span class="project-date label">{fmtDate(nb.publishDate)}</span>}
+              </div>
+              <h2 class="project-title">{nb.title}</h2>
+              {nb.description && <p class="project-desc">{nb.description}</p>}
+              <span class="project-more">
+                Read the notebook
+                <span aria-hidden="true">→</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</Base>
+
+<style>
+  .projects-index {
+    padding-top: 64px;
+    padding-bottom: 80px;
+  }
+
+  .projects-header {
+    max-width: 640px;
+    margin-bottom: 48px;
+  }
+  .projects-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 700;
+    color: var(--copper);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .projects-header p {
+    font-size: 17px;
+    max-width: 560px;
+  }
+
+  .projects-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+    padding: 28px;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 8px;
+    transition: border-color 200ms ease, transform 200ms ease;
+  }
+  .project-card:hover {
+    border-color: var(--copper);
+    transform: translateY(-3px);
+  }
+  .project-card:hover .project-title { color: var(--copper); }
+
+  .project-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tech-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--copper);
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    border-radius: 3px;
+    padding: 3px 8px;
+  }
+  .project-date { flex-shrink: 0; }
+
+  .project-title {
+    font-size: 21px;
+    color: var(--parchment);
+    line-height: 1.25;
+    transition: color 150ms ease;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--parchment-3);
+    flex-grow: 1;
+  }
+
+  .project-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--copper);
+    margin-top: 4px;
+  }
+
+  .projects-empty {
+    font-size: 15px;
+    color: var(--parchment-4);
+  }
+
+  @media (max-width: 700px) {
+    .projects-list { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .projects-index { padding-top: 44px; }
+  }
+</style>

@@ -9,25 +9,25 @@
    an electric mint that reads as "the active state of AI."
    ───────────────────────────────────────────────────────────── */
 :root {
-  /* Surfaces — page bg → card → deeper surface → border */
-  --ink:         #0c1513; /* page background — deep obsidian */
-  --ink-2:       #18211f; /* card / elevated surface */
-  --ink-3:       #232c2a; /* deeper surface — icon tiles, pill hover */
-  --ink-4:       #404945; /* default border — visible but soft */
+  /* Surfaces — warm carbon-black page bg → card → deeper surface → charcoal
+     border. Based on the Paprika palette (carbon-black / charcoal-brown). */
+  --ink:         #252422; /* page background — carbon black */
+  --ink-2:       #2d2b27; /* card / elevated surface */
+  --ink-3:       #38352f; /* deeper surface — icon tiles, pill hover */
+  --ink-4:       #4b473f; /* default border — warm charcoal, visible but soft */
 
-  /* Text — near-white down to muted meta, real hierarchy */
-  --parchment:   #dbe5e1; /* headings */
-  --parchment-2: #dbe5e1; /* strong body / emphasis */
-  --parchment-3: #bfc9c3; /* body copy */
-  --parchment-4: #89938e; /* muted — labels, meta, captions */
+  /* Text — floral white down to muted warm grey, real hierarchy */
+  --parchment:   #fffcf2; /* headings — floral white */
+  --parchment-2: #f1ece0; /* strong body / emphasis */
+  --parchment-3: #ccc5b9; /* body copy — dust grey */
+  --parchment-4: #948d7f; /* muted — labels, meta, captions */
 
-  /* Accent — electric mint, distinct from the surfaces so CTAs/links pop.
-     Tuned to clear contrast against the dark page background and to work
-     as dark-on-mint button text via --ink. */
-  --copper:      #d5ffee;
-  --copper-dark: #a8e6cf;
-  /* Status dot — same mint accent as "systems online" */
-  --green:       #d5ffee;
+  /* Accent — spicy paprika. Warm orange that pops on the carbon surfaces and
+     reads dark-on-orange for button text via --ink. */
+  --copper:      #eb5e28;
+  --copper-dark: #d2521c;
+  /* Status dot — same paprika accent */
+  --green:       #eb5e28;
 
   /* Elevation */
   --shadow-sm: 0 2px 10px -6px rgba(0, 0, 0, 0.45);
@@ -35,8 +35,8 @@
   --shadow-lg: 0 24px 56px -24px rgba(0, 0, 0, 0.6);
 
   /* Typography */
-  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-body:    'Libre Baskerville', Georgia, 'Times New Roman', serif;
   --font-mono:    'JetBrains Mono', 'Courier New', monospace;
 
   /* Layout */
@@ -44,9 +44,18 @@
   --pad:   32px;
 }
 
+/* Below desktop, use the full width (minus padding) instead of an 80%
+   column — otherwise phones and tablets waste ~20% of the screen. */
+@media (max-width: 1024px) {
+  :root {
+    --max-w: 100%;
+    --pad:   24px;
+  }
+}
+
 @media (max-width: 600px) {
   :root {
-    --pad: 20px;
+    --pad: 18px;
   }
 }
 
@@ -74,7 +83,7 @@ body {
   color: var(--parchment-3);
   font-family: var(--font-body);
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.75;
   min-height: 100dvh;
 }
@@ -101,32 +110,33 @@ ul, ol { list-style: none; }
 /* Display — hero headline only */
 .display {
   font-family: var(--font-display);
-  font-size: clamp(40px, 7vw, 68px);
+  font-size: clamp(32px, 6.4vw, 62px);
   font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.02em;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   color: var(--parchment);
 }
+/* Libre Baskerville has a lovely italic — use it for the accent word. */
 .display em {
-  font-style: normal;
+  font-style: italic;
   color: var(--copper);
 }
 
 /* Section headings + project/blog titles on index */
 h2 {
   font-family: var(--font-display);
-  font-size: clamp(26px, 3.2vw, 34px);
-  font-weight: 600;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
   color: var(--parchment);
-  line-height: 1.18;
-  letter-spacing: -0.01em;
+  line-height: 1.22;
+  letter-spacing: 0;
 }
 
 /* Body text */
 p {
   font-family: var(--font-body);
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.75;
   color: var(--parchment-3);
 }
@@ -263,7 +273,7 @@ a:hover { color: var(--copper); }
   padding: 12px 22px;
 }
 .btn-outline:hover {
-  background: rgb(213 255 238 / 0.1);
+  background: rgb(235 94 40 / 0.12);
 }
 
 .btn-sm {
@@ -299,7 +309,7 @@ a:hover { color: var(--copper); }
   position: relative;
   background-image: radial-gradient(
     220px circle at var(--spot-x) var(--spot-y),
-    rgb(213 255 238 / var(--spot-a)),
+    rgb(235 94 40 / var(--spot-a)),
     transparent 70%
   );
   transition: --spot-a 400ms ease;
@@ -326,10 +336,13 @@ a:hover { color: var(--copper); }
     from var(--beam-angle),
     transparent 0%,
     var(--copper) 6%,
-    #eafff5 10%,
+    #ffd9c7 10%,
     transparent 22%
   );
   -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;

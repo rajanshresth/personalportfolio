@@ -1,19 +1,4 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
-
-const workCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/work' }),
-  schema: z.object({
-    title:       z.string(),
-    description: z.string(),
-    tags:        z.array(z.string()),
-    order:       z.number().default(0),
-    link:        z.string().optional(),
-    publishDate: z.coerce.date().optional(),
-    updateDate:  z.coerce.date().optional(),
-  }),
-});
-
-export const collections = {
-  work: workCollection,
-};
+// Projects are sourced from Jupyter notebooks on GitHub (see src/lib/notebooks.ts
+// and src/lib/ipynb.ts), not from a local content collection — so there are no
+// collections defined here yet. Add one if a Markdown-based blog is introduced.
+export const collections = {};

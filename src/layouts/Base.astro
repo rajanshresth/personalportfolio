@@ -14,10 +14,10 @@ interface Props {
 }
 
 const {
-  title       = 'Rajan Shrestha — AI & Automation for GTM, RevOps & Supply Chain',
-  description = 'I build n8n, Python, and Docker automation systems for GTM, RevOps, and supply chain & logistics teams — pricing engines, lead routing, ad allocation, and ops dashboards that run without you.',
+  title       = 'Rajan Shrestha — Data Science, Analytics & Decision Science',
+  description = 'Data scientist working across data science, analytics, and decision science with Python, SQL, machine learning, and optimization — predictive models, SQL analytics, and optimization systems that turn data into decisions.',
   image,
-  imageAlt    = 'Rajan Shrestha — AI & Automation Consultant',
+  imageAlt    = 'Rajan Shrestha — Data Scientist · Analytics · Decision Science',
   type        = 'website',
   publishedAt,
   tags        = [],
@@ -42,13 +42,14 @@ const websiteSchema = {
       '@id':   personId,
       name:    'Rajan Shrestha',
       url:     new URL('/about/', siteUrl).href,
-      jobTitle: 'AI & Automation Consultant',
+      jobTitle: 'Data Scientist',
       description:
-        'Industrial engineer turned AI & automation consultant. Builds n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
+        'Industrial engineer turned data scientist. Works across data science, data analytics, and decision science with Python, SQL, machine learning, and optimization.',
       knowsAbout: [
-        'n8n', 'Python', 'Docker', 'PostgreSQL', 'LangChain', 'TypeScript', 'AWS',
-        'GTM Automation', 'RevOps', 'Supply Chain & Logistics',
-        'Workflow Automation', 'AI Agents', 'Business Process Automation',
+        'Data Science', 'Data Analytics', 'Decision Science',
+        'Python', 'SQL', 'Machine Learning', 'Optimization',
+        'PostgreSQL', 'pandas', 'scikit-learn', 'Statistics',
+        'Predictive Modeling', 'Operations Research', 'A/B Testing', 'Forecasting',
       ],
       sameAs: [
         'https://www.linkedin.com/in/rajan10x/',
@@ -60,7 +61,7 @@ const websiteSchema = {
       '@id':       websiteId,
       name:        'Rajan Shrestha',
       url:         siteUrl.href,
-      description: 'AI & automation consulting — n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
+      description: 'Data science, data analytics, and decision science with Python, SQL, machine learning, and optimization.',
       author:      { '@id': personId },
       publisher:   { '@id': personId },
       inLanguage:  'en',
@@ -74,8 +75,17 @@ const websiteSchema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0c1513" />
+    <meta name="theme-color" content="#252422" />
     <meta name="color-scheme" content="dark" />
+
+    <!-- Content Security Policy — allowlists exactly the origins used:
+         Google Fonts, icons8, Google Analytics, Cal.com, and remote images
+         (data: for embedded notebook figures, https: for README assets). -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://app.cal.com; connect-src 'self' https://app.cal.com https://*.cal.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; frame-src https://app.cal.com https://*.cal.com; upgrade-insecure-requests"
+    />
+
     <link rel="canonical" href={canonical} />
 
     <!-- Flag JS support before paint, so scroll-reveal CSS only hides
@@ -129,18 +139,19 @@ const websiteSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://img.icons8.com" />
 
-    <!-- Inter + JetBrains Mono via Google Fonts — loaded non-render-blocking
-         (media swap) so first paint isn't held up by the font request. -->
+    <!-- Libre Baskerville (display + body) + JetBrains Mono (labels, code) via
+         Google Fonts — loaded non-render-blocking (media swap) so first paint
+         isn't held up by the font request. -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
       media="print"
       onload="this.media='all'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
       />
     </noscript>
 

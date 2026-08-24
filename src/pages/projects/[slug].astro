@@ -1,0 +1,310 @@
+---
+import Base from '../../layouts/Base.astro';
+import Notebook from '../../components/Notebook.astro';
+import { resolveProjects } from '../../lib/notebooks';
+import { loadNotebook, type Notebook as NotebookData } from '../../lib/ipynb';
+
+export async function getStaticPaths() {
+  const projects = await resolveProjects();
+  return projects.map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+
+// Fetch + render at build time. If GitHub is unreachable, surface a clean
+// error state on the page instead of failing the whole build.
+let notebook: NotebookData | null = null;
+let loadError: string | null = null;
+try {
+  notebook = await loadNotebook(project.url);
+} catch (err) {
+  loadError = err instanceof Error ? err.message : String(err);
+}
+
+const siteUrl   = Astro.site ?? new URL('https://rajanbuilds.com');
+const canonical = new URL(`/projects/${project.slug}/`, siteUrl).href;
+const published = project.publishDate ? new Date(project.publishDate) : undefined;
+const modified  = published ?? new Date();
+
+const ogImage   = `/og/projects/${project.slug}.png`;
+const ogImageAbs = new URL(ogImage, siteUrl).href;
+
+const metaDescription =
+  project.description || `${project.title} — a data analysis notebook by Rajan Shrestha.`;
+
+const articleSchema = {
+  '@context':   'https://schema.org',
+  '@type':      'TechArticle',
+  headline:     project.title,
+  name:         project.title,
+  description:  metaDescription,
+  url:          canonical,
+  mainEntityOfPage: canonical,
+  image:        ogImageAbs,
+  inLanguage:   'en',
+  ...(project.tags.length && { articleSection: project.tags[0] }),
+  ...(published && { datePublished: published.toISOString() }),
+  dateModified: modified.toISOString(),
+  author: {
+    '@type': 'Person',
+    '@id':   new URL('/about#person', siteUrl).href,
+    name:    'Rajan Shrestha',
+    url:     new URL('/about/', siteUrl).href,
+  },
+  publisher: { '@type': 'Person', '@id': new URL('/about#person', siteUrl).href, name: 'Rajan Shrestha' },
+  keywords: project.tags.join(', '),
+  about:    project.tags,
+  isBasedOn: project.url,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type':    'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl.href },
+    { '@type': 'ListItem', position: 2, name: 'Projects', item: new URL('/projects/', siteUrl).href },
+    { '@type': 'ListItem', position: 3, name: project.title, item: canonical },
+  ],
+};
+
+const fmtDate = published
+  ? published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+  : null;
+---
+
+<Base
+  title={`${project.title} — Rajan Shrestha`}
+  description={metaDescription}
+  image={ogImage}
+  imageAlt={project.title}
+  tags={project.tags}
+  type="article"
+  publishedAt={published}
+>
+  <link slot="head" rel="preconnect" href="https://raw.githubusercontent.com" />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="container project-page">
+    <a href="/projects" class="breadcrumb label">← Projects</a>
+
+    <header class="project-header">
+      <div class="project-tags">
+        {project.tags.map(tag => <span class="tag">{tag}</span>)}
+      </div>
+      <h1 class="project-title">{project.title}</h1>
+      {project.description && <p class="project-desc">{project.description}</p>}
+      <div class="project-meta">
+        {fmtDate && (
+          <>
+            <span class="label">{fmtDate}</span>
+            <span class="project-meta-sep" aria-hidden="true">·</span>
+          </>
+        )}
+        <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-source label">
+          View notebook on GitHub →
+        </a>
+      </div>
+    </header>
+
+    {project.readmeHtml && (
+      <section class="project-readme" set:html={project.readmeHtml} />
+    )}
+
+    {notebook && (
+      <div class="project-notebook-eyebrow">
+        <span class="label">Notebook</span>
+        <div class="project-notebook-divider" aria-hidden="true"></div>
+      </div>
+    )}
+
+    {notebook ? (
+      <Notebook notebook={notebook} />
+    ) : (
+      <div class="project-error">
+        <p>This notebook couldn't be loaded at build time.</p>
+        <a href={project.url} target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+          Open it on GitHub →
+        </a>
+        {loadError && <p class="project-error-detail">{loadError}</p>}
+      </div>
+    )}
+
+    <div class="project-end-cta">
+      <h2>Want an analysis like this?</h2>
+      <p>Book a 20-minute call and tell me about the data and the decision behind it.</p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-magnetic
+        data-cal-link="rajan10x/meeting-ai"
+        data-cal-namespace="meeting-ai"
+        data-cal-config={`{"layout":"month_view"}`}
+      >
+        Book a call →
+      </button>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .project-page {
+    padding-top: 48px;
+    padding-bottom: 80px;
+    max-width: 880px;
+  }
+
+  .breadcrumb {
+    display: inline-block;
+    margin-bottom: 40px;
+    color: var(--parchment-4);
+    transition: color 150ms ease;
+  }
+  .breadcrumb:hover { color: var(--copper); }
+
+  /* README overview (rendered from the repo's README.md via set:html) */
+  .project-readme {
+    margin-bottom: 48px;
+  }
+  .project-readme :global(h1),
+  .project-readme :global(h2),
+  .project-readme :global(h3) {
+    font-family: var(--font-display);
+    color: var(--parchment);
+    line-height: 1.25;
+    margin: 1.4em 0 0.5em;
+  }
+  .project-readme :global(h2) { font-size: 22px; font-weight: 600; }
+  .project-readme :global(h3) { font-size: 17px; font-weight: 600; }
+  .project-readme :global(p),
+  .project-readme :global(li) {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--parchment-3);
+  }
+  .project-readme :global(ul),
+  .project-readme :global(ol) { padding-left: 1.4em; margin: 0.6em 0; }
+  .project-readme :global(ul) { list-style: disc; }
+  .project-readme :global(ol) { list-style: decimal; }
+  .project-readme :global(a) { color: var(--copper); }
+  .project-readme :global(strong) { color: var(--parchment-2); font-weight: 600; }
+  .project-readme :global(code) {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--ink-3);
+    color: var(--parchment-2);
+    padding: 2px 6px;
+    border-radius: 2px;
+  }
+  .project-readme :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid var(--ink-4);
+    margin: 12px 0;
+  }
+  .project-readme :global(hr) {
+    border: none;
+    border-top: 1px solid var(--ink-4);
+    margin: 24px 0;
+  }
+  .project-readme :global(table) {
+    border-collapse: collapse;
+    font-size: 13px;
+    color: var(--parchment-3);
+    margin: 12px 0;
+    display: block;
+    overflow-x: auto;
+  }
+  .project-readme :global(th),
+  .project-readme :global(td) {
+    border: 1px solid var(--ink-4);
+    padding: 6px 12px;
+    text-align: left;
+  }
+  .project-readme :global(th) { background: var(--ink-3); color: var(--parchment-2); }
+
+  /* "Notebook" section divider */
+  .project-notebook-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .project-notebook-eyebrow .label { color: var(--copper); flex-shrink: 0; }
+  .project-notebook-divider {
+    height: 1px;
+    background: var(--ink-4);
+    flex-grow: 1;
+  }
+
+  .project-header {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--ink-4);
+    margin-bottom: 40px;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .project-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 700;
+    color: var(--parchment);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+  .project-desc {
+    font-size: 16px;
+    max-width: 640px;
+    color: var(--parchment-3);
+  }
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .project-meta-sep { color: var(--parchment-4); }
+  .project-source {
+    color: var(--copper);
+    transition: opacity 150ms ease;
+  }
+  .project-source:hover { opacity: 0.75; }
+
+  .project-error {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 32px;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 8px;
+  }
+  .project-error p { font-size: 15px; color: var(--parchment-3); }
+  .project-error-detail {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--parchment-4) !important;
+    word-break: break-word;
+  }
+
+  .project-end-cta {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--ink-4);
+    text-align: center;
+  }
+  .project-end-cta h2 { margin-bottom: 8px; }
+  .project-end-cta p { margin-bottom: 20px; }
+
+  @media (max-width: 600px) {
+    .project-end-cta { margin-top: 48px; }
+  }
+</style>

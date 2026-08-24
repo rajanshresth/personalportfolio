@@ -11,13 +11,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.2",
-    "astro": "^7.0.4",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.4",
     "gsap": "^3.15.0"
   },
   "devDependencies": {
-    "@types/node": "^22.14.0",
-    "typescript": "~5.8.2",
-    "wrangler": "^4.78.0"
+    "@types/node": "^22.20.1",
+    "typescript": "~5.8.3",
+    "wrangler": "^4.125.0"
   }
 }

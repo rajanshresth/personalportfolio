@@ -1,14 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
+import PipelineDiagram from '../components/PipelineDiagram.astro';
 
 const personSchema = {
   '@context': 'https://schema.org',
   '@type':    'Person',
   name:       'Rajan Shrestha',
   url:        'https://rajanbuilds.com/about',
-  jobTitle:   'AI & Automation Consultant',
-  description: 'AI automation consultant building n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams.',
-  knowsAbout: ['n8n', 'Python', 'Docker', 'GTM Automation', 'RevOps', 'Supply Chain & Logistics'],
+  jobTitle:   'Data Scientist',
+  description: 'Data scientist working across data science, data analytics, and decision science with Python, SQL, machine learning, and optimization.',
+  knowsAbout: ['Data Science', 'Data Analytics', 'Decision Science', 'Python', 'SQL', 'Machine Learning', 'Optimization'],
   address:    { '@type': 'PostalAddress', addressCountry: 'NP' },
   sameAs: [
     'https://www.linkedin.com/in/rajan10x/',
@@ -16,12 +17,12 @@ const personSchema = {
   ],
 };
 
-const techStack = ['Python', 'TypeScript', 'n8n', 'LangChain', 'AWS'];
+const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tableau'];
 ---
 
 <Base
   title="About — Rajan Shrestha"
-  description="AI automation consultant building n8n, Python, and Docker systems for GTM, RevOps, and supply chain & logistics teams."
+  description="Data scientist working across data science, data analytics, and decision science with Python, SQL, machine learning, and optimization."
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
   <div class="container about-page">
@@ -29,23 +30,19 @@ const techStack = ['Python', 'TypeScript', 'n8n', 'LangChain', 'AWS'];
     <section class="about-hero" data-reveal>
       <div class="about-hero-copy">
         <h1 class="about-title">
-          I think in systems<br>
-          before I think in <em>tools</em>.
+          I frame the decision<br>
+          before I fit the <em>model</em>.
         </h1>
         <p class="about-lede">
-          I'm Rajan — an industrial engineer by training, now operating as an
-          AI & Automation Engineer. Most businesses aren't short on tools,
-          they're short on the glue between them. I build that glue.
+          I'm Rajan — an industrial engineer by training, now working as a
+          data scientist across data science, analytics, and decision science.
+          Most teams aren't short on data; they're short on the decision it
+          should drive. I build the models, analysis, and optimization that
+          close that gap.
         </p>
       </div>
       <div class="about-hero-visual">
-        <img
-          src="/about/hero.jpg"
-          alt="A realistic technical diagram of an automation workflow showing Data Ingest, n8n Engine, and PostgreSQL database."
-          width="512"
-          height="512"
-          class="about-hero-img"
-        />
+        <PipelineDiagram />
       </div>
     </section>
 
@@ -56,14 +53,14 @@ const techStack = ['Python', 'TypeScript', 'n8n', 'LangChain', 'AWS'];
         <div class="bento-text">
           <p>
             My background in industrial engineering deeply informs how I
-            approach software and automation. It's not about writing code
-            for its own sake — it's about optimizing the entire production
-            line of a business.
+            approach data. Industrial engineering is the discipline of
+            optimizing systems under constraints — which is exactly what
+            decision science is, just with a model in the middle.
           </p>
           <p>
-            I moved into technical engineering because I kept seeing the gap
-            between high-level strategic goals and the technical execution
-            required to hit them efficiently.
+            I moved into data science because I kept seeing the gap between
+            a dashboard full of numbers and the decision those numbers were
+            supposed to inform. I like closing that gap.
           </p>
         </div>
       </div>
@@ -72,20 +69,20 @@ const techStack = ['Python', 'TypeScript', 'n8n', 'LangChain', 'AWS'];
         <div>
           <h2>What I do</h2>
           <p class="bento-whatido-lede">
-            I architect and deploy autonomous systems that reduce
-            operational drag.
+            I turn business data into models, analysis, and decisions —
+            across data science, analytics, and decision science.
           </p>
         </div>
         <div class="bento-feature-grid">
           <div class="bento-feature">
-            <img src="https://img.icons8.com/ios-filled/40/a1d1bf/hub.png" alt="" width="20" height="20" class="icon" />
-            <h3 class="label">Workflow Integration</h3>
-            <p>Connecting disparate platforms into singular, reliable data pipelines.</p>
+            <img src="https://img.icons8.com/ios-filled/40/eb5e28/artificial-intelligence.png" alt="" width="20" height="20" class="icon" />
+            <h3 class="label">Predictive Modeling</h3>
+            <p>Churn, LTV, demand, and lead-scoring models — from feature engineering to deployment.</p>
           </div>
           <div class="bento-feature">
-            <img src="https://img.icons8.com/ios-filled/40/a1d1bf/robot.png" alt="" width="20" height="20" class="icon" />
-            <h3 class="label">AI Agents</h3>
-            <p>Deploying LLMs contextually to handle reasoning tasks within fixed protocols.</p>
+            <img src="https://img.icons8.com/ios-filled/40/eb5e28/flow-chart.png" alt="" width="20" height="20" class="icon" />
+            <h3 class="label">Optimization</h3>
+            <p>Pricing, allocation, and routing framed as decisions and solved as models.</p>
           </div>
           <div class="bento-feature bento-feature--wide">
             <div class="bento-feature-header">
@@ -107,30 +104,31 @@ const techStack = ['Python', 'TypeScript', 'n8n', 'LangChain', 'AWS'];
         <div class="work-mode">
           <div class="work-mode-rail" aria-hidden="true"></div>
           <div class="work-mode-dot" aria-hidden="true"></div>
-          <h3>Fixed-Price Builds</h3>
+          <h3>Project Engagements</h3>
           <p>
-            For defined scope and clear objectives. We map the entire system
-            upfront, agree on deliverables, and I execute. No hourly
-            surprises.
+            For a defined question or decision. We frame the problem and
+            success metric upfront, agree on deliverables, and I build the
+            analysis or model. No open-ended hourly surprises.
           </p>
           <ul class="work-mode-list" role="list">
-            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Architecture design</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Implementation & testing</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Handoff documentation</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Problem framing & data audit</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Model / analysis build & validation</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Documentation & handoff</li>
           </ul>
         </div>
         <div class="work-mode">
           <div class="work-mode-rail" aria-hidden="true"></div>
           <div class="work-mode-dot" aria-hidden="true"></div>
-          <h3>Retainer</h3>
+          <h3>Analytics Partner</h3>
           <p>
-            For ongoing optimization and evolving systems. Consider me your
-            fractional engineering partner to continually refine the glue.
+            For ongoing analysis and models that need to keep earning their
+            keep. Consider me your fractional data scientist — monitoring,
+            retraining, and answering the next question as it comes.
           </p>
           <ul class="work-mode-list" role="list">
-            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Continuous optimization</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> New integrations</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/a1d1bf/checkmark.png" alt="" width="12" height="12" class="icon" /> Priority support</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Model monitoring & retraining</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> New analyses & dashboards</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Priority support</li>
           </ul>
         </div>
       </div>
@@ -166,7 +164,7 @@ const techStack = ['Python', 'TypeScript', 'n8n', 'LangChain', 'AWS'];
     margin-bottom: 24px;
   }
   .about-title em {
-    font-style: normal;
+    font-style: italic;
     color: var(--copper);
   }
 

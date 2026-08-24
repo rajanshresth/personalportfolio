@@ -1,17 +1,26 @@
 ---
 const tools = [
-  'Python', 'n8n', 'Docker', 'AWS / GCP', 'REST / GraphQL',
+  'Python', 'SQL', 'Machine Learning', 'Optimization',
+  'pandas', 'scikit-learn', 'PostgreSQL', 'Tableau / Power BI',
 ];
+
+// A two-track marquee only loops without a gap when a single track is at least
+// as wide as the viewport. The tool list alone is ~1000px, so on wider screens
+// a blank gap would sweep through. Fix: repeat the set so each track is wide,
+// and render several identical tracks — with N tracks the visible strip stays
+// filled as long as (N-1) × trackWidth ≥ viewport.
+const REPEAT = 2;                                   // ~2000px per track
+const TRACKS = 3;                                   // covers up to ~4000px wide
+const trackItems = Array.from({ length: REPEAT }, () => tools).flat();
 ---
 
 <div class="tools-marquee">
   <div class="marquee">
-    <div class="marquee-track">
-      {tools.map(t => <span class="marquee-item">{t}</span>)}
-    </div>
-    <div class="marquee-track" aria-hidden="true">
-      {tools.map(t => <span class="marquee-item">{t}</span>)}
-    </div>
+    {Array.from({ length: TRACKS }, (_, i) => (
+      <div class="marquee-track" aria-hidden={i > 0 ? 'true' : undefined}>
+        {trackItems.map(t => <span class="marquee-item">{t}</span>)}
+      </div>
+    ))}
   </div>
 </div>
 
@@ -21,11 +30,18 @@ const tools = [
     padding: 18px 0;
   }
 
+  /* Slower duration than the shared default so the wider (repeated) track
+     scrolls at a calm, readable pace. */
+  .tools-marquee .marquee {
+    --marquee-duration: 50s;
+  }
+
   /* Override the shared marquee gap — spacing here comes from the
      item's own padding so the bullet separator can sit centered in it. */
   .marquee-track {
     gap: 0;
     padding-right: 0;
+    will-change: transform;
   }
 
   .marquee-item {
@@ -49,5 +65,11 @@ const tools = [
     top: 50%;
     transform: translateY(-50%);
     color: var(--ink-4);
+  }
+
+  @media (max-width: 600px) {
+    .tools-marquee { padding: 14px 0; }
+    .marquee-item { font-size: 10px; padding-right: 32px; }
+    .marquee-item::after { right: 13px; }
   }
 </style>

@@ -1,19 +1,19 @@
 ---
 const services = [
   {
-    name: 'GTM Automation',
-    desc: 'Architecting lead routing, enrichment pipelines, and personalized outreach sequences at scale. Connecting CRMs, intent data providers, and execution channels.',
-    icon: 'rocket',
+    name: 'Data Science',
+    desc: 'Predictive and causal models — churn, LTV, demand forecasting, and lead scoring. From feature engineering in Python to models that ship, get monitored, and are retrained on new data.',
+    icon: 'artificial-intelligence',
   },
   {
-    name: 'RevOps Automation',
-    desc: 'Synchronizing billing systems, contracting platforms, and CRM data. Ensuring revenue data integrity and automating commission calculations.',
-    icon: 'synchronize',
+    name: 'Data Analytics',
+    desc: 'SQL-first analysis and dashboards that answer the actual question. Turning raw warehouse tables into clean metrics, cohorts, and the insight leadership acts on.',
+    icon: 'combo-chart',
   },
   {
-    name: 'Supply Chain & Logistics',
-    desc: 'Building bespoke inventory tracking, dynamic routing alerts, and vendor API integrations. Reducing manual data entry across fragmented logistics tools.',
-    icon: 'truck',
+    name: 'Decision Science',
+    desc: 'Optimization and experimentation — pricing, budget allocation, routing, and A/B testing. Framing the decision first, then building the model that makes it.',
+    icon: 'flow-chart',
   },
 ];
 ---
@@ -23,7 +23,7 @@ const services = [
     <div class="service-card" data-spotlight>
       <div class="service-icon">
         <img
-          src={`https://img.icons8.com/ios-filled/40/a1d1bf/${s.icon}.png`}
+          src={`https://img.icons8.com/ios-filled/40/eb5e28/${s.icon}.png`}
           alt=""
           width="22"
           height="22"
@@ -70,7 +70,7 @@ const services = [
     transition: background 200ms ease, border-color 200ms ease;
   }
   .service-card:hover .service-icon {
-    background: var(--copper);
+    background: var(--ink-3);
     border-color: var(--copper);
   }
 
@@ -87,9 +87,16 @@ const services = [
     flex-grow: 1;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
     .services-grid {
       grid-template-columns: 1fr;
     }
+    .service-card { padding: 24px; }
   }
 </style>

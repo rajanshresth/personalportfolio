@@ -1,13 +1,13 @@
 ---
 const includes = [
-  'Full system architecture design',
-  'Custom AI pipeline integration',
-  'Rigorous security implementation',
+  'Problem framing & data audit',
+  'Model / analysis build & validation',
+  'Documentation & handoff',
 ];
 
 const retainerFeatures = [
-  { icon: 'speed', label: 'Performance tuning' },
-  { icon: 'refresh', label: 'Model updates' },
+  { icon: 'speed', label: 'Model monitoring & retraining' },
+  { icon: 'refresh', label: 'New analyses & dashboards' },
   { icon: 'headset', label: 'Priority support' },
 ];
 ---
@@ -17,10 +17,10 @@ const retainerFeatures = [
     <div class="pricing-card-top">
       <div>
         <span class="pricing-phase label">Phase 1</span>
-        <h2 class="pricing-card-title">The Fixed Build</h2>
-        <p class="pricing-card-sub">Custom architecture, engineered from the ground up.</p>
+        <h2 class="pricing-card-title">The Fixed Project</h2>
+        <p class="pricing-card-sub">Scoped, modeled, and validated end to end.</p>
       </div>
-      <img src="https://img.icons8.com/ios-filled/50/a1d1bf/blueprint.png" alt="" width="36" height="36" class="pricing-card-icon" />
+      <img src="https://img.icons8.com/ios-filled/50/eb5e28/combo-chart.png" alt="" width="36" height="36" class="pricing-card-icon" />
     </div>
 
     <div class="pricing-fixed-grid">
@@ -29,7 +29,7 @@ const retainerFeatures = [
         <ul class="pricing-includes" role="list">
           {includes.map(item => (
             <li>
-              <img src="https://img.icons8.com/ios-filled/40/d5ffee/checkmark.png" alt="" width="14" height="14" class="icon" />
+              <img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="14" height="14" class="icon" />
               {item}
             </li>
           ))}
@@ -62,7 +62,7 @@ const retainerFeatures = [
     <ul class="pricing-retainer-list" role="list">
       {retainerFeatures.map(f => (
         <li>
-          <img src={`https://img.icons8.com/ios-filled/40/a1d1bf/${f.icon}.png`} alt="" width="16" height="16" class="icon" />
+          <img src={`https://img.icons8.com/ios-filled/40/eb5e28/${f.icon}.png`} alt="" width="16" height="16" class="icon" />
           {f.label}
         </li>
       ))}

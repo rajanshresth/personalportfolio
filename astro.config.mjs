@@ -14,8 +14,8 @@ export default defineConfig({
         // Homepage is the strongest entry point.
         if (item.url === 'https://rajanbuilds.com/') {
           item.priority = 1.0;
-        } else if (item.url.includes('/work/')) {
-          // Case-study pages + the work index are primary content.
+        } else if (item.url.includes('/projects/')) {
+          // Project / notebook pages are primary content.
           item.priority = 0.8;
         }
         return item;

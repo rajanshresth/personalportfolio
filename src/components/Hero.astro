@@ -7,20 +7,25 @@ import PipelineDiagram from './PipelineDiagram.astro';
     <!-- Status badge -->
     <span class="hero-status">
       <span class="hero-status-dot" aria-hidden="true"></span>
-      <span class="label hero-status-label">Status: Systems Online</span>
+      <span class="label hero-status-label">Open to data science &amp; analytics work</span>
     </span>
+
+    <!-- Discipline eyebrow -->
+    <p class="hero-eyebrow label">
+      Data Science <span aria-hidden="true">·</span> Data Analytics <span aria-hidden="true">·</span> Decision Science
+    </p>
 
     <!-- Headline -->
     <h1 class="display hero-headline">
-      Automation that runs your<br>
-      <em>revenue engine</em>.
+      Turning data into<br>
+      <em>decisions</em>.
     </h1>
 
     <!-- Body -->
     <p class="hero-body">
-      I design and build n8n, Python, and Docker systems for GTM, RevOps,
-      and supply chain & logistics teams. High-leverage architecture over
-      manual execution.
+      I'm Rajan — a data scientist and industrial engineer. I build
+      machine-learning models, SQL analytics, and optimization systems
+      that turn messy data into decisions teams can act on.
     </p>
 
     <!-- CTAs -->
@@ -35,24 +40,28 @@ import PipelineDiagram from './PipelineDiagram.astro';
       >
         Book a call →
       </button>
-      <a href="/work" class="btn btn-outline">
-        See case studies
+      <a href="/projects" class="btn btn-outline">
+        See projects
       </a>
     </div>
 
-    <!-- Trust strip -->
+    <!-- Skills strip -->
     <ul class="hero-trust" role="list">
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/bfc9c3/clock.png" alt="" width="16" height="16" class="icon" />
-        <span>&lt;<span data-count-to="2">0</span> min lead response</span>
+        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/python.png" alt="" width="16" height="16" class="icon" />
+        <span>Python</span>
       </li>
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/bfc9c3/shield.png" alt="" width="16" height="16" class="icon" />
-        <span><span data-count-to="24">0</span>/7 autonomous uptime</span>
+        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/database.png" alt="" width="16" height="16" class="icon" />
+        <span>SQL</span>
       </li>
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/bfc9c3/workflow.png" alt="" width="16" height="16" class="icon" />
-        <span>n8n · Python · Docker</span>
+        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/artificial-intelligence.png" alt="" width="16" height="16" class="icon" />
+        <span>Machine Learning</span>
+      </li>
+      <li>
+        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/flow-chart.png" alt="" width="16" height="16" class="icon" />
+        <span>Optimization</span>
       </li>
     </ul>
   </div>
@@ -117,6 +126,11 @@ import PipelineDiagram from './PipelineDiagram.astro';
       animation: fadeUp 400ms ease forwards;
       animation-delay: 0ms;
     }
+    .hero-eyebrow {
+      opacity: 0;
+      animation: fadeUp 400ms ease forwards;
+      animation-delay: 120ms;
+    }
     .hero-body {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
@@ -152,6 +166,17 @@ import PipelineDiagram from './PipelineDiagram.astro';
 
   .hero-status-label {
     color: var(--copper);
+  }
+
+  /* Discipline eyebrow — the three pillars, above the headline */
+  .hero-eyebrow {
+    color: var(--parchment-4);
+    letter-spacing: 2px;
+    margin-top: -6px;
+  }
+  .hero-eyebrow span {
+    color: var(--copper);
+    margin: 0 4px;
   }
 
   .hero-headline {
