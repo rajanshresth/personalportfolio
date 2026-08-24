@@ -13,7 +13,7 @@ const retainerFeatures = [
 ---
 
 <div class="pricing-bento">
-  <div class="pricing-card pricing-card--fixed" data-spotlight>
+  <div class="pricing-card pricing-card--fixed accent-top" data-spotlight>
     <div class="pricing-card-top">
       <div>
         <span class="pricing-phase label">Phase 1</span>
@@ -52,7 +52,7 @@ const retainerFeatures = [
     </div>
   </div>
 
-  <div class="pricing-card pricing-card--retainer" data-spotlight>
+  <div class="pricing-card pricing-card--retainer accent-top" data-spotlight>
     <div>
       <span class="pricing-phase label pricing-phase--secondary">Phase 2</span>
       <h2 class="pricing-card-title pricing-card-title--sm">Retainer</h2>
@@ -83,7 +83,7 @@ const retainerFeatures = [
   }
 
   .pricing-card {
-    background: var(--ink-2);
+    background: linear-gradient(180deg, var(--ink-3), var(--ink-2) 40%);
     border: 1px solid var(--ink-4);
     border-radius: 12px;
     padding: 32px;
@@ -93,8 +93,8 @@ const retainerFeatures = [
     transition: border-color 220ms ease, box-shadow 220ms ease;
   }
   .pricing-card:hover {
-    border-color: rgba(255, 107, 53, 0.4);
-    box-shadow: var(--shadow-md), 0 0 24px -6px rgba(255, 107, 53, 0.15);
+    border-color: rgba(255, 107, 53, 0.45);
+    box-shadow: var(--shadow-md), 0 0 28px -6px rgba(255, 107, 53, 0.18);
   }
 
   .pricing-card--fixed {

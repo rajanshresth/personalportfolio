@@ -49,7 +49,7 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
 
     <!-- Bento: Background + What I do -->
     <section class="about-bento" data-reveal-group>
-      <div class="bento-card bento-background" data-spotlight>
+      <div class="bento-card bento-background accent-top" data-spotlight>
         <h2>Background</h2>
         <div class="bento-text">
           <p>
@@ -66,7 +66,7 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
         </div>
       </div>
 
-      <div class="bento-card bento-whatido" data-spotlight>
+      <div class="bento-card bento-whatido accent-top" data-spotlight>
         <div>
           <h2>What I do</h2>
           <p class="bento-whatido-lede">
@@ -208,7 +208,7 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
   }
 
   .bento-card {
-    background: var(--ink-2);
+    background: linear-gradient(180deg, var(--ink-3), var(--ink-2) 40%);
     border: 1px solid var(--ink-4);
     border-radius: 12px;
     padding: 32px;
@@ -216,8 +216,8 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
     transition: border-color 220ms ease, box-shadow 220ms ease;
   }
   .bento-card:hover {
-    border-color: rgba(255, 107, 53, 0.35);
-    box-shadow: var(--shadow-md), 0 0 24px -6px rgba(255, 107, 53, 0.12);
+    border-color: rgba(255, 107, 53, 0.4);
+    box-shadow: var(--shadow-md), 0 0 28px -6px rgba(255, 107, 53, 0.16);
   }
 
   .bento-card h2 {

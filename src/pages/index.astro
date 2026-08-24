@@ -121,16 +121,32 @@ const faqSchema = {
   }
 
   .home-faq-item {
+    position: relative;
     padding: 24px;
-    background: var(--ink-2);
+    background: linear-gradient(180deg, var(--ink-3), var(--ink-2) 45%);
     border: 1px solid var(--ink-4);
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
     transition: border-color 220ms ease, transform 220ms ease;
+    overflow: hidden;
+  }
+  .home-faq-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--copper), transparent);
+    opacity: 0;
+    transition: opacity 220ms ease;
   }
   .home-faq-item:hover {
     border-color: rgba(255, 107, 53, 0.35);
     transform: translateY(-2px);
+  }
+  .home-faq-item:hover::before {
+    opacity: 1;
   }
 
   .home-faq-item dt {

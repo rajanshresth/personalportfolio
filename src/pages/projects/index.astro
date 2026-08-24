@@ -52,7 +52,7 @@ const fmtDate = (iso: string) =>
       <ul class="projects-list" role="list" data-reveal-group>
         {projects.map(nb => (
           <li>
-            <a href={`/projects/${nb.slug}`} class="project-card" data-spotlight>
+            <a href={`/projects/${nb.slug}`} class="project-card accent-top" data-spotlight>
               <div class="project-card-head">
                 <div class="project-tags">
                   {nb.tags.map(tag => <span class="tech-chip">{tag}</span>)}
@@ -109,16 +109,16 @@ const fmtDate = (iso: string) =>
     gap: 12px;
     height: 100%;
     padding: 28px;
-    background: var(--ink-2);
+    background: linear-gradient(180deg, var(--ink-3), var(--ink-2) 45%);
     border: 1px solid var(--ink-4);
     border-radius: 12px;
     box-shadow: var(--shadow-sm);
     transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
   }
   .project-card:hover {
-    border-color: rgba(255, 107, 53, 0.4);
+    border-color: rgba(255, 107, 53, 0.45);
     transform: translateY(-4px);
-    box-shadow: var(--shadow-md), 0 0 24px -6px rgba(255, 107, 53, 0.15);
+    box-shadow: var(--shadow-md), 0 0 28px -6px rgba(255, 107, 53, 0.18);
   }
   .project-card:hover .project-title { color: var(--parchment); }
 

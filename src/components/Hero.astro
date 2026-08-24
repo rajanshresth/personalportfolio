@@ -13,7 +13,7 @@ import PipelineDiagram from './PipelineDiagram.astro';
     <!-- Headline -->
     <h1 class="display hero-headline">
       Turning data into<br>
-      <em>decisions</em>.
+      <em>decisions</em><span class="hero-accent-dot" aria-hidden="true">.</span>
     </h1>
 
     <!-- Body -->
@@ -43,19 +43,19 @@ import PipelineDiagram from './PipelineDiagram.astro';
     <!-- Skills strip -->
     <ul class="hero-trust" role="list">
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/python.png" alt="" width="16" height="16" class="icon" />
+        <img src="https://img.icons8.com/ios-filled/40/ff6b35/python.png" alt="" width="16" height="16" class="icon" />
         <span>Python</span>
       </li>
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/database.png" alt="" width="16" height="16" class="icon" />
+        <img src="https://img.icons8.com/ios-filled/40/ff6b35/database.png" alt="" width="16" height="16" class="icon" />
         <span>SQL</span>
       </li>
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/artificial-intelligence.png" alt="" width="16" height="16" class="icon" />
+        <img src="https://img.icons8.com/ios-filled/40/ff6b35/artificial-intelligence.png" alt="" width="16" height="16" class="icon" />
         <span>Machine Learning</span>
       </li>
       <li>
-        <img src="https://img.icons8.com/ios-filled/40/ccc5b9/flow-chart.png" alt="" width="16" height="16" class="icon" />
+        <img src="https://img.icons8.com/ios-filled/40/ff6b35/flow-chart.png" alt="" width="16" height="16" class="icon" />
         <span>Optimization</span>
       </li>
     </ul>
@@ -144,10 +144,11 @@ import PipelineDiagram from './PipelineDiagram.astro';
     align-items: center;
     gap: 8px;
     width: fit-content;
-    padding: 5px 12px;
+    padding: 6px 13px;
     border-radius: 20px;
     background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.22);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .hero-status-dot {
@@ -170,6 +171,15 @@ import PipelineDiagram from './PipelineDiagram.astro';
   .hero-headline {
     /* Inherits from .display in global.css */
     letter-spacing: -0.02em;
+  }
+
+  .hero-accent-dot {
+    color: var(--copper);
+    animation: heroDot 2.2s ease-in-out infinite;
+  }
+  @keyframes heroDot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
   }
 
   /* Pre-hide for the SplitText word-stagger entrance; reduced-motion and
@@ -209,9 +219,9 @@ import PipelineDiagram from './PipelineDiagram.astro';
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    background: var(--ink-2);
+    padding: 7px 13px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, var(--ink-3), var(--ink-2));
     border: 1px solid var(--ink-4);
     font-family: var(--font-mono);
     font-size: 11px;
@@ -222,15 +232,20 @@ import PipelineDiagram from './PipelineDiagram.astro';
     transition: all 180ms ease;
   }
 
-  .hero-trust li:hover {
-    border-color: var(--copper);
-    color: var(--parchment);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.5);
+  .hero-trust li .icon {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 6px rgba(255, 107, 53, 0.35));
+    transition: transform 180ms ease;
   }
 
-  .hero-trust .icon {
-    opacity: 0.95;
+  .hero-trust li:hover {
+    border-color: rgba(255, 107, 53, 0.55);
+    color: var(--parchment);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.6), 0 0 18px -8px rgba(255, 107, 53, 0.35);
+  }
+  .hero-trust li:hover .icon {
+    transform: translateY(-1px);
   }
 
   /* Pipeline diagram column */
