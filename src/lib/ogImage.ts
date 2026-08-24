@@ -94,28 +94,28 @@ function buildSVG({ title, description = '', tags = [] }: OGOptions): string {
         <text x="${tagX + tagW / 2}" y="${TAG_Y + 17}" text-anchor="middle"
           font-family="monospace,'Courier New'"
           font-size="10" letter-spacing="1.5"
-          fill="#948d7f">${escXml(label)}</text>`;
+          fill="#94a3b8">${escXml(label)}</text>`;
       tagX += tagW + 10;
       return el;
     })
     .join('');
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-  <rect width="${W}" height="${H}" fill="#252422"/>
-  <rect width="${W}" height="3" fill="#eb5e28"/>
-  <rect y="${H - 3}" width="${W}" height="3" fill="#eb5e28" opacity="0.25"/>
-  <line x1="${PAD}" y1="128" x2="${W - PAD}" y2="128" stroke="#38352f" stroke-width="1"/>
+  <rect width="${W}" height="${H}" fill="#0a0c10"/>
+  <rect width="${W}" height="4" fill="#ff6b35"/>
+  <rect y="${H - 4}" width="${W}" height="4" fill="#ff6b35" opacity="0.3"/>
+  <line x1="${PAD}" y1="128" x2="${W - PAD}" y2="128" stroke="#242c3d" stroke-width="1"/>
 
   <text x="${PAD}" y="94"
     font-family="monospace,'Courier New'"
     font-size="12" letter-spacing="2.5"
-    fill="#948d7f">${escXml(SITE_LABEL)}</text>
-  <circle cx="${PAD + SITE_LABEL.length * 8.2 + 10}" cy="88" r="3" fill="#eb5e28"/>
+    fill="#94a3b8">${escXml(SITE_LABEL)}</text>
+  <circle cx="${PAD + SITE_LABEL.length * 8.2 + 10}" cy="88" r="3.5" fill="#ff6b35"/>
 
   <text x="${W - PAD}" y="94" text-anchor="end"
     font-family="Arial,Helvetica,sans-serif"
     font-size="14"
-    fill="#948d7f">${escXml(AUTHOR)}</text>
+    fill="#94a3b8">${escXml(AUTHOR)}</text>
 
   ${titleSVG}
   ${descSVG}

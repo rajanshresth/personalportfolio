@@ -1,102 +1,722 @@
 ---
-// Static "data → model → decision" visual used on the homepage hero and the
-// About hero — an abstract technical representation of the data-science
-// pipeline (SQL source, the model that does the work, and the decision it
-// produces) without pulling in per-page photography.
+// Dynamic, interactive data science dashboard and animated workflow visual
+// Used in Hero and About sections to showcase predictive modeling & optimization impact.
 ---
 
-<div class="pipeline-diagram">
+<div class="pipeline-diagram" data-pipeline-widget>
+  <!-- Background grid aura -->
   <div class="pipeline-grid" aria-hidden="true"></div>
-  <div class="pipeline-stack">
-    <div class="pipeline-card pipeline-card--offset-a">
-      <img src="https://img.icons8.com/ios-filled/40/eb5e28/database.png" alt="" width="16" height="16" class="icon" />
-      <span>query.sql</span>
+  <div class="pipeline-glow" aria-hidden="true"></div>
+
+  <!-- Header / Telemetry Bar -->
+  <div class="pipeline-header">
+    <div class="pipeline-dots" aria-hidden="true">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
     </div>
-    <div class="pipeline-connector" aria-hidden="true"></div>
-    <div class="pipeline-card pipeline-card--active pipeline-card--offset-b">
-      <img src="https://img.icons8.com/ios-filled/40/252422/artificial-intelligence.png" alt="" width="16" height="16" class="icon" />
-      <span>model.fit()</span>
+    <div class="pipeline-badge">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span class="pipeline-badge-text">PIPELINE // ACTIVE</span>
     </div>
-    <div class="pipeline-connector" aria-hidden="true"></div>
-    <div class="pipeline-card pipeline-card--offset-c">
-      <img src="https://img.icons8.com/ios-filled/40/eb5e28/flow-chart.png" alt="" width="16" height="16" class="icon" />
-      <span>Decision</span>
+    <div class="pipeline-latency">
+      <span class="latency-dot"></span>
+      <span>18ms</span>
+    </div>
+  </div>
+
+  <!-- Tab Controls -->
+  <div class="pipeline-tabs" role="tablist" aria-label="Visual Mode">
+    <button
+      type="button"
+      class="pipeline-tab active"
+      role="tab"
+      aria-selected="true"
+      aria-controls="panel-impact"
+      id="tab-impact"
+      data-tab="impact"
+    >
+      <svg class="tab-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 3v18h18" />
+        <path d="m19 9-5 5-4-4-3 3" />
+      </svg>
+      <span>Impact Metrics</span>
+    </button>
+    <button
+      type="button"
+      class="pipeline-tab"
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-flow"
+      id="tab-flow"
+      data-tab="flow"
+    >
+      <svg class="tab-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect width="7" height="7" x="3" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="14" rx="1" />
+        <path d="M10 6.5h4" />
+        <path d="M17.5 10v4" />
+      </svg>
+      <span>Pipeline Flow</span>
+    </button>
+  </div>
+
+  <!-- Panel 1: Impact Metrics & Mini Dashboard -->
+  <div
+    class="pipeline-panel active"
+    id="panel-impact"
+    role="tabpanel"
+    aria-labelledby="tab-impact"
+    data-panel="impact"
+  >
+    <!-- KPI Highlight -->
+    <div class="kpi-banner">
+      <div class="kpi-meta">
+        <span class="label kpi-label">Measured Outcome</span>
+        <span class="kpi-tag">↑ +34.8% ROI</span>
+      </div>
+      <div class="kpi-main">
+        <span class="kpi-value">+34.8%</span>
+        <span class="kpi-desc">Operational efficiency &amp; predictive accuracy</span>
+      </div>
+    </div>
+
+    <!-- Interactive Live Sparkline Graph -->
+    <div class="chart-container" aria-label="Performance optimization trajectory chart">
+      <div class="chart-header">
+        <span class="label chart-label">Optimization Trajectory</span>
+        <span class="chart-legend">
+          <span class="legend-item"><span class="legend-dash"></span>Baseline</span>
+          <span class="legend-item"><span class="legend-line"></span>Optimized ML</span>
+        </span>
+      </div>
+
+      <svg class="sparkline" viewBox="0 0 320 90" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--copper)" stop-opacity="0.32" />
+            <stop offset="100%" stop-color="var(--copper)" stop-opacity="0.0" />
+          </linearGradient>
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        <!-- Baseline dashed trajectory -->
+        <path
+          d="M 10 72 L 60 70 L 110 68 L 160 69 L 210 67 L 260 68 L 310 66"
+          fill="none"
+          stroke="var(--parchment-4)"
+          stroke-width="1.5"
+          stroke-dasharray="3 3"
+          stroke-opacity="0.5"
+        />
+
+        <!-- Area fill under optimized curve -->
+        <path
+          d="M 10 70 Q 55 68, 80 56 T 150 42 T 220 22 T 310 12 L 310 85 L 10 85 Z"
+          fill="url(#chartGradient)"
+        />
+
+        <!-- Main optimized trajectory curve -->
+        <path
+          d="M 10 70 Q 55 68, 80 56 T 150 42 T 220 22 T 310 12"
+          fill="none"
+          stroke="var(--copper)"
+          stroke-width="2.25"
+          filter="url(#glow)"
+        />
+
+        <!-- Data coordinate points -->
+        <circle cx="10" cy="70" r="3" fill="var(--ink)" stroke="var(--copper)" stroke-width="1.5" />
+        <circle cx="80" cy="56" r="3" fill="var(--ink)" stroke="var(--copper)" stroke-width="1.5" />
+        <circle cx="150" cy="42" r="3" fill="var(--ink)" stroke="var(--copper)" stroke-width="1.5" />
+        <circle cx="220" cy="22" r="3" fill="var(--ink)" stroke="var(--copper)" stroke-width="1.5" />
+        <circle cx="310" cy="12" r="4.5" fill="var(--copper)" stroke="#fff" stroke-width="1.5" class="pulsing-anchor" />
+      </svg>
+    </div>
+
+    <!-- Quick Telemetry Grid -->
+    <div class="metrics-grid">
+      <div class="metric-tile">
+        <span class="label metric-title">Annualized ROI</span>
+        <span class="metric-num">+$240K</span>
+      </div>
+      <div class="metric-tile">
+        <span class="label metric-title">ROC-AUC</span>
+        <span class="metric-num">0.94</span>
+      </div>
+      <div class="metric-tile">
+        <span class="label metric-title">Precision</span>
+        <span class="metric-num">98.2%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 2: Interactive Dynamic Workflow Flow -->
+  <div
+    class="pipeline-panel"
+    id="panel-flow"
+    role="tabpanel"
+    aria-labelledby="tab-flow"
+    data-panel="flow"
+  >
+    <div class="flow-stack">
+      <!-- Step 1: SQL Data Ingestion -->
+      <div class="flow-node flow-node-1" data-node="data">
+        <div class="node-icon-box">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <ellipse cx="12" cy="5" rx="9" ry="3" />
+            <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+            <path d="M3 12A9 3 0 0 0 21 12" />
+          </svg>
+        </div>
+        <div class="node-content">
+          <div class="node-title-row">
+            <span class="node-title">query.sql</span>
+            <span class="node-badge">1.2M rows</span>
+          </div>
+          <span class="node-sub">PostgreSQL · Feature Extraction</span>
+        </div>
+      </div>
+
+      <!-- Connector with animated flow particle -->
+      <div class="flow-connector" aria-hidden="true">
+        <div class="flow-line"></div>
+        <div class="flow-particle"></div>
+      </div>
+
+      <!-- Step 2: Model Training & Optimization (Active Node) -->
+      <div class="flow-node flow-node-2 flow-node--active" data-node="model">
+        <div class="node-icon-box node-icon-box--active">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+          </svg>
+        </div>
+        <div class="node-content">
+          <div class="node-title-row">
+            <span class="node-title">model.fit() + OR-Tools</span>
+            <span class="node-badge node-badge--active">Optimal</span>
+          </div>
+          <span class="node-sub">XGBoost &amp; Mathematical Solver</span>
+        </div>
+      </div>
+
+      <!-- Connector with animated flow particle -->
+      <div class="flow-connector" aria-hidden="true">
+        <div class="flow-line"></div>
+        <div class="flow-particle flow-particle--delayed"></div>
+      </div>
+
+      <!-- Step 3: Actionable Decision -->
+      <div class="flow-node flow-node-3" data-node="decision">
+        <div class="node-icon-box">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--copper)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+            <polyline points="16 7 22 7 22 13" />
+          </svg>
+        </div>
+        <div class="node-content">
+          <div class="node-title-row">
+            <span class="node-title">Automated Action</span>
+            <span class="node-badge">+34.8% Gain</span>
+          </div>
+          <span class="node-sub">Operational Decision Dispatch</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  function setupPipelineWidget() {
+    const widget = document.querySelector('[data-pipeline-widget]');
+    if (!widget) return;
+
+    const tabs = widget.querySelectorAll<HTMLButtonElement>('.pipeline-tab');
+    const panels = widget.querySelectorAll<HTMLElement>('.pipeline-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach(t => {
+          const isActive = t === tab;
+          t.classList.toggle('active', isActive);
+          t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        panels.forEach(p => {
+          const isMatch = p.dataset.panel === target;
+          p.classList.toggle('active', isMatch);
+        });
+      });
+    });
+  }
+
+  // Run on first paint and Astro page transitions
+  setupPipelineWidget();
+  document.addEventListener('astro:page-load', setupPipelineWidget);
+</script>
 
 <style>
   .pipeline-diagram {
     position: relative;
     width: 100%;
-    aspect-ratio: 1;
     border: 1px solid var(--ink-4);
-    background: var(--ink);
-    border-radius: 8px;
+    background: var(--ink-2);
+    border-radius: 12px;
     overflow: hidden;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg), 0 0 28px -12px rgba(235, 94, 40, 0.12);
+    transition: border-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  .pipeline-diagram:hover {
+    border-color: rgba(235, 94, 40, 0.35);
+    box-shadow: var(--shadow-lg), 0 0 36px -8px rgba(235, 94, 40, 0.18);
   }
 
   .pipeline-grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(to right, rgb(255 252 242 / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 252 242 / 0.05) 1px, transparent 1px);
-    background-size: 24px 24px;
+      linear-gradient(to right, rgb(255 252 242 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 252 242 / 0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
   }
 
-  .pipeline-stack {
+  .pipeline-glow {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(235, 94, 40, 0.14), transparent 70%);
+    pointer-events: none;
+    filter: blur(28px);
+  }
+
+  /* Header */
+  .pipeline-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--ink);
+    border-bottom: 1px solid var(--ink-4);
+  }
+
+  .pipeline-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .dot-red { background: #ff6b35; opacity: 0.9; }
+  .dot-yellow { background: #fbbf24; opacity: 0.75; }
+  .dot-green { background: #10b981; opacity: 0.85; }
+
+  .pipeline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.08);
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(16, 185, 129, 0.22);
+  }
+
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+    animation: pulseDot 2s ease-in-out infinite;
+  }
+
+  .pipeline-badge-text {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: #34d399;
+  }
+
+  .pipeline-latency {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--parchment-4);
+    letter-spacing: 0.5px;
+  }
+  .latency-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #06b6d4;
+  }
+
+  /* Tabs */
+  .pipeline-tabs {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(10, 12, 16, 0.6);
+    border-bottom: 1px solid var(--ink-4);
+  }
+
+  .pipeline-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--parchment-4);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 180ms ease;
+  }
+
+  .pipeline-tab:hover {
+    color: var(--parchment);
+    background: var(--ink-3);
+  }
+
+  .pipeline-tab.active {
+    background: var(--ink-3);
+    color: var(--parchment);
+    border-color: var(--ink-4);
+  }
+  .pipeline-tab.active .tab-icon {
+    stroke: var(--copper);
+  }
+
+  /* Panels */
+  .pipeline-panel {
     position: relative;
     z-index: 1;
-    display: flex;
+    display: none;
+    padding: 16px;
     flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    padding: 24px;
+    gap: 14px;
   }
 
-  .pipeline-card {
+  .pipeline-panel.active {
+    display: flex;
+    animation: panelFadeIn 220ms ease;
+  }
+
+  @keyframes panelFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* KPI Highlight */
+  .kpi-banner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+  }
+
+  .kpi-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .kpi-label {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--parchment-4);
+  }
+  .kpi-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--copper);
+  }
+
+  .kpi-main {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--parchment);
+  }
+  .kpi-desc {
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--parchment-3);
+  }
+
+  /* Chart */
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+  }
+
+  .chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chart-label {
+    font-size: 9px;
+    color: var(--parchment-4);
+  }
+  .chart-legend {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 16px;
-    border-radius: 4px;
-    background: var(--ink-3);
-    border: 1px solid var(--ink-4);
-    box-shadow: var(--shadow-md);
     font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.3px;
-    color: var(--parchment-3);
-    white-space: nowrap;
+    font-size: 9px;
+    color: var(--parchment-4);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .legend-dash {
+    width: 10px;
+    height: 1px;
+    border-top: 1px dashed var(--parchment-4);
+  }
+  .legend-line {
+    width: 10px;
+    height: 2px;
+    background: var(--copper);
+    border-radius: 1px;
   }
 
-  .pipeline-card--offset-a { transform: translateX(-18px); }
-  .pipeline-card--offset-b { transform: translateX(18px); }
-  .pipeline-card--offset-c { transform: translateX(-10px); }
+  .sparkline {
+    width: 100%;
+    height: 80px;
+    overflow: visible;
+  }
 
-  .pipeline-card--active {
-    background: var(--copper);
-    color: var(--ink);
+  .pulsing-anchor {
+    animation: anchorPulse 2s ease-in-out infinite;
+  }
+  @keyframes anchorPulse {
+    0%, 100% { r: 4.5px; opacity: 1; }
+    50% { r: 6.5px; opacity: 0.8; }
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .metric-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+  }
+  .metric-title {
+    font-size: 8.5px;
+    color: var(--parchment-4);
+    letter-spacing: 0.8px;
+  }
+  .metric-num {
+    font-family: var(--font-mono);
+    font-size: 14px;
     font-weight: 600;
+    color: var(--parchment-2);
+  }
+
+  /* Flow Stack */
+  .flow-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  .flow-node {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: var(--ink);
+    border: 1px solid var(--ink-4);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  .flow-node:hover {
+    transform: translateX(3px);
     border-color: var(--copper);
   }
 
-  .pipeline-connector {
-    width: 0;
-    height: 20px;
-    border-left: 1px dashed var(--ink-4);
+  .flow-node--active {
+    background: var(--ink-3);
+    border-color: rgba(235, 94, 40, 0.6);
+    box-shadow: 0 0 16px -4px rgba(235, 94, 40, 0.25);
+  }
+
+  .node-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    flex-shrink: 0;
+  }
+
+  .node-icon-box--active {
+    background: var(--copper);
+    color: var(--ink);
+    border-color: var(--copper);
+  }
+
+  .node-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .node-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .node-title {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--parchment-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .node-badge {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    color: var(--parchment-3);
+    flex-shrink: 0;
+  }
+
+  .node-badge--active {
+    background: rgba(235, 94, 40, 0.2);
+    border-color: var(--copper);
+    color: var(--copper);
+    font-weight: 600;
+  }
+
+  .node-sub {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--parchment-4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Flow Connectors */
+  .flow-connector {
+    position: relative;
+    height: 14px;
+    margin-left: 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  .flow-line {
+    width: 2px;
+    height: 100%;
+    background: var(--ink-4);
+  }
+
+  .flow-particle {
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 4px;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--copper);
+    animation: flowDown 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  .flow-particle--delayed {
+    animation-delay: 0.9s;
+  }
+
+  @keyframes flowDown {
+    0% { top: 0; opacity: 0; transform: scale(0.8); }
+    30% { opacity: 1; transform: scale(1.2); }
+    80% { opacity: 1; transform: scale(1); }
+    100% { top: 100%; opacity: 0; transform: scale(0.8); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-particle, .pulse-dot, .pulsing-anchor {
+      animation: none;
+    }
   }
 
   @media (max-width: 480px) {
-    .pipeline-card--offset-a,
-    .pipeline-card--offset-b,
-    .pipeline-card--offset-c {
-      transform: none;
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+    .kpi-main {
+      flex-direction: column;
+      gap: 2px;
     }
   }
 </style>

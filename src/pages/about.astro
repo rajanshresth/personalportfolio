@@ -76,12 +76,12 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
         </div>
         <div class="bento-feature-grid">
           <div class="bento-feature">
-            <img src="https://img.icons8.com/ios-filled/40/eb5e28/artificial-intelligence.png" alt="" width="20" height="20" class="icon" />
+            <img src="https://img.icons8.com/ios-filled/40/ff6b35/artificial-intelligence.png" alt="" width="20" height="20" class="icon" />
             <h3 class="label">Predictive Modeling</h3>
             <p>Churn, LTV, demand, and lead-scoring models — from feature engineering to deployment.</p>
           </div>
           <div class="bento-feature">
-            <img src="https://img.icons8.com/ios-filled/40/eb5e28/flow-chart.png" alt="" width="20" height="20" class="icon" />
+            <img src="https://img.icons8.com/ios-filled/40/ff6b35/flow-chart.png" alt="" width="20" height="20" class="icon" />
             <h3 class="label">Optimization</h3>
             <p>Pricing, allocation, and routing framed as decisions and solved as models.</p>
           </div>
@@ -112,9 +112,9 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
             analysis or model. No open-ended hourly surprises.
           </p>
           <ul class="work-mode-list" role="list">
-            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Problem framing & data audit</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Model / analysis build & validation</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Documentation & handoff</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Problem framing &amp; data audit</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Model / analysis build &amp; validation</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Documentation &amp; handoff</li>
           </ul>
         </div>
         <div class="work-mode">
@@ -127,9 +127,9 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
             retraining, and answering the next question as it comes.
           </p>
           <ul class="work-mode-list" role="list">
-            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Model monitoring & retraining</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> New analyses & dashboards</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/eb5e28/checkmark.png" alt="" width="12" height="12" class="icon" /> Priority support</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Model monitoring &amp; retraining</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> New analyses &amp; dashboards</li>
+            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Priority support</li>
           </ul>
         </div>
       </div>
@@ -149,7 +149,7 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
   /* Hero */
   .about-hero {
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 340px;
     gap: 48px;
     align-items: center;
     margin-bottom: 96px;
@@ -210,8 +210,14 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
   .bento-card {
     background: var(--ink-2);
     border: 1px solid var(--ink-4);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 32px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 220ms ease, box-shadow 220ms ease;
+  }
+  .bento-card:hover {
+    border-color: rgba(255, 107, 53, 0.35);
+    box-shadow: var(--shadow-md), 0 0 24px -6px rgba(255, 107, 53, 0.12);
   }
 
   .bento-card h2 {
@@ -248,9 +254,11 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
   .bento-feature {
     background: var(--ink);
     border: 1px solid var(--ink-4);
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 16px;
+    transition: border-color 180ms ease;
   }
+  .bento-feature:hover { border-color: var(--copper); }
   .bento-feature .icon { margin-bottom: 8px; }
   .bento-feature h3 { color: var(--copper); margin-bottom: 6px; }
   .bento-feature p { font-size: 13px; }
@@ -281,11 +289,18 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
   .bento-chip {
     font-family: var(--font-mono);
     font-size: 11px;
+    font-weight: 500;
     color: var(--parchment-2);
-    background: var(--ink-2);
+    background: var(--ink-3);
     border: 1px solid var(--ink-4);
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 5px 10px;
+    transition: all 180ms ease;
+  }
+  .bento-chip:hover {
+    border-color: var(--copper);
+    color: var(--parchment);
+    transform: translateY(-1px);
   }
 
   /* Full stack section */
@@ -376,7 +391,7 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
       gap: 32px;
     }
     .about-hero-visual {
-      max-width: 240px;
+      max-width: 340px;
     }
     .about-bento {
       grid-template-columns: 1fr;

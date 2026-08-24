@@ -4,7 +4,9 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container footer-inner">
-    <div class="footer-logo">Rajan</div>
+    <div class="footer-logo">
+      Rajan<span class="footer-logo-dot" aria-hidden="true">.</span>
+    </div>
 
     <p class="footer-copy">
       &copy; {year} Rajan Shrestha. All rights reserved.
@@ -39,8 +41,8 @@ const year = new Date().getFullYear();
 <style>
   .footer {
     border-top: 1px solid var(--ink-4);
-    background: var(--ink-2);
-    padding: 24px 0;
+    background: var(--ink);
+    padding: 32px 0;
     margin-top: auto;
   }
 
@@ -57,6 +59,9 @@ const year = new Date().getFullYear();
     font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.01em;
+    color: var(--parchment);
+  }
+  .footer-logo-dot {
     color: var(--copper);
   }
 
@@ -72,7 +77,8 @@ const year = new Date().getFullYear();
   }
 
   .footer-link {
-    color: var(--parchment-4);
+    color: var(--parchment-3);
+    font-weight: 500;
     transition: color 150ms ease;
     text-transform: none;
     letter-spacing: 0.5px;

@@ -249,7 +249,19 @@ const fmtDate = published
   .project-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
+  }
+  .project-tags span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--copper);
+    background: var(--ink-3);
+    border: 1px solid var(--ink-4);
+    border-radius: 4px;
+    padding: 3px 8px;
   }
   .project-title {
     font-family: var(--font-display);
@@ -285,7 +297,7 @@ const fmtDate = published
     padding: 32px;
     background: var(--ink-2);
     border: 1px solid var(--ink-4);
-    border-radius: 8px;
+    border-radius: 12px;
   }
   .project-error p { font-size: 15px; color: var(--parchment-3); }
   .project-error-detail {
@@ -297,12 +309,15 @@ const fmtDate = published
 
   .project-end-cta {
     margin-top: 64px;
-    padding-top: 40px;
-    border-top: 1px solid var(--ink-4);
+    padding: 40px 32px;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
     text-align: center;
   }
-  .project-end-cta h2 { margin-bottom: 8px; }
-  .project-end-cta p { margin-bottom: 20px; }
+  .project-end-cta h2 { margin-bottom: 8px; font-size: 26px; }
+  .project-end-cta p { margin-bottom: 24px; color: var(--parchment-3); }
 
   @media (max-width: 600px) {
     .project-end-cta { margin-top: 48px; }

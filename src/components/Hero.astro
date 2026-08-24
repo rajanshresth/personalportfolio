@@ -10,11 +10,6 @@ import PipelineDiagram from './PipelineDiagram.astro';
       <span class="label hero-status-label">Open to data science &amp; analytics work</span>
     </span>
 
-    <!-- Discipline eyebrow -->
-    <p class="hero-eyebrow label">
-      Data Science <span aria-hidden="true">·</span> Data Analytics <span aria-hidden="true">·</span> Decision Science
-    </p>
-
     <!-- Headline -->
     <h1 class="display hero-headline">
       Turning data into<br>
@@ -23,9 +18,9 @@ import PipelineDiagram from './PipelineDiagram.astro';
 
     <!-- Body -->
     <p class="hero-body">
-      I'm Rajan — a data scientist and industrial engineer. I build
-      machine-learning models, SQL analytics, and optimization systems
-      that turn messy data into decisions teams can act on.
+      I'm Rajan — a data scientist and industrial engineer. I help operations
+      and product teams optimize workflows, automate predictive pipelines,
+      and turn complex data sets into actionable ROI.
     </p>
 
     <!-- CTAs -->
@@ -126,25 +121,20 @@ import PipelineDiagram from './PipelineDiagram.astro';
       animation: fadeUp 400ms ease forwards;
       animation-delay: 0ms;
     }
-    .hero-eyebrow {
-      opacity: 0;
-      animation: fadeUp 400ms ease forwards;
-      animation-delay: 120ms;
-    }
     .hero-body {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
-      animation-delay: 200ms;
+      animation-delay: 140ms;
     }
     .hero-ctas {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
-      animation-delay: 320ms;
+      animation-delay: 240ms;
     }
     .hero-trust {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
-      animation-delay: 420ms;
+      animation-delay: 340ms;
     }
   }
 
@@ -153,34 +143,33 @@ import PipelineDiagram from './PipelineDiagram.astro';
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    width: fit-content;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.22);
   }
 
   .hero-status-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: var(--copper);
-    animation: pulseDot 2.5s ease-in-out infinite;
+    background: #10b981;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+    animation: pulseDot 2.2s ease-in-out infinite;
     flex-shrink: 0;
   }
 
   .hero-status-label {
-    color: var(--copper);
-  }
-
-  /* Discipline eyebrow — the three pillars, above the headline */
-  .hero-eyebrow {
-    color: var(--parchment-4);
-    letter-spacing: 2px;
-    margin-top: -6px;
-  }
-  .hero-eyebrow span {
-    color: var(--copper);
-    margin: 0 4px;
+    color: #34d399;
+    font-weight: 600;
+    font-size: 9.5px;
+    letter-spacing: 1px;
   }
 
   .hero-headline {
     /* Inherits from .display in global.css */
+    letter-spacing: -0.02em;
   }
 
   /* Pre-hide for the SplitText word-stagger entrance; reduced-motion and
@@ -195,7 +184,9 @@ import PipelineDiagram from './PipelineDiagram.astro';
   }
 
   .hero-body {
-    max-width: 440px;
+    max-width: 490px;
+    font-size: 15.5px;
+    line-height: 1.7;
   }
 
   .hero-ctas {
@@ -210,20 +201,36 @@ import PipelineDiagram from './PipelineDiagram.astro';
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 20px;
-    padding-top: 4px;
+    gap: 12px;
+    padding-top: 6px;
   }
 
   .hero-trust li {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
     font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 400;
+    font-size: 11px;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--parchment-4);
+    letter-spacing: 0.8px;
+    color: var(--parchment-2);
+    transition: all 180ms ease;
+  }
+
+  .hero-trust li:hover {
+    border-color: var(--copper);
+    color: var(--parchment);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-trust .icon {
+    opacity: 0.95;
   }
 
   /* Pipeline diagram column */
@@ -235,7 +242,7 @@ import PipelineDiagram from './PipelineDiagram.astro';
     min-width: 0;
   }
   .hero-cluster :global(.pipeline-diagram) {
-    max-width: 380px;
+    max-width: 410px;
   }
 
   /* Mobile: stack, hide diagram */

@@ -111,14 +111,16 @@ const fmtDate = (iso: string) =>
     padding: 28px;
     background: var(--ink-2);
     border: 1px solid var(--ink-4);
-    border-radius: 8px;
-    transition: border-color 200ms ease, transform 200ms ease;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
   }
   .project-card:hover {
-    border-color: var(--copper);
-    transform: translateY(-3px);
+    border-color: rgba(255, 107, 53, 0.4);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md), 0 0 24px -6px rgba(255, 107, 53, 0.15);
   }
-  .project-card:hover .project-title { color: var(--copper); }
+  .project-card:hover .project-title { color: var(--parchment); }
 
   .project-card-head {
     display: flex;
@@ -135,26 +137,28 @@ const fmtDate = (iso: string) =>
   .tech-chip {
     font-family: var(--font-mono);
     font-size: 10px;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: var(--copper);
-    background: var(--ink);
+    background: var(--ink-3);
     border: 1px solid var(--ink-4);
-    border-radius: 3px;
+    border-radius: 4px;
     padding: 3px 8px;
   }
   .project-date { flex-shrink: 0; }
 
   .project-title {
-    font-size: 21px;
+    font-size: 22px;
+    font-weight: 600;
     color: var(--parchment);
     line-height: 1.25;
+    letter-spacing: -0.01em;
     transition: color 150ms ease;
   }
 
   .project-desc {
-    font-size: 14px;
+    font-size: 14.5px;
     line-height: 1.65;
     color: var(--parchment-3);
     flex-grow: 1;
@@ -166,10 +170,17 @@ const fmtDate = (iso: string) =>
     gap: 8px;
     font-family: var(--font-mono);
     font-size: 11px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     color: var(--copper);
     margin-top: 4px;
+  }
+  .project-more span {
+    transition: transform 180ms ease;
+  }
+  .project-card:hover .project-more span {
+    transform: translateX(4px);
   }
 
   .projects-empty {

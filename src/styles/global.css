@@ -1,38 +1,36 @@
 /* ─────────────────────────────────────────────────────────────
-   CSS Custom Properties — Synthetic Intelligence Design System
+   CSS Custom Properties — Obsidian & Electric Amber Design System
 
-   Dark obsidian surfaces with a luminous mint accent — the
-   "engineering intelligence" palette used across the Stitch
-   mockups (Home, Work, About, Pricing). Text runs light-on-dark
-   with the same four-step hierarchy as before (headings brightest,
-   meta/labels recede); the accent moves from copper/terracotta to
-   an electric mint that reads as "the active state of AI."
+   Velvet deep-obsidian surfaces with luminous electric copper/amber
+   accent and emerald status indicators. Crisp slate text hierarchy
+   for effortless readability and high visual impact.
    ───────────────────────────────────────────────────────────── */
 :root {
-  /* Surfaces — warm carbon-black page bg → card → deeper surface → charcoal
-     border. Based on the Paprika palette (carbon-black / charcoal-brown). */
-  --ink:         #252422; /* page background — carbon black */
-  --ink-2:       #2d2b27; /* card / elevated surface */
-  --ink-3:       #38352f; /* deeper surface — icon tiles, pill hover */
-  --ink-4:       #4b473f; /* default border — warm charcoal, visible but soft */
+  /* Surfaces — deep obsidian canvas → elevated slate surfaces → architectural borders */
+  --ink:         #0a0c10; /* page background — deep velvet obsidian */
+  --ink-2:       #12161f; /* card / elevated bento surface */
+  --ink-3:       #1a202c; /* deeper interactive surface — tiles, pill hover */
+  --ink-4:       #242c3d; /* default border — refined slate border, crisp & subtle */
+  --ink-5:       #333e54; /* active border / highlight outline */
 
-  /* Text — floral white down to muted warm grey, real hierarchy */
-  --parchment:   #fffcf2; /* headings — floral white */
-  --parchment-2: #f1ece0; /* strong body / emphasis */
-  --parchment-3: #ccc5b9; /* body copy — dust grey */
-  --parchment-4: #948d7f; /* muted — labels, meta, captions */
+  /* Text — pristine floral slate white down to balanced muted tones */
+  --parchment:   #f8fafc; /* headings — crisp slate-white */
+  --parchment-2: #e2e8f0; /* strong body / emphasis */
+  --parchment-3: #94a3b8; /* body copy — balanced slate grey */
+  --parchment-4: #64748b; /* muted — labels, meta, captions */
 
-  /* Accent — spicy paprika. Warm orange that pops on the carbon surfaces and
-     reads dark-on-orange for button text via --ink. */
-  --copper:      #eb5e28;
-  --copper-dark: #d2521c;
-  /* Status dot — same paprika accent */
-  --green:       #eb5e28;
+  /* Accent — Luminous Electric Amber-Copper (warm, active state of intelligence) */
+  --copper:      #ff6b35; /* vibrant electric amber-copper */
+  --copper-dark: #ea580c; /* hover / pressed state */
+  --copper-glow: rgba(255, 107, 53, 0.28);
+  /* Status dot & telemetry */
+  --green:       #10b981; /* emerald active status */
+  --cyan:        #06b6d4; /* telemetry cyan */
 
   /* Elevation */
-  --shadow-sm: 0 2px 10px -6px rgba(0, 0, 0, 0.45);
-  --shadow-md: 0 16px 36px -20px rgba(0, 0, 0, 0.55);
-  --shadow-lg: 0 24px 56px -24px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 2px 10px -4px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 16px 36px -16px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 24px 56px -20px rgba(0, 0, 0, 0.75);
 
   /* Typography */
   --font-display: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
@@ -80,6 +78,11 @@ html {
 
 body {
   background-color: var(--ink);
+  background-image:
+    radial-gradient(ellipse 900px 480px at 50% -80px, rgba(255, 107, 53, 0.07), transparent 70%),
+    radial-gradient(ellipse 600px 300px at 85% 240px, rgba(6, 182, 212, 0.035), transparent 60%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: var(--parchment-3);
   font-family: var(--font-body);
   font-size: 15px;
@@ -224,31 +227,35 @@ a:hover { color: var(--copper); }
   gap: 8px;
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 400;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 180ms ease, color 180ms ease, border-color 180ms ease, opacity 180ms ease;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease, opacity 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
 .btn img { flex-shrink: 0; }
 
 .btn-primary {
   background: var(--copper);
-  color: var(--ink);
+  color: #0a0c10;
+  font-weight: 600;
   border: 1px solid var(--copper);
   padding: 12px 22px;
+  box-shadow: 0 0 20px -5px rgba(255, 107, 53, 0.45);
 }
 .btn-primary:hover {
   background: var(--copper-dark);
   border-color: var(--copper-dark);
-  color: var(--ink);
+  color: #0a0c10;
+  box-shadow: 0 0 28px -3px rgba(255, 107, 53, 0.6);
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: transparent;
+  background: var(--ink-2);
   color: var(--parchment-2);
   border: 1px solid var(--ink-4);
   padding: 11px 20px;
@@ -256,6 +263,7 @@ a:hover { color: var(--copper); }
 .btn-secondary:hover {
   border-color: var(--copper);
   color: var(--copper);
+  transform: translateY(-1px);
 }
 
 .btn-ghost {
@@ -267,13 +275,17 @@ a:hover { color: var(--copper); }
 .btn-ghost:hover { color: var(--copper); }
 
 .btn-outline {
-  background: transparent;
-  color: var(--copper);
-  border: 1px solid var(--copper);
+  background: rgba(18, 22, 31, 0.6);
+  color: var(--parchment);
+  border: 1px solid var(--ink-4);
   padding: 12px 22px;
+  backdrop-filter: blur(8px);
 }
 .btn-outline:hover {
-  background: rgb(235 94 40 / 0.12);
+  background: var(--ink-3);
+  border-color: var(--copper);
+  color: var(--copper);
+  transform: translateY(-1px);
 }
 
 .btn-sm {
@@ -308,14 +320,14 @@ a:hover { color: var(--copper); }
   --spot-a: 0;
   position: relative;
   background-image: radial-gradient(
-    220px circle at var(--spot-x) var(--spot-y),
-    rgb(235 94 40 / var(--spot-a)),
+    240px circle at var(--spot-x) var(--spot-y),
+    rgba(255, 107, 53, var(--spot-a)),
     transparent 70%
   );
   transition: --spot-a 400ms ease;
 }
 [data-spotlight]:hover {
-  --spot-a: 0.14;
+  --spot-a: 0.12;
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -335,9 +347,9 @@ a:hover { color: var(--copper); }
   background: conic-gradient(
     from var(--beam-angle),
     transparent 0%,
-    var(--copper) 6%,
-    #ffd9c7 10%,
-    transparent 22%
+    var(--copper) 8%,
+    #ffe5d9 12%,
+    transparent 24%
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
