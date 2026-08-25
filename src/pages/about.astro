@@ -1,45 +1,65 @@
 ---
-import Base from '../layouts/Base.astro';
-import PipelineDiagram from '../components/PipelineDiagram.astro';
+import Base from "../layouts/Base.astro";
+import PipelineDiagram from "../components/PipelineDiagram.astro";
 
 const personSchema = {
-  '@context': 'https://schema.org',
-  '@type':    'Person',
-  name:       'Rajan Shrestha',
-  url:        'https://rajanbuilds.com/about',
-  jobTitle:   'Data Scientist',
-  description: 'Data scientist working across data science, data analytics, and decision science with Python, SQL, machine learning, and optimization.',
-  knowsAbout: ['Data Science', 'Data Analytics', 'Decision Science', 'Python', 'SQL', 'Machine Learning', 'Optimization'],
-  address:    { '@type': 'PostalAddress', addressCountry: 'NP' },
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Rajan Shrestha",
+  url: "https://rajanbuilds.com/about",
+  jobTitle: "Data Scientist",
+  description:
+    "Data scientist working across data science, data analytics, and decision science with Python, SQL, machine learning, and optimization.",
+  knowsAbout: [
+    "Data Science",
+    "Data Analytics",
+    "Decision Science",
+    "Python",
+    "SQL",
+    "Machine Learning",
+    "Optimization",
+  ],
+  address: { "@type": "PostalAddress", addressCountry: "NP" },
   sameAs: [
-    'https://www.linkedin.com/in/rajan10x/',
-    'https://github.com/rajanshresth',
-    'https://www.upwork.com/freelancers/~01a5c018c69358b30f',
+    "https://www.linkedin.com/in/rajan10x/",
+    "https://github.com/rajanshresth",
+    "https://www.upwork.com/freelancers/~01a5c018c69358b30f",
   ],
 };
 
-const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tableau'];
+const techStack = [
+  "Python",
+  "SQL",
+  "scikit-learn",
+  "pandas",
+  "PostgreSQL",
+  "Tableau",
+];
 ---
 
 <Base
   title="About — Rajan Shrestha"
   description="Data scientist working across data science, data analytics, and decision science with Python, SQL, machine learning, and optimization."
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(personSchema)}
+  />
   <div class="container about-page">
     <!-- Hero -->
     <section class="about-hero" data-reveal>
       <div class="about-hero-copy">
         <h1 class="about-title">
-          I frame the decision<br>
+          I frame the decision<br />
           before I fit the <em>model</em>.
         </h1>
         <p class="about-lede">
-          I'm Rajan — an industrial engineer by training, now working as a
-          data scientist across data science, analytics, and decision science.
-          Most teams aren't short on data; they're short on the decision it
-          should drive. I build the models, analysis, and optimization that
-          close that gap.
+          I'm Rajan — an industrial engineer by training, now working as a data
+          scientist across data science, analytics, and decision science. Most
+          teams aren't short on data; they're short on the decision it should
+          drive. I build the models, analysis, and optimization that close that
+          gap.
         </p>
       </div>
       <div class="about-hero-visual">
@@ -59,8 +79,8 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
             decision science is, just with a model in the middle.
           </p>
           <p>
-            I moved into data science because I kept seeing the gap between
-            a dashboard full of numbers and the decision those numbers were
+            I moved into data science because I kept seeing the gap between a
+            dashboard full of numbers and the decision those numbers were
             supposed to inform. I like closing that gap.
           </p>
         </div>
@@ -70,20 +90,38 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
         <div>
           <h2>What I do</h2>
           <p class="bento-whatido-lede">
-            I turn business data into models, analysis, and decisions —
-            across data science, analytics, and decision science.
+            I turn business data into models, analysis, and decisions — across
+            data science, analytics, and decision science.
           </p>
         </div>
         <div class="bento-feature-grid">
           <div class="bento-feature">
-            <img src="https://img.icons8.com/ios-filled/40/ff6b35/artificial-intelligence.png" alt="" width="20" height="20" class="icon" />
+            <img
+              src="https://img.icons8.com/ios-filled/40/ff6b35/artificial-intelligence.png"
+              alt=""
+              width="20"
+              height="20"
+              class="icon"
+            />
             <h3 class="label">Predictive Modeling</h3>
-            <p>Churn, LTV, demand, and lead-scoring models — from feature engineering to deployment.</p>
+            <p>
+              Churn, LTV, demand, and lead-scoring models — from feature
+              engineering to deployment.
+            </p>
           </div>
           <div class="bento-feature">
-            <img src="https://img.icons8.com/ios-filled/40/ff6b35/flow-chart.png" alt="" width="20" height="20" class="icon" />
+            <img
+              src="https://img.icons8.com/ios-filled/40/ff6b35/flow-chart.png"
+              alt=""
+              width="20"
+              height="20"
+              class="icon"
+            />
             <h3 class="label">Optimization</h3>
-            <p>Pricing, allocation, and routing framed as decisions and solved as models.</p>
+            <p>
+              Pricing, allocation, and routing framed as decisions and solved as
+              models.
+            </p>
           </div>
           <div class="bento-feature bento-feature--wide">
             <div class="bento-feature-header">
@@ -91,10 +129,127 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
               <div class="bento-feature-divider" aria-hidden="true"></div>
             </div>
             <div class="bento-chip-row">
-              {techStack.map(tool => <span class="bento-chip">{tool}</span>)}
+              {techStack.map((tool) => <span class="bento-chip">{tool}</span>)}
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="experience" data-reveal-group>
+      <h2 class="experience-heading">Experience</h2>
+      <p class="experience-sub">
+        Where I've turned business data into decisions.
+      </p>
+
+      <div class="experience-list">
+        <!-- Data Analyst — ING Group -->
+        <article class="experience-card" data-spotlight>
+          <div class="experience-card-head">
+            <img
+              class="experience-logo"
+              src="https://ing.com.np/images/consulting.svg"
+              alt="ING Group logo"
+              loading="lazy"
+            />
+            <div class="experience-role">
+              <h3 class="experience-company">ING Group</h3>
+              <span class="experience-title">Data Analyst</span>
+            </div>
+            <div class="experience-meta">
+              <span class="experience-date">Jan 2026 — Present · 8 mos</span>
+              <span class="experience-employment">Full-time</span>
+            </div>
+          </div>
+          <div class="experience-location">
+            Kathmandu, Bāgmatī, Nepal · On-site
+          </div>
+          <ul class="experience-list-items" role="list">
+            <li>
+              <strong>System Automation</strong>: built and deployed an
+              automated student feedback system handling 10,000+ submissions,
+              cutting response time from 5s to under 50ms (100x faster) across
+              10 institutions via a multi-layer caching architecture.
+            </li>
+            <li>
+              <strong>Demand Forecasting</strong>: built demand forecasting
+              models for admissions and business operations to support capacity
+              planning.
+            </li>
+            <li>
+              <strong>Reporting Automation</strong>: automated cross-college
+              reporting pipelines for enrollment and satisfaction KPIs,
+              eliminating 8+ hours of manual reporting per week.
+            </li>
+            <li>
+              <strong>Process Automation</strong>: built a PAT (Personal
+              Academic Tutor) management system automating supervisor routing
+              and feedback collection across all campuses, eliminating manual
+              coordination.
+            </li>
+            <li>
+              <strong>Budget Automation</strong>: built a budget automation
+              system that consolidates monthly expense data across 10 colleges
+              and flags budget anomalies.
+            </li>
+          </ul>
+        </article>
+
+        <!-- Founder & Decision Automation Consultant — rajanbuilds -->
+        <article class="experience-card" data-spotlight>
+          <div class="experience-card-head">
+            <img
+              class="experience-logo"
+              src="/favicon.svg"
+              alt="rajanbuilds logo"
+              loading="lazy"
+            />
+            <div class="experience-role">
+              <h3 class="experience-company">rajanbuilds</h3>
+              <span class="experience-title"
+                >Founder &amp; Decision Automation Consultant</span
+              >
+            </div>
+            <div class="experience-meta">
+              <span class="experience-date">Oct 2024 — Present · 2 yrs</span>
+              <span class="experience-employment">Self-employed</span>
+            </div>
+          </div>
+          <div class="experience-location">
+            Kathmandu, Bāgmatī, Nepal · Remote
+          </div>
+          <p class="experience-intro">
+            These are the types of solutions I build for businesses:
+          </p>
+          <ul class="experience-list-items" role="list">
+            <li>
+              <strong>Predictive Analytics</strong>: built a customer churn and
+              revenue forecasting system to support proactive business
+              decisions.
+            </li>
+            <li>
+              <strong>Optimization</strong>: developed a workforce scheduling
+              model to optimize resource allocation while minimizing operational
+              costs.
+            </li>
+            <li>
+              <strong>Business Analytics</strong>: built an executive KPI
+              dashboard for sales, finance, and operational performance
+              monitoring.
+            </li>
+            <li>
+              <strong>Decision Support Systems</strong>: developed a pricing
+              decision engine using demand patterns, costs, and business
+              constraints.
+            </li>
+            <li>
+              <strong>Workflow Automation</strong>: automated inventory
+              monitoring and replenishment workflows with real-time alerts and
+              reporting.
+            </li>
+          </ul>
+        </article>
       </div>
     </section>
 
@@ -107,14 +262,38 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
           <div class="work-mode-dot" aria-hidden="true"></div>
           <h3>Project Engagements</h3>
           <p>
-            For a defined question or decision. We frame the problem and
-            success metric upfront, agree on deliverables, and I build the
-            analysis or model. No open-ended hourly surprises.
+            For a defined question or decision. We frame the problem and success
+            metric upfront, agree on deliverables, and I build the analysis or
+            model. No open-ended hourly surprises.
           </p>
           <ul class="work-mode-list" role="list">
-            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Problem framing &amp; data audit</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Model / analysis build &amp; validation</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Documentation &amp; handoff</li>
+            <li>
+              <img
+                src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png"
+                alt=""
+                width="12"
+                height="12"
+                class="icon"
+              /> Problem framing &amp; data audit
+            </li>
+            <li>
+              <img
+                src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png"
+                alt=""
+                width="12"
+                height="12"
+                class="icon"
+              /> Model / analysis build &amp; validation
+            </li>
+            <li>
+              <img
+                src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png"
+                alt=""
+                width="12"
+                height="12"
+                class="icon"
+              /> Documentation &amp; handoff
+            </li>
           </ul>
         </div>
         <div class="work-mode">
@@ -127,9 +306,33 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
             retraining, and answering the next question as it comes.
           </p>
           <ul class="work-mode-list" role="list">
-            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Model monitoring &amp; retraining</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> New analyses &amp; dashboards</li>
-            <li><img src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png" alt="" width="12" height="12" class="icon" /> Priority support</li>
+            <li>
+              <img
+                src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png"
+                alt=""
+                width="12"
+                height="12"
+                class="icon"
+              /> Model monitoring &amp; retraining
+            </li>
+            <li>
+              <img
+                src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png"
+                alt=""
+                width="12"
+                height="12"
+                class="icon"
+              /> New analyses &amp; dashboards
+            </li>
+            <li>
+              <img
+                src="https://img.icons8.com/ios-filled/40/ff6b35/checkmark.png"
+                alt=""
+                width="12"
+                height="12"
+                class="icon"
+              /> Priority support
+            </li>
           </ul>
         </div>
       </div>
@@ -179,7 +382,7 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
     position: relative;
   }
   .about-hero-visual::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: var(--copper);
@@ -213,11 +416,15 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
     border-radius: 12px;
     padding: 32px;
     box-shadow: var(--shadow-sm);
-    transition: border-color 220ms ease, box-shadow 220ms ease;
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease;
   }
   .bento-card:hover {
     border-color: rgba(255, 107, 53, 0.4);
-    box-shadow: var(--shadow-md), 0 0 28px -6px rgba(255, 107, 53, 0.16);
+    box-shadow:
+      var(--shadow-md),
+      0 0 28px -6px rgba(255, 107, 53, 0.16);
   }
 
   .bento-card h2 {
@@ -258,10 +465,19 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
     padding: 16px;
     transition: border-color 180ms ease;
   }
-  .bento-feature:hover { border-color: var(--copper); }
-  .bento-feature .icon { margin-bottom: 8px; }
-  .bento-feature h3 { color: var(--copper); margin-bottom: 6px; }
-  .bento-feature p { font-size: 13px; }
+  .bento-feature:hover {
+    border-color: var(--copper);
+  }
+  .bento-feature .icon {
+    margin-bottom: 8px;
+  }
+  .bento-feature h3 {
+    color: var(--copper);
+    margin-bottom: 6px;
+  }
+  .bento-feature p {
+    font-size: 13px;
+  }
 
   .bento-feature--wide {
     grid-column: span 2;
@@ -273,7 +489,9 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
     gap: 12px;
     margin-bottom: 12px;
   }
-  .bento-feature-eyebrow { color: var(--copper); }
+  .bento-feature-eyebrow {
+    color: var(--copper);
+  }
   .bento-feature-divider {
     height: 1px;
     background: var(--ink-4);
@@ -310,6 +528,146 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
   .about-section h2 {
     text-align: center;
     margin-bottom: 32px;
+  }
+
+  /* Experience */
+  .experience {
+    margin-bottom: 96px;
+  }
+  .experience-heading {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .experience-sub {
+    text-align: center;
+    color: var(--parchment-3);
+    font-size: 14px;
+    margin-bottom: 48px;
+  }
+
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .experience-card {
+    background: linear-gradient(180deg, var(--ink-3), var(--ink-2) 40%);
+    border: 1px solid var(--ink-4);
+    border-radius: 12px;
+    padding: 28px 32px;
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+  .experience-card:hover {
+    border-color: rgba(255, 107, 53, 0.4);
+    box-shadow:
+      var(--shadow-md),
+      0 0 28px -6px rgba(255, 107, 53, 0.16);
+  }
+
+  .experience-card-head {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 10px;
+  }
+
+  .experience-logo {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    object-fit: contain;
+    padding: 7px;
+    background: #fff;
+    border: 1px solid var(--ink-4);
+    flex-shrink: 0;
+  }
+
+  .experience-role {
+    min-width: 0;
+  }
+  .experience-company {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--parchment);
+    line-height: 1.2;
+  }
+  .experience-title {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--copper);
+    letter-spacing: 0.3px;
+  }
+
+  .experience-meta {
+    margin-left: auto;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+  .experience-date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--parchment-3);
+    white-space: nowrap;
+  }
+  .experience-employment {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--parchment-4);
+    white-space: nowrap;
+  }
+
+  .experience-location {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--parchment-4);
+    margin-bottom: 20px;
+  }
+
+  .experience-intro {
+    font-size: 14px;
+    color: var(--parchment-3);
+    margin-bottom: 20px;
+  }
+
+  .experience-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .experience-list-items li {
+    position: relative;
+    padding-left: 20px;
+    font-size: 14px;
+    color: var(--parchment-2);
+  }
+  .experience-list-items li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--copper);
+  }
+  .experience-list-items li strong {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--copper);
   }
 
   /* How I work */
@@ -400,14 +758,46 @@ const techStack = ['Python', 'SQL', 'scikit-learn', 'pandas', 'PostgreSQL', 'Tab
       grid-template-columns: 1fr;
       gap: 40px;
     }
+    .experience-card-head {
+      flex-wrap: wrap;
+    }
+    .experience-meta {
+      width: 100%;
+      margin-left: 0;
+      text-align: left;
+      flex-direction: row;
+      gap: 14px;
+    }
   }
 
   @media (max-width: 767px) {
-    .about-page { padding-top: 44px; }
-    .about-hero { margin-bottom: 56px; }
-    .about-bento { margin-bottom: 56px; gap: 20px; }
-    .about-section { margin-bottom: 56px; }
-    .bento-feature-grid { grid-template-columns: 1fr; }
-    .bento-feature--wide { grid-column: span 1; }
+    .about-page {
+      padding-top: 44px;
+    }
+    .about-hero {
+      margin-bottom: 56px;
+    }
+    .about-bento {
+      margin-bottom: 56px;
+      gap: 20px;
+    }
+    .about-section {
+      margin-bottom: 56px;
+    }
+    .bento-feature-grid {
+      grid-template-columns: 1fr;
+    }
+    .bento-feature--wide {
+      grid-column: span 1;
+    }
+    .experience {
+      margin-bottom: 56px;
+    }
+    .experience-sub {
+      margin-bottom: 32px;
+    }
+    .experience-card {
+      padding: 22px;
+    }
   }
 </style>
