@@ -68,30 +68,9 @@ import PipelineDiagram from './PipelineDiagram.astro';
 </section>
 
 <script>
-  import { gsap } from 'gsap';
-  import { SplitText } from 'gsap/SplitText';
-
-  gsap.registerPlugin(SplitText);
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const headline = document.querySelector<HTMLElement>('.hero-headline');
-
-  if (headline) {
-    if (prefersReducedMotion) {
-      gsap.set(headline, { opacity: 1 });
-    } else {
-      const split = new SplitText(headline, { type: 'words', wordsClass: 'hero-word' });
-      gsap.set(headline, { opacity: 1 });
-      gsap.from(split.words, {
-        opacity: 0,
-        y: 18,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.05,
-        delay: 0.08,
-      });
-    }
-  }
+  // Hero entrance is pure CSS (fadeUp keyframes) so the headline — the LCP
+  // element — paints on first render without waiting for any JS to download.
+  // No GSAP/SplitText on the critical path.
 </script>
 
 <style>
@@ -116,26 +95,36 @@ import PipelineDiagram from './PipelineDiagram.astro';
 
   /* Staggered fade-up on page load */
   @media (prefers-reduced-motion: no-preference) {
+    /* Headline stays opacity:1 from first paint — transform-only rise so it
+       registers as the LCP element immediately instead of after a fade. */
+    .hero-headline {
+      animation: heroRise 600ms ease forwards;
+      animation-delay: 40ms;
+    }
     .hero-status {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
-      animation-delay: 0ms;
+      animation-delay: 100ms;
     }
     .hero-body {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
-      animation-delay: 140ms;
+      animation-delay: 180ms;
     }
     .hero-ctas {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
-      animation-delay: 240ms;
+      animation-delay: 260ms;
     }
     .hero-trust {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
       animation-delay: 340ms;
     }
+  }
+  @keyframes heroRise {
+    from { transform: translateY(12px); }
+    to   { transform: translateY(0); }
   }
 
   /* Status badge */
@@ -180,17 +169,6 @@ import PipelineDiagram from './PipelineDiagram.astro';
   @keyframes heroDot {
     0%, 100% { opacity: 1; }
     50%       { opacity: 0.35; }
-  }
-
-  /* Pre-hide for the SplitText word-stagger entrance; reduced-motion and
-     no-JS both fall through to the default visible opacity:1. */
-  :global(.js) .hero-headline {
-    opacity: 0;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    :global(.js) .hero-headline {
-      opacity: 1;
-    }
   }
 
   .hero-body {

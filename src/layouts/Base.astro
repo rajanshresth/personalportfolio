@@ -6,6 +6,7 @@ import '../styles/global.css';
 interface Props {
   title?:       string;
   description?: string;
+  robots?:      string;
   image?:       string;   // absolute URL or path — used for og:image
   imageAlt?:    string;
   type?:        'website' | 'article';
@@ -16,6 +17,7 @@ interface Props {
 const {
   title       = 'Rajan Shrestha — Data Science, Analytics & Decision Science',
   description = 'Data scientist working across data science, analytics, and decision science with Python, SQL, machine learning, and optimization — predictive models, SQL analytics, and optimization systems that turn data into decisions.',
+  robots      = 'index, follow',
   image,
   imageAlt    = 'Rajan Shrestha — Data Scientist · Analytics · Decision Science',
   type        = 'website',
@@ -97,7 +99,7 @@ const websiteSchema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     {tags.length > 0 && <meta name="keywords" content={tags.join(', ')} />}
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
     <meta name="author" content="Rajan Shrestha" />
 
     <!-- Open Graph -->
@@ -156,14 +158,28 @@ const websiteSchema = {
       />
     </noscript>
 
-    <!-- Google Analytics (GA4) -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FCVD33YW3D"></script>
+    <!-- Google Analytics (GA4) — loaded only after the browser goes idle (or
+         after 3s) so the ~165 KiB script and its parse cost stay off the
+         critical path on slow connections. A queued stub keeps any gtag()
+         calls made before load from being dropped. -->
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-FCVD33YW3D');
+      window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+      function loadGtag() {
+        var s = document.createElement('script');
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-FCVD33YW3D';
+        s.async = true;
+        s.onload = function () {
+          gtag('js', new Date());
+          gtag('config', 'G-FCVD33YW3D');
+        };
+        document.head.appendChild(s);
+      }
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(loadGtag, { timeout: 3000 });
+      } else {
+        setTimeout(loadGtag, 3000);
+      }
     </script>
 
     <slot name="head" />

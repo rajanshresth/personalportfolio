@@ -23,4 +23,10 @@ export default defineConfig({
     }),
   ],
   output: 'static',
+  build: {
+    // CSS is small across this site (~10 KiB/page). Inlining it into the HTML
+    // removes render-blocking stylesheet requests entirely — a meaningful win
+    // for LCP/FCP on throttled mobile.
+    inlineStylesheets: 'always',
+  },
 });

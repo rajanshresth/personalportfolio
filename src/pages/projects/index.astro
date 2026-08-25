@@ -30,6 +30,44 @@ const listSchema = {
 
 const fmtDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+
+// Curated filter categories. Each project is bucketed into one of these by
+// keyword-matching its tags; anything that matches none lands in "others".
+const categories = [
+  { tag: 'optimization', label: 'Optimization' },
+  { tag: 'decision science', label: 'Decision Science' },
+  { tag: 'data analysis', label: 'Data Analysis' },
+  { tag: 'data science', label: 'Data Science' },
+  { tag: 'others', label: 'Others' },
+];
+
+const categoryKeywords: Record<string, string[]> = {
+  optimization: ['optimization', 'pricing', 'allocation', 'routing', 'scheduling', 'operations research', 'or-tools', 'supply chain'],
+  'decision science': ['decision science', 'decision support', 'simulation', 'what-if'],
+  'data science': ['data science', 'machine learning', 'predict', 'forecast', 'churn', 'modeling', 'classification', 'regression', 'scikit-learn', 'xgboost'],
+  'data analysis': ['analysis', 'analytics', 'eda', 'sql', 'dashboard', 'pandas', 'tableau', 'power bi', 'visualization', 'reporting', 'kpi', 'business intelligence'],
+};
+
+const categoryOrder = ['optimization', 'decision science', 'data science', 'data analysis'];
+
+function categoryFor(tags: string[]): string {
+  const joined = tags.join(' ').toLowerCase();
+  for (const key of categoryOrder) {
+    if (categoryKeywords[key].some(k => joined.includes(k))) return key;
+  }
+  return 'others';
+}
+
+const projectsWithCategory = projects.map(p => ({ ...p, category: categoryFor(p.tags) }));
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type':    'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl.href },
+    { '@type': 'ListItem', position: 2, name: 'Projects', item: new URL('/projects/', siteUrl).href },
+  ],
+};
 ---
 
 <Base
@@ -37,6 +75,7 @@ const fmtDate = (iso: string) =>
   description="Data science and analytics projects, published straight from Jupyter notebooks — exploratory analysis, modeling, and visualization in Python and SQL."
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(listSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <div class="container projects-index">
     <header class="projects-header" data-reveal>
       <h1>Projects &amp; notebooks.</h1>
@@ -46,12 +85,45 @@ const fmtDate = (iso: string) =>
       </p>
     </header>
 
+    <div class="projects-toolbar" data-reveal>
+      <div class="projects-search">
+        <svg class="projects-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input
+          type="search"
+          id="project-search"
+          class="projects-search-input"
+          placeholder="Search projects, tags, keywords…"
+          autocomplete="off"
+          aria-label="Search projects"
+        />
+      </div>
+
+      <div class="projects-filters" role="group" aria-label="Filter projects by tag">
+        <button type="button" class="filter-chip filter-chip--active" data-tag="all" aria-pressed="true">
+          All
+        </button>
+        {categories.map(cat => (
+          <button type="button" class="filter-chip" data-tag={cat.tag} aria-pressed="false">
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      <p class="projects-count label" id="project-count" aria-live="polite"></p>
+    </div>
+
     {projects.length === 0 ? (
       <p class="projects-empty">New projects are on the way — check back soon.</p>
     ) : (
-      <ul class="projects-list" role="list" data-reveal-group>
-        {projects.map(nb => (
-          <li>
+      <ul class="projects-list" role="list" data-reveal-group id="projects-list">
+        {projectsWithCategory.map(nb => (
+          <li
+            data-search={[nb.title, nb.description, nb.tags.join(' ')].join(' ').toLowerCase()}
+            data-tag={nb.category}
+          >
             <a href={`/projects/${nb.slug}`} class="project-card accent-top" data-spotlight>
               <div class="project-card-head">
                 <div class="project-tags">
@@ -70,8 +142,71 @@ const fmtDate = (iso: string) =>
         ))}
       </ul>
     )}
+
+    <p class="projects-empty projects-empty--hidden" id="projects-empty" hidden>
+      No projects match your search.
+    </p>
   </div>
 </Base>
+
+<script>
+  const form    = document.getElementById('project-search') as HTMLInputElement | null;
+  const list    = document.getElementById('projects-list');
+  const count   = document.getElementById('project-count');
+  const empty   = document.getElementById('projects-empty');
+  const chips   = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-chip'));
+  const items   = Array.from(list ? list.querySelectorAll<HTMLLIElement>('li') : []);
+  const params  = new URLSearchParams(window.location.search);
+
+  let activeTag   = (params.get('tag') || 'all').toLowerCase();
+  let activeQuery = (params.get('q') || '').trim().toLowerCase();
+
+  function apply() {
+    let visible = 0;
+
+    for (const item of items) {
+      const itemTag = item.dataset.tag ?? '';
+      const haystack = item.dataset.search ?? '';
+      const matchesTag = activeTag === 'all' || itemTag === activeTag;
+      const matchesQuery = !activeQuery || haystack.includes(activeQuery);
+
+      const show = matchesTag && matchesQuery;
+      item.hidden = !show;
+      if (show) visible++;
+    }
+
+    if (count) count.textContent = `${visible} of ${items.length} projects`;
+    if (empty) empty.hidden = visible !== 0;
+    if (items.length === 0 && count) count.textContent = 'No projects yet';
+
+    const next: Record<string, string> = {};
+    if (activeTag !== 'all') next.tag = activeTag;
+    if (activeQuery) next.q = activeQuery;
+    const qs = new URLSearchParams(next).toString();
+    history.replaceState(null, '', qs ? `${location.pathname}?${qs}` : location.pathname);
+
+    for (const chip of chips) {
+      const isActive = chip.dataset.tag === activeTag;
+      chip.classList.toggle('filter-chip--active', isActive);
+      chip.setAttribute('aria-pressed', String(isActive));
+    }
+  }
+
+  form?.addEventListener('input', () => {
+    activeQuery = form.value.trim().toLowerCase();
+    apply();
+  });
+
+  for (const chip of chips) {
+    chip.addEventListener('click', () => {
+      activeTag = chip.dataset.tag ?? 'all';
+      apply();
+    });
+  }
+
+  if (form) form.value = activeQuery;
+  apply();
+</script>
 
 <style>
   .projects-index {
@@ -95,6 +230,84 @@ const fmtDate = (iso: string) =>
   .projects-header p {
     font-size: 17px;
     max-width: 560px;
+  }
+
+  /* Toolbar: search + filters */
+  .projects-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .projects-search {
+    position: relative;
+    max-width: 480px;
+  }
+  .projects-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--parchment-4);
+    pointer-events: none;
+  }
+  .projects-search-input {
+    width: 100%;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--parchment-2);
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 8px;
+    padding: 12px 16px 12px 40px;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+  .projects-search-input::placeholder { color: var(--parchment-4); }
+  .projects-search-input:focus {
+    outline: none;
+    border-color: var(--copper);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+  }
+  .projects-search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+  .projects-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--parchment-3);
+    background: var(--ink-2);
+    border: 1px solid var(--ink-4);
+    border-radius: 999px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+  .filter-chip:hover {
+    border-color: var(--copper);
+    color: var(--parchment);
+  }
+  .filter-chip--active {
+    color: #0a0c10;
+    background: linear-gradient(135deg, #f97316 0%, #ff6b35 55%, #ff8a4c 100%);
+    border-color: rgba(255, 138, 76, 0.7);
+    font-weight: 600;
+  }
+  .filter-chip--active:hover { color: #0a0c10; }
+
+  .projects-count {
+    color: var(--parchment-4);
+    font-size: 11px;
   }
 
   .projects-list {
@@ -186,6 +399,7 @@ const fmtDate = (iso: string) =>
   .projects-empty {
     font-size: 15px;
     color: var(--parchment-4);
+    padding: 32px 0;
   }
 
   @media (max-width: 700px) {

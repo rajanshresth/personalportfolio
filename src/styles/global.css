@@ -17,7 +17,7 @@
   --parchment:   #f8fafc; /* headings — crisp slate-white */
   --parchment-2: #e2e8f0; /* strong body / emphasis */
   --parchment-3: #94a3b8; /* body copy — balanced slate grey */
-  --parchment-4: #64748b; /* muted — labels, meta, captions */
+  --parchment-4: #75849b; /* muted — ≥4.5:1 on ink for small labels/meta (AA) */
 
   /* Accent — Luminous Electric Amber-Copper (warm, active state of intelligence) */
   --copper:      #ff6b35; /* vibrant electric amber-copper */
