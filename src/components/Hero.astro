@@ -4,12 +4,6 @@ import PipelineDiagram from './PipelineDiagram.astro';
 
 <section class="hero container">
   <div class="hero-content">
-    <!-- Status badge -->
-    <span class="hero-status">
-      <span class="hero-status-dot" aria-hidden="true"></span>
-      <span class="label hero-status-label">Open to data science &amp; analytics work</span>
-    </span>
-
     <!-- Headline -->
     <h1 class="display hero-headline">
       Turning data into<br>
@@ -101,15 +95,10 @@ import PipelineDiagram from './PipelineDiagram.astro';
       animation: heroRise 600ms ease forwards;
       animation-delay: 40ms;
     }
-    .hero-status {
-      opacity: 0;
-      animation: fadeUp 400ms ease forwards;
-      animation-delay: 100ms;
-    }
     .hero-body {
       opacity: 0;
       animation: fadeUp 400ms ease forwards;
-      animation-delay: 180ms;
+      animation-delay: 100ms;
     }
     .hero-ctas {
       opacity: 0;
@@ -125,36 +114,6 @@ import PipelineDiagram from './PipelineDiagram.astro';
   @keyframes heroRise {
     from { transform: translateY(12px); }
     to   { transform: translateY(0); }
-  }
-
-  /* Status badge */
-  .hero-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    width: fit-content;
-    padding: 6px 13px;
-    border-radius: 20px;
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  }
-
-  .hero-status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
-    animation: pulseDot 2.2s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-
-  .hero-status-label {
-    color: #34d399;
-    font-weight: 600;
-    font-size: 9.5px;
-    letter-spacing: 1px;
   }
 
   .hero-headline {
