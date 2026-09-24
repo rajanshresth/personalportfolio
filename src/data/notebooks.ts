@@ -30,6 +30,9 @@ export const notebookList: (string | NotebookInput)[] = [
   {
     url: 'https://github.com/rajanshresth/ds_project/blob/main/EDA/catalogue_analysis.ipynb',
     slug: 'netflix-eda-statistical-analysis',
+    title: 'Netflix Movies & TV Shows — EDA & Statistical Analysis',
+    description:
+      'An exploratory data analysis of the Netflix Movies & TV Shows dataset, focusing on data cleaning, categorical variables, distributions, relationships, and statistical analysis. Covers practical handling of missing values, multi-label fields such as country and listed_in, mixed-format variables like duration, and descriptive statistics to understand the Netflix content catalog.',
     tags: ['Data Science', 'Python', 'EDA', 'Statistics', 'Netflix'],
     publishDate: '2026-09-24',
   }, 
