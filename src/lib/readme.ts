@@ -7,6 +7,7 @@
 
 import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
 import { unwrapAstroImages, absolutizeUrls, sanitizeHtml } from './ipynb';
+import { katexMathPlugin } from './math';
 
 export interface ReadmeData {
   /** First H1 in the README, if any. */
@@ -97,7 +98,7 @@ export async function loadReadme(repoUrl: string): Promise<ReadmeData | null> {
       const { user, repo } = parsed;
       const rawBase = `https://raw.githubusercontent.com/${user}/${repo}/${raw.branch}/`;
       const blobBase = `https://github.com/${user}/${repo}/blob/${raw.branch}/`;
-      const processor = await createSatteriMarkdownProcessor({});
+      const processor = await createSatteriMarkdownProcessor({ hastPlugins: [katexMathPlugin] });
       let html = unwrapAstroImages((await processor.render(stripLeadingH1(raw.md))).code);
       html = absolutizeUrls(html, rawBase, blobBase);
       html = sanitizeHtml(html);

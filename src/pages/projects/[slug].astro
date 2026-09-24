@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Notebook from '../../components/Notebook.astro';
 import { resolveProjects } from '../../lib/notebooks';
 import { loadNotebook, type Notebook as NotebookData } from '../../lib/ipynb';
+import 'katex/dist/katex.min.css';
 
 export async function getStaticPaths() {
   const projects = await resolveProjects();

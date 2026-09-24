@@ -8,6 +8,7 @@
 // and errors — is rendered to match the site's dark theme.
 
 import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
+import { katexMathPlugin } from './math';
 
 // ── helpers ──────────────────────────────────────────────────────────
 const ANSI_RE = /\x1b\[[0-9;]*m/g;
@@ -165,7 +166,7 @@ export async function renderNotebook(
   nb: any,
   ctx: { rawBase?: string; blobBase?: string } = {}
 ): Promise<Notebook> {
-  const processor = await createSatteriMarkdownProcessor({});
+  const processor = await createSatteriMarkdownProcessor({ hastPlugins: [katexMathPlugin] });
   const language: string = nb?.metadata?.language_info?.name ?? 'python';
   const md = async (s: string) => {
     let html = unwrapAstroImages((await processor.render(s)).code);
