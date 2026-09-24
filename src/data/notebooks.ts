@@ -27,4 +27,10 @@ export const notebookList: (string | NotebookInput)[] = [
     tags: ['Data Science', 'Python', 'EDA', 'Churn'],
     publishDate: '2026-08-24',
   },
+  {
+    url: 'https://github.com/rajanshresth/ds_project/blob/main/EDA/catalogue_analysis.ipynb',
+    slug: 'netflix-eda-statistical-analysis',
+    tags: ['Data Science', 'Python', 'EDA', 'Statistics', 'Netflix'],
+    publishDate: '2026-09-24',
+  }, 
 ];
